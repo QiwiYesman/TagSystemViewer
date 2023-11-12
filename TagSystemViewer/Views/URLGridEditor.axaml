@@ -11,17 +11,15 @@
     <Design.DataContext>
         <viewModels:UrlGridEditorViewModel/>
     </Design.DataContext>
-    <Window.Styles>
-        <StyleInclude Source="/Controls/WrapListBox.axaml"/>
-    </Window.Styles>
     <DockPanel>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
             <TextBox Text="{Binding NewName, Mode=TwoWay}"/>
-            <Button Content="Browse..." Command="{Binding BrowseFile}"/>
-            <Button Content="Add" Command="{Binding MarkInsertUrl}"/>
-            <Button Content="Update" Command="{Binding MarkUpdateUrl}"/>
-            <Button Content="Read" Command="{Binding ReadTags}"/>
-            <Button Content="Confirm" Command="{Binding Confirm}"/>
+            <Button Classes="Browse" Command="{Binding BrowseFile}"/>
+            <Button Classes="Add" Command="{Binding MarkInsertUrl}"/>
+            <Button Classes="Update" Command="{Binding MarkUpdateUrl}"/>
+            <Button Classes="Refresh" Command="{Binding ReadTags}"/>
+            <Button Classes="Cancel" Command="{Binding $parent[Window].Close}"/>
+            <Button Classes="Confirm" Command="{Binding Confirm}"/>
         </StackPanel>
         <Grid ColumnDefinitions="4*,6*" RowDefinitions="8*, 2*">
             <ListBox 
@@ -51,9 +49,9 @@
                         </DataTemplate>
                     </AutoCompleteBox.ItemTemplate>
                 </AutoCompleteBox>
-                <Button Content="Add" Command="{Binding AddTag}"/>
-                <Button Content="Remove" Command="{Binding RemoveTag}"/>
-                <Button Content="Manage tags" Click="OpenTagWindow"/>
+                <Button Classes="Add" Command="{Binding AddTag}"/>
+                <Button Classes="Exclude" Command="{Binding RemoveTag}"/>
+                <Button Classes="ManageTags" Click="OpenTagWindow"/>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
                 <AutoCompleteBox ItemsSource="{Binding Urls}" 
@@ -65,13 +63,17 @@
                     </AutoCompleteBox.ItemTemplate>
                 </AutoCompleteBox>
                 <WrapPanel>
-                    <Button Content="Remove" Command="{Binding MarkDeleteUrl}"/>
-                    <Button Content="Force update mark" Command="{Binding ForceMarkUpdate}"/>
-                    <Button Content="Cancel mark" Command="{Binding CancelMark}"/>
-                    <Button Content="Check link" Command="{Binding CheckConnection}" />
-                    <TextBlock Text="{Binding IsCorrectUrl}" />
+                    <Button Classes="Exclude" Command="{Binding MarkDeleteUrl}"
+                            ToolTip.Tip="Позначити для видалення"/>
+                    <Button Classes="ForceUpdate" Command="{Binding ForceMarkUpdate}"
+                            ToolTip.Tip="Встановити позначку оновлення"/>
+                    <Button Classes="CancelMark" Command="{Binding CancelMark}"
+                            ToolTip.Tip="Скасувати будь-яку позначку"
+                            />
+                    <Button Classes="Launch" Command="{Binding CheckConnection}"
+                            ToolTip.Tip="Запустити / відвідати файл"
+                            />
                 </WrapPanel>
-                
             </StackPanel>
         </Grid>
     </DockPanel>

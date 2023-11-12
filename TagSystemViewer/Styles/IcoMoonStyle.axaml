@@ -1,0 +1,87 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <UniformGrid >
+            <Button Classes="Add"/>
+            <Button Classes="Exclude"/>    
+            <Button Classes="Refresh"/>
+            <Button Classes="Launch"/>
+            <Button Classes="OpenFolder"/>
+            <Button Classes="Browse"/>
+            <Button Classes="Confirm"/>
+            <Button Classes="Cancel"/>
+            <Button Classes="Copy"/>
+            <Button Classes="Search"/>
+            <Button Classes="ManageTags"/>
+            <Button Classes="ManageUrls"/>
+            <Button Classes="Update"/>
+            <Button Classes="ForceUpdate"/>
+            <Button Classes="CancelMark"/>
+            
+        </UniformGrid>
+            
+    </Design.PreviewWith>
+    
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="/Resources/Fonts/IcoMoon.axaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+    <Style Selector="Button">
+        <Style Selector="^.Add, ^.Exclude, ^.Confirm, ^.Search, ^.Update, ^.ForceUpdate,
+         ^.Refresh, ^.Launch, ^.OpenFolder, ^.Browse, ^.Confirm, ^.Cancel, ^.Copy,
+               ^.CancelMark, ^.ManageTags, ^.ManageUrls">
+            <Setter Property="FontFamily" Value="{StaticResource IcoMoonFont}"/>
+            <Setter Property="FontSize" Value="43"/>
+            <Setter Property="Width" Value="{Binding $self.Height}"/>
+        </Style>
+        
+    </Style>
+    <Style Selector="Button.Add">
+        <Setter Property="Content" Value="{StaticResource IcoMoonAdd}"/>
+    </Style>
+    <Style Selector="Button.Exclude">
+        <Setter Property="Content" Value="{StaticResource IcoMoonExclude}"/>
+    </Style>
+    <Style Selector="Button.Refresh">
+        <Setter Property="Content" Value="{StaticResource IcoMoonRefresh}"/>
+    </Style>
+    <Style Selector="Button.Launch">
+        <Setter Property="Content" Value="{StaticResource IcoMoonLaunch}"/>
+    </Style>
+    <Style Selector="Button.OpenFolder">
+        <Setter Property="Content" Value="{StaticResource IcoMoonOpenFolder}"/>
+    </Style>
+    <Style Selector="Button.Browse">
+        <Setter Property="Content" Value="{StaticResource IcoMoonBrowseFolder}"/>
+    </Style>
+    <Style Selector="Button.Confirm">
+        <Setter Property="Content" Value="{StaticResource IcoMoonConfirm}"/>
+    </Style>
+    <Style Selector="Button.Cancel">
+        <Setter Property="Content" Value="{StaticResource IcoMoonCancel}"/>
+    </Style>
+    <Style Selector="Button.Copy">
+        <Setter Property="Content" Value="{StaticResource IcoMoonCopy}"/>
+    </Style>
+    <Style Selector="Button.Search">
+        <Setter Property="Content" Value="{StaticResource IcoMoonSearch}"/>
+    </Style>
+    <Style Selector="Button.ManageTags">
+        <Setter Property="Content" Value="{StaticResource IcoMoonManageTags}"/>
+    </Style>
+    <Style Selector="Button.ManageUrls">
+            <Setter Property="Content" Value="{StaticResource IcoMoonManageUrls}"/>
+    </Style>
+    <Style Selector="Button.Update">
+            <Setter Property="Content" Value="{StaticResource IcoMoonUpdate}"/>
+    </Style>
+    <Style Selector="Button.ForceUpdate">
+            <Setter Property="Content" Value="{StaticResource IcoMoonForceUpdate}"/>
+    </Style>
+    <Style Selector="Button.CancelMark">
+        <Setter Property="Content" Value="{StaticResource IcoMoonCancelMark}"/>
+    </Style>
+</Styles>

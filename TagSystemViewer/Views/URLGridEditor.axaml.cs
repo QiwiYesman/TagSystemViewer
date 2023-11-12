@@ -16,7 +16,7 @@ public partial class URLGridEditor : Window
 
     private void OpenTagWindow(object? sender, RoutedEventArgs e)
     {
-        var tagsWindow = new MainWindow();
+        var tagsWindow = new TagGridEditor();
         tagsWindow.Show(this);
     }
 }

@@ -3,12 +3,12 @@ using TagSystemViewer.ViewModels;
 
 namespace TagSystemViewer.Views;
 
-public partial class MainWindow : Window
+public partial class TagGridEditor : Window
 {
-    public MainWindow()
+    public TagGridEditor()
     {
         InitializeComponent();
-        DataContext = new MainWindowViewModel();
+        DataContext = new TagEditorViewModel();
     }
     
 }

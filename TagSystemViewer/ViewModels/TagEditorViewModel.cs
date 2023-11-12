@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,12 +10,12 @@ using TagSystemViewer.Models;
 
 namespace TagSystemViewer.ViewModels;
 
-public class MainWindowViewModel : ViewModelBase
+public class TagEditorViewModel : ViewModelBase
 {
     private string _newName;
     private Tag?[] _currentNames;
     private Dictionary<int, string> _history = new();
-    public MainWindowViewModel()
+    public TagEditorViewModel()
     {
         _currentNames = new Tag[4];
         ReadTags();
@@ -113,7 +114,13 @@ public class MainWindowViewModel : ViewModelBase
         var newTag = new Tag { Id = CurrentTag.Id, Name = NewName };
         _history[CurrentTag.Id] = CurrentTag.Name;
         Tags.Remove(CurrentTag);
-        TagsToUpdate.Remove(CurrentTag);
+        for (int i = 0; i < TagsToUpdate.Count; i++)
+        {
+            if (TagsToUpdate[i].Id != newTag.Id) continue;
+            TagsToUpdate.RemoveAt(i);
+            return;
+        }
+
         TagsToUpdate.Add(newTag);
         Tags.Add(newTag);
     }

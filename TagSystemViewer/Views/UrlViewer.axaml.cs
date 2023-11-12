@@ -17,7 +17,7 @@ public partial class UrlViewer : Window
 
     private void OpenTagWindow(object? sender, RoutedEventArgs e)
     {
-        var window = new MainWindow();
+        var window = new TagGridEditor();
         window.Show();
     }
 

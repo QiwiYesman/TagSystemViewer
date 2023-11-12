@@ -1,0 +1,22 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+                    >
+    <FontFamily x:Key="IcoMoonFont">avares://TagSystemViewer/Assets/FontIcons/#icomoon</FontFamily>
+    
+    <system:String x:Key="IcoMoonAdd">&#xea0a;</system:String>
+    <system:String x:Key="IcoMoonExclude">&#xea0b;</system:String>
+    <system:String x:Key="IcoMoonRefresh">&#xea2e;</system:String>
+    <system:String x:Key="IcoMoonLaunch">&#xe901;</system:String>
+    <system:String x:Key="IcoMoonOpenFolder">&#xe930;</system:String>
+    <system:String x:Key="IcoMoonBrowseFolder">&#xe92f;</system:String>
+    <system:String x:Key="IcoMoonConfirm">&#xe900;</system:String>
+    <system:String x:Key="IcoMoonCancel">&#xe903;</system:String>
+    <system:String x:Key="IcoMoonCopy">&#xe902;</system:String>
+    <system:String x:Key="IcoMoonSearch">&#xe986;</system:String>
+    <system:String x:Key="IcoMoonManageTags">&#xe905;</system:String>
+    <system:String x:Key="IcoMoonManageUrls">&#xe904;</system:String>
+    <system:String x:Key="IcoMoonUpdate">&#xe90a;</system:String>
+    <system:String x:Key="IcoMoonForceUpdate">&#xe906;</system:String>
+    <system:String x:Key="IcoMoonCancelMark">&#xe90b;</system:String>
+</ResourceDictionary>

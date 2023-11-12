@@ -19,7 +19,7 @@
                         <TextBlock Grid.Column="0" Text="Id"/>
                         <TextBlock Grid.Column="1" Text="Name"/>
                     </Grid>
-                    <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical">
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                         <AutoCompleteBox SelectedItem="{TemplateBinding SelectedItem, Mode=TwoWay}"
                                          ItemsSource="{TemplateBinding ItemsSource}">
                             <AutoCompleteBox.ItemTemplate>
@@ -28,7 +28,7 @@
                                 </DataTemplate>
                             </AutoCompleteBox.ItemTemplate>
                         </AutoCompleteBox>
-                        <Button Content="Exclude"
+                        <Button Classes="Exclude"
                                 Command="{TemplateBinding Command}"/>
                     </StackPanel>
                     <ListBox ItemsSource="{TemplateBinding ItemsSource}"

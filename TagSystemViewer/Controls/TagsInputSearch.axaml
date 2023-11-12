@@ -24,18 +24,17 @@
                     </DataTemplate>
                 </AutoCompleteBox.ItemTemplate>
             </AutoCompleteBox>
-            <RadioButton Content="Or" GroupName="H" IsChecked="{Binding CurrentStates,
+            <RadioButton Content="Або" GroupName="H" IsChecked="{Binding CurrentStates,
                 Converter={StaticResource BoolEnumConvertor},
                 ConverterParameter={x:Static enums:TagSearchStates.Or}, Mode=TwoWay}"/>
-            <RadioButton Content="And" GroupName="H" IsChecked="{Binding CurrentStates,
+            <RadioButton Content="І" GroupName="H" IsChecked="{Binding CurrentStates,
                 Converter={StaticResource BoolEnumConvertor},
                 ConverterParameter={x:Static enums:TagSearchStates.And}, Mode=TwoWay}"/>
-            <RadioButton Content="Not" GroupName="H" IsChecked="{Binding CurrentStates,
+            <RadioButton Content="Без" GroupName="H" IsChecked="{Binding CurrentStates,
                  Converter={StaticResource BoolEnumConvertor},
                  ConverterParameter={x:Static enums:TagSearchStates.Not}, Mode=TwoWay}"/>
-            <Button Content="Add" Command="{Binding AddTag}"/>
-            <Button Content="Remove" Command="{Binding RemoveTag}"/>
-            <TextBlock Text="{Binding CurrentStateString, Mode=TwoWay}"/>
+            <Button Classes="Add" Command="{Binding AddTag}"/>
+            <Button Classes="Exclude" Command="{Binding RemoveTag}"/>
         </StackPanel>
         <UniformGrid Rows="1" Columns="3">
             <controls:WrapListBox SelectedItem="{Binding CurrentTag, Mode=TwoWay}"

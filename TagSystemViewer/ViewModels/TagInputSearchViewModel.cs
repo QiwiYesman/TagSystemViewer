@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using DynamicData.Binding;
 using ReactiveUI;
 using TagSystemViewer.Enums;
@@ -64,21 +65,30 @@ public class TagInputSearchViewModel: ViewModelBase
             list.RemoveAt(i);
         }
     }
+    
     public void AddTag()
     {
         if(CurrentTag is null) return;
+        Tag? tag;
         switch (CurrentStates)
         {
             case TagSearchStates.And:
-                AndTags.Add(CurrentTag);
-                RemoveIfExist(CurrentTag, NotTags);
+                if (AndTags.Contains(CurrentTag)) return;
+                tag = CurrentTag;
+                AndTags.Add(tag);
+                RemoveIfExist(tag, NotTags);
+                RemoveIfExist(tag, OrTags);
                 break;
             case TagSearchStates.Or:
-                OrTags.Add(CurrentTag);
-                RemoveIfExist(CurrentTag, NotTags);
+                if (OrTags.Contains(CurrentTag)) return;
+                tag = CurrentTag;
+                OrTags.Add(tag);
+                RemoveIfExist(tag, NotTags);
+                RemoveIfExist(tag, AndTags);
                 break;
             case TagSearchStates.Not:
-                var tag = CurrentTag;
+                if (NotTags.Contains(CurrentTag)) return;
+                tag = CurrentTag;
                 NotTags.Add(tag);
                 RemoveIfExist(tag, AndTags);
                 RemoveIfExist(tag, OrTags);

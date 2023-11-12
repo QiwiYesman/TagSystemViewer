@@ -1,0 +1,50 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:models="clr-namespace:TagSystemViewer.Models"
+        xmlns:controls="clr-namespace:TagSystemViewer.Controls">
+    <Design.PreviewWith>
+        <controls:TagGrid ItemsSource="123" Height="200"/>
+    </Design.PreviewWith>
+
+    <Style Selector="controls|TagGrid">
+        <!-- Set Defaults -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" 
+                        Text="{TemplateBinding Text}" 
+                               HorizontalAlignment="Center"/>
+                    <Grid DockPanel.Dock="Top" 
+                        ColumnDefinitions="1*,4*">
+                        <TextBlock Grid.Column="0" Text="Id"/>
+                        <TextBlock Grid.Column="1" Text="Name"/>
+                    </Grid>
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical">
+                        <AutoCompleteBox SelectedItem="{TemplateBinding SelectedItem, Mode=TwoWay}"
+                                         ItemsSource="{TemplateBinding ItemsSource}">
+                            <AutoCompleteBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type models:Tag}">
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </AutoCompleteBox.ItemTemplate>
+                        </AutoCompleteBox>
+                        <Button Content="Exclude"
+                                Command="{TemplateBinding Command}"/>
+                    </StackPanel>
+                    <ListBox ItemsSource="{TemplateBinding ItemsSource}"
+                             SelectedItem="{TemplateBinding SelectedItem, Mode=TwoWay}"
+                             >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type models:Tag}">
+                                <Grid ColumnDefinitions="1*,4*">
+                                    <TextBlock Grid.Column="0" Text = "{Binding Id}"/>
+                                    <TextBlock Grid.Column="1" Text = "{Binding Name}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

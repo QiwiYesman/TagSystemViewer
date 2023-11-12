@@ -1,0 +1,30 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:models="clr-namespace:TagSystemViewer.Models"
+        xmlns:controls1="clr-namespace:TagSystemViewer.Controls">
+    <Design.PreviewWith>
+        <controls1:WrapListBox ItemsSource="123" SelectedItem="2"/>
+    </Design.PreviewWith>
+
+    <Style Selector="controls1|WrapListBox">
+        <!-- Set Defaults -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ListBox ItemsSource="{TemplateBinding ItemsSource}"
+                         SelectedItem="{TemplateBinding SelectedItem, Mode=TwoWay}"
+                >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="models:Tag">
+                            <TextBlock Text="{Binding Name}"/>    
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

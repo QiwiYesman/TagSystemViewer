@@ -1,0 +1,21 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TagSystemViewer.App"
+             xmlns:local="using:TagSystemViewer"
+             xmlns:converters="clr-namespace:TagSystemViewer.Converters"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+             <Application.Resources>
+                 <converters:BoolEnumConvertor x:Key="BoolEnumConvertor" />
+                 <converters:TagsToThumbnailsConverter x:Key="ThumbnailConverter" />
+             </Application.Resources>
+             <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+  
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://AsyncImageLoader.Avalonia/AdvancedImage.axaml" />
+    </Application.Styles>
+</Application>

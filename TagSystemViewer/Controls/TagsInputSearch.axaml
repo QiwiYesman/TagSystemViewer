@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:TagSystemViewer.Models"
+             xmlns:viewModels="clr-namespace:TagSystemViewer.ViewModels"
+             xmlns:controls="clr-namespace:TagSystemViewer.Controls"
+             xmlns:enums="clr-namespace:TagSystemViewer.Enums"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TagSystemViewer.Controls.TagsInputSearch">
+    <UserControl.Styles>
+        <StyleInclude Source="WrapListBox.axaml"/>
+    </UserControl.Styles>
+    <Design.DataContext>
+        <viewModels:TagInputSearchViewModel/>
+    </Design.DataContext>
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <AutoCompleteBox SelectedItem="{Binding CurrentTag, Mode=TwoWay}"
+                             ItemsSource="{Binding Tags}">
+                <AutoCompleteBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:Tag}">
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </AutoCompleteBox.ItemTemplate>
+            </AutoCompleteBox>
+            <RadioButton Content="Or" GroupName="H" IsChecked="{Binding CurrentStates,
+                Converter={StaticResource BoolEnumConvertor},
+                ConverterParameter={x:Static enums:TagSearchStates.Or}, Mode=TwoWay}"/>
+            <RadioButton Content="And" GroupName="H" IsChecked="{Binding CurrentStates,
+                Converter={StaticResource BoolEnumConvertor},
+                ConverterParameter={x:Static enums:TagSearchStates.And}, Mode=TwoWay}"/>
+            <RadioButton Content="Not" GroupName="H" IsChecked="{Binding CurrentStates,
+                 Converter={StaticResource BoolEnumConvertor},
+                 ConverterParameter={x:Static enums:TagSearchStates.Not}, Mode=TwoWay}"/>
+            <Button Content="Add" Command="{Binding AddTag}"/>
+            <Button Content="Remove" Command="{Binding RemoveTag}"/>
+            <TextBlock Text="{Binding CurrentStateString, Mode=TwoWay}"/>
+        </StackPanel>
+        <UniformGrid Rows="1" Columns="3">
+            <controls:WrapListBox SelectedItem="{Binding CurrentTag, Mode=TwoWay}"
+                               ItemsSource="{Binding AndTags}"/>
+            <controls:WrapListBox SelectedItem="{Binding CurrentTag, Mode=TwoWay}"
+                               ItemsSource="{Binding OrTags}"/>
+            <controls:WrapListBox SelectedItem="{Binding CurrentTag, Mode=TwoWay}"
+                               ItemsSource="{Binding NotTags}"/>
+        </UniformGrid>
+    </StackPanel>
+</UserControl>

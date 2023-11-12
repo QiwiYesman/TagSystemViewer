@@ -1,0 +1,56 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:TagSystemViewer.Views"
+        xmlns:viewModels="clr-namespace:TagSystemViewer.ViewModels"
+        xmlns:controls="clr-namespace:TagSystemViewer.Controls"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TagSystemViewer.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="LocalTagSystem">
+
+  <Design.DataContext>
+    <viewModels:MainWindowViewModel/>
+  </Design.DataContext>
+  <Window.Styles>
+    <StyleInclude Source="/Controls/TagGrid.axaml"/>
+  </Window.Styles>
+    <Grid RowDefinitions="9*, 1*">
+    <Grid ColumnDefinitions="1*,1*,1*,1*" RowDefinitions="9*,1*">
+      <controls:TagGrid Grid.Row="0" Grid.Column="0" Text="Усі" ItemsSource="{Binding Tags}"
+                     SelectedItem="{Binding CurrentTag, Mode=TwoWay}"
+                     Command="{Binding AddCurrentToRemoves}"
+                     />
+      <controls:TagGrid Grid.Row="0" Grid.Column="1" 
+                     Text="Для додання" ItemsSource="{Binding TagsToAdd}"
+                     SelectedItem="{Binding CurrentAddTag, Mode=TwoWay}"
+                     Command="{Binding ExcludeAdds}"
+                     ScrollViewer.VerticalScrollBarVisibility="Visible"
+                     />
+      <controls:TagGrid Grid.Row="0" Grid.Column="2"
+                     Text="Для оновлення" ItemsSource="{Binding TagsToUpdate}"
+                     SelectedItem="{Binding CurrentUpdateTag, Mode=TwoWay}"
+                     Command="{Binding ExcludeUpdates}"
+                     />
+      <controls:TagGrid Grid.Row="0" Grid.Column="3"
+                     Text="Для видалення" ItemsSource="{Binding TagsToRemove}"
+                     SelectedItem="{Binding CurrentRemoveTag, Mode=TwoWay}"
+                     Command="{Binding ExcludeRemoves}"/>
+      </Grid>
+        <DockPanel Grid.Row="1">
+            <WrapPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                <TextBox Text="{Binding NewName}"/>
+                <Button Content="Add" Command="{Binding AddCurrentToAdds}"/>
+                <Button Content="Update" Command="{Binding AddCurrentToUpdates}"/>
+            </WrapPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                <Button Content="Refresh" Command="{Binding ReadTags}"/>
+                <Button Content="Cancel" Command="{Binding $parent[Window].Close}"/>
+                <Button Content="Confirm" Command="{Binding Confirm}"/>
+            </StackPanel>
+            <TextBlock/>
+        </DockPanel>
+      
+    </Grid>
+</Window>

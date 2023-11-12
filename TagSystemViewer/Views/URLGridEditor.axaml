@@ -1,0 +1,78 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:TagSystemViewer.ViewModels"
+        xmlns:models="clr-namespace:TagSystemViewer.Models"
+        xmlns:controls="clr-namespace:TagSystemViewer.Controls"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TagSystemViewer.Views.URLGridEditor"
+        Title="URLGridEditor">
+    <Design.DataContext>
+        <viewModels:UrlGridEditorViewModel/>
+    </Design.DataContext>
+    <Window.Styles>
+        <StyleInclude Source="/Controls/WrapListBox.axaml"/>
+    </Window.Styles>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+            <TextBox Text="{Binding NewName, Mode=TwoWay}"/>
+            <Button Content="Browse..." Command="{Binding BrowseFile}"/>
+            <Button Content="Add" Command="{Binding MarkInsertUrl}"/>
+            <Button Content="Update" Command="{Binding MarkUpdateUrl}"/>
+            <Button Content="Read" Command="{Binding ReadTags}"/>
+            <Button Content="Confirm" Command="{Binding Confirm}"/>
+        </StackPanel>
+        <Grid ColumnDefinitions="4*,6*" RowDefinitions="8*, 2*">
+            <ListBox 
+                ItemsSource="{Binding Urls}"
+                SelectedItem="{Binding CurrentUrl, Mode=TwoWay}"
+                >
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type viewModels:ObservableUrl}">
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Right"
+                                Text="{Binding RecordStateName}"/>
+                            <TextBlock Text="{Binding CurrentLink}"/>
+                        </DockPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <controls:WrapListBox Grid.Row="0" Grid.Column="1"
+                     ItemsSource="{Binding CurrentUrl.Tags, FallbackValue={x:Null}, Mode=TwoWay}"
+                     SelectedItem="{Binding CurrentTag, Mode=TwoWay}"
+                     />
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                <AutoCompleteBox ItemsSource="{Binding Tags}" 
+                                 SelectedItem="{Binding CurrentTag, Mode=TwoWay}">
+                    <AutoCompleteBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:Tag}">
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </AutoCompleteBox.ItemTemplate>
+                </AutoCompleteBox>
+                <Button Content="Add" Command="{Binding AddTag}"/>
+                <Button Content="Remove" Command="{Binding RemoveTag}"/>
+                <Button Content="Manage tags" Click="OpenTagWindow"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+                <AutoCompleteBox ItemsSource="{Binding Urls}" 
+                                 SelectedItem="{Binding CurrentUrl, Mode=TwoWay}">
+                    <AutoCompleteBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:ObservableUrl}">
+                            <TextBlock Text="{Binding CurrentLink}"/>
+                        </DataTemplate>
+                    </AutoCompleteBox.ItemTemplate>
+                </AutoCompleteBox>
+                <WrapPanel>
+                    <Button Content="Remove" Command="{Binding MarkDeleteUrl}"/>
+                    <Button Content="Force update mark" Command="{Binding ForceMarkUpdate}"/>
+                    <Button Content="Cancel mark" Command="{Binding CancelMark}"/>
+                    <Button Content="Check link" Command="{Binding CheckConnection}" />
+                    <TextBlock Text="{Binding IsCorrectUrl}" />
+                </WrapPanel>
+                
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</Window>

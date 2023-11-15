@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="App.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Controls/TagGrid.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Resources/Fonts/IcoMoon.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/IcoMoonStyle.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/Styles.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Views/DatabaseConfigEditor.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Views/TagGridEditor.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Views/URLGridEditor.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Views/UrlViewer.axaml" value="TagSystemViewer.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

@@ -20,8 +20,8 @@
                                 <Button Classes="Search" Command="{Binding SearchUrls}"/>
                                 <Button Classes="ManageTags" Click="OpenTagWindow"/>
                                 <Button Classes="ManageUrls" Click="OpenUrlWindow"/>
+                                <Button Content="ManageDatabase" Click="OpenDatabaseWindow"/>
                         </StackPanel>
-                        
                 </Grid>
                 <TextBox Name="ColumnText" Text="4" Watermark="Кількість стовпців" DockPanel.Dock="Top"/>
                 <ListBox ItemsSource="{Binding FoundUrls}">

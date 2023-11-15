@@ -37,4 +37,12 @@ public class FileService
         );
         return folders.Count > 0 ? folders[0] : null;
     }
+
+    public async Task<IStorageFile?> SaveFileDialog() =>
+        await _window.StorageProvider.SaveFilePickerAsync(
+            new FilePickerSaveOptions()
+            {
+                Title = "Вкажіть базу даних для створення"
+            }
+        );
 }

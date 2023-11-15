@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
@@ -24,12 +21,6 @@ public class UrlGridEditorViewModel: ViewModelBase
     private ObservableCollection<Tag> _tags;
 
     private string? _newName;
-    private bool _correctUrl;
-    public bool IsCorrectUrl
-    {
-        get => _correctUrl;
-        set => this.RaiseAndSetIfChanged(ref _correctUrl, value);
-    }
     
     public string? NewName
     {
@@ -67,7 +58,8 @@ public class UrlGridEditorViewModel: ViewModelBase
     
     public void ReadTags()
     {
-        var conn = Database.DbExistingConnection();
+        var conn = App.Current?.Connection;
+        if(conn is null) return;
         var urls = conn.GetAllWithChildren<Url>();
         Urls.Clear();
         foreach (var url in urls)
@@ -158,23 +150,7 @@ public class UrlGridEditorViewModel: ViewModelBase
                 break;
         }
     }
-
-    public async void CheckConnection()
-    {
-        if (CurrentUrl is null) return;
-        try
-        {
-            
-            using var client = new HttpClient();
-            var response = await client.SendAsync(new HttpRequestMessage(HttpMethod.Head, CurrentUrl.CurrentLink));
-            IsCorrectUrl =  response.StatusCode == HttpStatusCode.OK;
-        }            
-        catch
-        {
-            IsCorrectUrl = File.Exists(CurrentUrl.CurrentLink);
-        }
-        
-    }
+    
 
     public async Task BrowseFile()
     {
@@ -186,7 +162,8 @@ public class UrlGridEditorViewModel: ViewModelBase
     }
     public void Confirm()
     {
-        var connection = Database.DbExistingConnection();
+        var conn = App.Current?.Connection;
+        if(conn is null) return;
         foreach (var url in Urls)
         {
             Url? commonUrl;
@@ -197,7 +174,7 @@ public class UrlGridEditorViewModel: ViewModelBase
                     {
                         Id = url.Id,
                     };
-                    connection.Delete(commonUrl, true);
+                    conn.Delete(commonUrl, true);
                     break;
                 case RecordStates.Update:
                     commonUrl = new Url
@@ -206,7 +183,7 @@ public class UrlGridEditorViewModel: ViewModelBase
                         Link = url.CurrentLink,
                         Tags = url.Tags.ToList()
                     };
-                    connection.UpdateWithChildren(commonUrl);
+                    conn.UpdateWithChildren(commonUrl);
                     break;
                 case RecordStates.Insert:
                     commonUrl = new Url
@@ -214,7 +191,7 @@ public class UrlGridEditorViewModel: ViewModelBase
                         Link = url.CurrentLink,
                         Tags = url.Tags.ToList()
                     };
-                    connection.InsertWithChildren(commonUrl);
+                    conn.InsertWithChildren(commonUrl);
                     break;
             }
         }

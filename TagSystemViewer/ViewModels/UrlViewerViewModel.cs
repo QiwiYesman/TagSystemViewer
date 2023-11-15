@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -46,18 +47,19 @@ public class UrlViewerViewModel: ViewModelBase
     public void CopyPath(object arg)
     {
         string path = arg.ToString() ?? "";
+        var uri = new Uri(path).AbsoluteUri;
         var clipboard = App.Current?.Services?.GetService<ClipboardService>();
-        clipboard?.SetTextAsync(path);
+        clipboard?.SetTextAsync(uri);
     }
 
     public async Task CopyFile(object arg)
     {
         string path = arg.ToString() ?? "";
+        var uri = new Uri(path).AbsoluteUri;
+        Console.WriteLine(path + "  :  " +uri);
         var clipboard = App.Current?.Services?.GetService<ClipboardService>();
         if (clipboard is null) return;
-        var dataObject = new DataObject();
-        dataObject.Set(DataFormats.Files, path);
-        await clipboard.SetDataObjectAsync(dataObject);
+        await clipboard.SetFileAsync(uri);
     }
     public void OpenFolder(object arg)
     {
@@ -70,12 +72,20 @@ public class UrlViewerViewModel: ViewModelBase
     public static void StartProcess(string path)
     {
         if (path == "") return;
-        Process.Start( new ProcessStartInfo
+        try
         {
-            FileName = path,
-            UseShellExecute = true
-        });
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = path,
+                UseShellExecute = true
+            });
+        }
+        catch
+        {
+            Console.WriteLine("Can't start process: " +path);
+        }
     }
+
     public void OpenFile(object arg)
     {
         string path = arg.ToString() ?? "";

@@ -1,0 +1,40 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:TagSystemViewer.ViewModels"
+        xmlns:models="clr-namespace:TagSystemViewer.Models"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TagSystemViewer.Views.DatabaseConfigEditor"
+        Title="DatabaseConfigEditor">
+    <Design.DataContext>
+        <viewModels:DatabaseConfigViewModel/>
+    </Design.DataContext>
+    <StackPanel>
+        <Grid ColumnDefinitions="3*,7*">
+            <ListBox Grid.Column="0" ItemsSource="{Binding DatabaseNames}"
+                     SelectedItem="{Binding SelectedDatabaseName, Mode=TwoWay}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type viewModels:ObservableDatabaseName}">
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <DockPanel Grid.Column="1">
+                <Button DockPanel.Dock="Right" Classes="Browse" Command="{Binding BrowseDatabase}"/>
+                <Button DockPanel.Dock="Right" Classes="Add" Command="{Binding BrowseNewDatabase}"/>
+                <TextBox Text="{Binding SelectedDatabaseName.Path, FallbackValue={x:Null}, Mode=TwoWay}"
+                         TextWrapping="Wrap"/>
+            </DockPanel>
+        </Grid>
+        <StackPanel Orientation="Horizontal">
+            <TextBox Text="{Binding NewName, Mode=TwoWay}"/>
+            <Button Classes="Add" Command="{Binding AddName}"/>
+            <Button Classes="Update" Command="{Binding UpdateName}"/>
+            <Button Classes="Exclude" Command="{Binding RemoveName}"/>
+            <Button Content="RemoveDatabase" Command="{Binding RemoveDatabase}"/>
+            <Button Classes="Confirm" Command="{Binding Confirm}"/>
+            <Button Classes="Cancel" Command="{Binding Cancel}"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

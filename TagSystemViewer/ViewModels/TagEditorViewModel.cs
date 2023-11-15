@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using SQLite;
 using SQLiteNetExtensions.Extensions;
 using TagSystemViewer.Models;
+using TagSystemViewer.Services;
 
 namespace TagSystemViewer.ViewModels;
 
@@ -62,7 +64,8 @@ public class TagEditorViewModel : ViewModelBase
     }
     public void ReadTags()
     {
-        var conn = Database.DbExistingConnection();
+        var conn = App.Current?.Connection;
+        if(conn is null) return;
         var items = conn.SelectAll<Tag>();
         FullClear();
         foreach (var i in items)
@@ -151,7 +154,8 @@ public class TagEditorViewModel : ViewModelBase
     }
     public void Confirm()
     {
-        var conn = Database.DbExistingConnection();
+        var conn = App.Current?.Connection;
+        if(conn is null) return;
         conn.UpdateAll(TagsToUpdate);
         conn.InsertAll(TagsToAdd);
         RemoveCascade(conn);

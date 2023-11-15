@@ -11,19 +11,23 @@ public partial class UrlViewer : Window
     public UrlViewer()
     {
         InitializeComponent();
-        DataContext = new UrlViewerViewModel();
-
     }
 
     private void OpenTagWindow(object? sender, RoutedEventArgs e)
     {
         var window = new TagGridEditor();
-        window.Show();
+        window.Show(this);
     }
 
     private void OpenUrlWindow(object? sender, RoutedEventArgs e)
     {
         var window = new URLGridEditor();
-        window.Show();
+        window.Show(this);
+    }
+
+    private void OpenDatabaseWindow(object? sender, RoutedEventArgs e)
+    {
+        var window = new DatabaseConfigEditor();
+        window.Show(this);
     }
 }

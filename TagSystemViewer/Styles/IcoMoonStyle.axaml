@@ -34,7 +34,7 @@
          ^.Refresh, ^.Launch, ^.OpenFolder, ^.Browse, ^.Confirm, ^.Cancel, ^.Copy,
                ^.CancelMark, ^.ManageTags, ^.ManageUrls">
             <Setter Property="FontFamily" Value="{StaticResource IcoMoonFont}"/>
-            <Setter Property="FontSize" Value="43"/>
+            <Setter Property="FontSize" Value="24"/>
             <Setter Property="Width" Value="{Binding $self.Height}"/>
         </Style>
         

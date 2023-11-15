@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using DynamicData.Binding;
+using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using TagSystemViewer.Enums;
 using TagSystemViewer.Models;
+using TagSystemViewer.Services;
 
 namespace TagSystemViewer.ViewModels;
 
@@ -48,7 +50,8 @@ public class TagInputSearchViewModel: ViewModelBase
     
     public void ReadTags()
     {
-        var conn = Database.DbExistingConnection();
+        var conn = App.Current?.Connection;
+        if(conn is null) return;
         var items = conn.SelectAll<Tag>();
         Tags.Clear();
         foreach (var i in items)
@@ -107,7 +110,8 @@ public class TagInputSearchViewModel: ViewModelBase
     }
     public List<Url> Search()
     {
-        var conn = Database.DbExistingConnection();
+        var conn = App.Current?.Connection;
+        if(conn is null) return new();
         return conn.SelectUrls(new()
         {
             AndTags = AndTags,

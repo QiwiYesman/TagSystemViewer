@@ -1,10 +1,12 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Avalonia.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using TagSystemViewer.Models;
 using TagSystemViewer.Services;
+using TagSystemViewer.ViewModels.Observables;
 
 namespace TagSystemViewer.ViewModels;
 
@@ -102,6 +104,41 @@ public class DatabaseConfigViewModel: ViewModelBase
         }
         config.Save(app.DefaultConfigPath);
     }
-    
 
+    public void Refresh()
+    {
+        var app = App.Current;
+        if (app is null) return;
+        var config = DatabaseConfig.FromFile(app.DefaultConfigPath);
+        DatabaseNames.Clear();
+        foreach (var pair in config)
+        {
+            DatabaseNames.Add(new () {Name = pair.Key, Path = pair.Value});
+        }
+
+        app.DatabaseConfig = config;
+        if (config.IsEmpty) return;
+        SelectedDatabaseName = DatabaseNames.First(x => x.Name == config.CurrentName);
+    }
+
+    public async void RemoveDatabase()
+    {
+        if (SelectedDatabaseName is null) return;
+        var fileService = App.Current?.Services?.GetService<FileService>();
+        if (fileService is null) return;
+        await fileService.RemoveFile(SelectedDatabaseName.Path);
+    }
+
+    public async void CreateNewDatabase()
+    {
+        if (SelectedDatabaseName is null) return;
+        var fileService = App.Current?.Services?.GetService<FileService>();
+        if (fileService is null) return;
+        var file = await fileService.SaveFileDialog();
+        if (file is null) return;
+        var path = Uri.UnescapeDataString(file.Path.AbsolutePath);
+        var conn = Database.DbNewConnection(path);
+        Database.CreateTables(conn);
+        SelectedDatabaseName.Path = path;
+    }
 }

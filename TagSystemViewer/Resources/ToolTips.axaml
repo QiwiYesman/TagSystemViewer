@@ -1,0 +1,59 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+     
+    <system:String x:Key="ExcludeTip">"Видалити</system:String>
+    <system:String x:Key="TagEditTip">Редагувати теги</system:String>
+    <system:String x:Key="UrlEditTip">Редагувати шляхи до файлів</system:String>
+    <system:String x:Key="DatabaseEditTip">Редагувати шляхи до баз даних</system:String>
+    <system:String x:Key="HotkeyEditTip">Редагувати гарячі клавіші</system:String>
+    <system:String x:Key="ExitTip">Вийти</system:String>
+    <system:String x:Key="ExitWithoutChangesTip">Вийти і скасувати зміни</system:String>
+    <system:String x:Key="ExitWithChangesTip">Вийти (зміни не скасовує)</system:String>
+    <system:String x:Key="ColumnAmountTip">Кількість стовпців</system:String>
+    <system:String x:Key="SearchTip">Здійснити пошук файлів за тегами. Якщо жоден з тегів не вказано, виводяться всі файли</system:String>
+    <system:String x:Key="CopyPathTip">Скопіювати шлях до файла</system:String>
+    <system:String x:Key="CopyContentTip">Скопіювати файл для вставки в інше місце.</system:String>
+    <system:String x:Key="OpenFolderWithFileTip">Відкрити теку, що містить файл</system:String>
+    <system:String x:Key="LaunchFileTip">Запустити файл програмою за замовчуванням</system:String>
+    <system:String x:Key="RefreshViewTip">Оновити усе (зчитання з бази даних)</system:String>
+    <system:String x:Key="ConfirmTip">Прийняти зміни і оновити</system:String>
+    <system:String x:Key="BrowseFileTip">Знайти шлях у файловому менеджері</system:String>
+    <system:String x:Key="AddUrlTip">Додати нове посилання</system:String>
+    <system:String x:Key="ChangeUrlNameTip">Змінити назву посилання</system:String>
+    <system:String x:Key="ConnectTagTip">Прив'язати тег до посилання</system:String>
+    <system:String x:Key="DisconnectTagTip">Відв'язати тег від посилання</system:String>
+    <system:String x:Key="MarkDeleteTip">Встановити позначку на видалення</system:String>
+    <system:String x:Key="MarkForceUpdateTip">Встановити позначку на оновлення</system:String>
+    <system:String x:Key="CancelMarkTip">Зняти будь-яку позначку</system:String>
+    <system:String x:Key="AddTagToAddsTip">Додати тег до списку на додання</system:String>
+    <system:String x:Key="AddTagToUpdatesTip">Додати тег до списку на оновлення</system:String>
+    <system:String x:Key="CreateDatabaseNameTip">Створити нове ім'я для бази даних</system:String>
+    <system:String x:Key="ChangeDatabaseNameTip">Змінити поточне ім'я бази даних</system:String>
+    <system:String x:Key="RemoveDatabasePathTip">Вилучити поточні ім'я і шлях до бази даних зі списку</system:String>
+    <system:String x:Key="RemoveDatabaseTip">Видалити поточну базу даних</system:String>
+    <system:String x:Key="RefreshViewFromFileTip">Оновити (зчитання з файлу)</system:String>
+    <system:String x:Key="ConfirmSelectTip">Прийняти поточну базу даних в якості основної</system:String>
+    <system:String x:Key="BrowseDatabaseTip">Вказати існуючу базу даних sqlite</system:String>
+    <system:String x:Key="BrowseNewDatabaseTip">Створити нову базу даних sqlite</system:String>
+    <system:String x:Key="AddTagToListTip">Додати вказаний тег до обраного списку</system:String>
+    <system:String x:Key="RemoveTagFromListTip">Прибрати вказаний тег зі списку</system:String>
+    <system:String x:Key="ClearListsTip">Очистити усі списки</system:String>
+    <system:String x:Key="ShowHideListTip">Показати/сховати всі списки</system:String>
+    <system:String x:Key="AndListTip">Вибрати список 'і' (перший список).
+Будуть шукатися файли, що обов'язково містять всі теги з цього списку</system:String>
+    <system:String x:Key="OrListTip">Вибрати список 'або' (другий список).
+Будуть шукатися файли, що обов'язково містять хоча б один з цих тегів з цього списку</system:String>
+    <system:String x:Key="NotListTip">Вибрати список 'не' (третій список).
+Будуть шукатися файли, що обов'язково не містять жоден з тегів з цього списку</system:String>
+    <system:String x:Key="ChangeKeyMapNameTip">Змінити назву конфігурації гарячих клавіш</system:String>
+    <system:String x:Key="ChangeKeyGestureTip">Змінити поточну конфігурацію</system:String>
+    <system:String x:Key="AddKeyMapTip">Скопіювати поточну конфігурацію гарячих клавіш під новим ім'ям</system:String>
+    <system:String x:Key="ExcludeKeyMapTip">Видалити поточну конфігурацію</system:String>
+    <system:String x:Key="ToReadKeysTip">Зчитувати/Не зчитувати клавіші.
+Краще не вводити клавіші типу Ctrl, Shift і тд.</system:String>
+    <system:String x:Key="ToCtrlKeyTip">Додати/не додавати Ctrl до комбінації</system:String>
+    <system:String x:Key="ToAltKeyTip">Додати/не додавати Alt до комбінації</system:String>
+    <system:String x:Key="ToShiftKeyTip">Додати/не додавати Shift до комбінації</system:String>
+    <system:String x:Key="ToPlayContentTip">Запустити/зупинити відтворення контенту</system:String>
+</ResourceDictionary>

@@ -1,0 +1,33 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+   
+    <Style Selector="ListBox#AllUrls">
+        <Style Selector="^ ListBoxItem">
+            <Style Selector="^:pointerover">
+                <Style Selector="^ /template/ ContentPresenter">
+                    <Setter Property="Background" Value="{StaticResource DefaultBackgroundLightBrush}"/>
+                </Style>
+                <Style Selector="^ ToolTip TextBlock">
+                    <Setter Property="Foreground" Value="{StaticResource ForegroundLaunchBrush}"/>
+                </Style>
+            </Style>            
+            <Style Selector="^:selected">
+                <Style Selector="^ /template/ ContentPresenter">
+                    <Setter Property="Background" Value="{StaticResource DefaultBackgroundLighterBrush}"/>
+                </Style>
+            </Style>
+            <!-- ReSharper disable once MarkupAttributeTypo -->
+            <Style Selector="^ Viewbox">
+                <Setter Property="MaxHeight" Value="250"/>
+            </Style>
+            <Style Selector="^ TextBox">
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="BorderThickness" Value="{StaticResource ThinWidth}"/>
+            </Style>
+            <Style Selector="^ WrapPanel">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+        </Style>
+    </Style>
+</Styles>

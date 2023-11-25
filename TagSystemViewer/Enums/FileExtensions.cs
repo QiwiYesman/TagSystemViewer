@@ -6,7 +6,11 @@ public enum FileExtensions
     Xlsx,
     Image,
     Unknown,
+    Error,
     Video,
     Audio,
-    Gif
+    Gif,
+    Txt,
+    Web,
+    Pdf
 }

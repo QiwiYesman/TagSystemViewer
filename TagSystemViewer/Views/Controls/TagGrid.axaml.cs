@@ -4,7 +4,7 @@ using Avalonia;
 using Avalonia.Controls.Primitives;
 using TagSystemViewer.Models;
 
-namespace TagSystemViewer.Controls;
+namespace TagSystemViewer.Views.Controls;
 
 public class TagGrid : TemplatedControl
 {

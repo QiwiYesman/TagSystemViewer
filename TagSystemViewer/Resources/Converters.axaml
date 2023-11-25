@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:TagSystemViewer.Converters">
+    <converters:BoolEnumConvertor x:Key="BoolEnumConvertor" />
+    <converters:TagsToFileExtensionConverter x:Key="TagsToFileExtensionConverter" />
+    <converters:UrlToShortNameConverter x:Key="UrlToShortNameConverter" />
+    <converters:RecordStateToClassesConverter x:Key="RecordStateToClassesConverter" />
+</ResourceDictionary>

@@ -4,19 +4,31 @@
                     >
     <FontFamily x:Key="IcoMoonFont">avares://TagSystemViewer/Assets/FontIcons/#icomoon</FontFamily>
     
-    <system:String x:Key="IcoMoonAdd">&#xea0a;</system:String>
-    <system:String x:Key="IcoMoonExclude">&#xea0b;</system:String>
-    <system:String x:Key="IcoMoonRefresh">&#xea2e;</system:String>
-    <system:String x:Key="IcoMoonLaunch">&#xe901;</system:String>
-    <system:String x:Key="IcoMoonOpenFolder">&#xe930;</system:String>
-    <system:String x:Key="IcoMoonBrowseFolder">&#xe92f;</system:String>
-    <system:String x:Key="IcoMoonConfirm">&#xe900;</system:String>
-    <system:String x:Key="IcoMoonCancel">&#xe903;</system:String>
-    <system:String x:Key="IcoMoonCopy">&#xe902;</system:String>
-    <system:String x:Key="IcoMoonSearch">&#xe986;</system:String>
-    <system:String x:Key="IcoMoonManageTags">&#xe905;</system:String>
-    <system:String x:Key="IcoMoonManageUrls">&#xe904;</system:String>
-    <system:String x:Key="IcoMoonUpdate">&#xe90a;</system:String>
-    <system:String x:Key="IcoMoonForceUpdate">&#xe906;</system:String>
-    <system:String x:Key="IcoMoonCancelMark">&#xe90b;</system:String>
+    <system:String x:Key="IcoMoonAdd">&#xe912;</system:String>
+    <system:String x:Key="IcoMoonExclude">&#xe90e;</system:String>
+    <system:String x:Key="IcoMoonRefresh">&#xe913;</system:String>
+    <system:String x:Key="IcoMoonLaunch">&#xe90f;</system:String>
+    <system:String x:Key="IcoMoonOpenFolder">&#xe90c;</system:String>
+    <system:String x:Key="IcoMoonBrowseFolder">&#xe90b;</system:String>
+    <system:String x:Key="IcoMoonConfirm">&#xe903;</system:String>
+    <system:String x:Key="IcoMoonCancel">&#xe902;</system:String>
+    <system:String x:Key="IcoMoonCopyPath">&#xe905;</system:String>
+    <system:String x:Key="IcoMoonCopyContent">&#xe904;</system:String>
+    <system:String x:Key="IcoMoonSearch">&#xe914;</system:String>
+    <system:String x:Key="IcoMoonManageTags">&#xe915;</system:String>
+    <system:String x:Key="IcoMoonManageUrls">&#xe919;</system:String>
+    <system:String x:Key="IcoMoonUpdate">&#xe916;</system:String>
+    <system:String x:Key="IcoMoonForceUpdate">&#xe917;</system:String>
+    <system:String x:Key="IcoMoonCancelMark">&#xe901;</system:String>
+    <system:String x:Key="IcoMoonManageDatabase">&#xe907;</system:String>
+    <system:String x:Key="IcoMoonAddDatabase">&#xe906;</system:String>
+    <system:String x:Key="IcoMoonRemoveDatabase">&#xe908;</system:String>
+    <system:String x:Key="IcoMoonExit">&#xe90a;</system:String>
+    <system:String x:Key="IcoMoonAdvancedUrls">&#xe913;</system:String>
+    <system:String x:Key="IcoMoonClear">&#xe909;</system:String>
+    <system:String x:Key="IcoMoonManageHotkeys">&#x25b2;</system:String>
+    <system:String x:Key="IcoMoonPause">&#xe910;</system:String>
+    <system:String x:Key="IcoMoonPlay">&#xe911;</system:String>
+    <system:String x:Key="IcoMoonShowDown">&#xe900;</system:String>
+    <system:String x:Key="IcoMoonHideUp">&#xe916;</system:String>
 </ResourceDictionary>

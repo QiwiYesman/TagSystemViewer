@@ -1,0 +1,75 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <KeyGesture x:Key="ExcludeHotkey">
+        delete
+    </KeyGesture>
+    <KeyGesture x:Key="ExcludeSecondHotkey">
+        ctrl+-
+    </KeyGesture>
+    <KeyGesture x:Key="RemoveHotkey">
+        ctrl+delete
+    </KeyGesture>
+    <KeyGesture x:Key="AddHotkey">
+        insert
+    </KeyGesture>
+    <KeyGesture x:Key="AddSecondHotkey">
+        ctrl++
+    </KeyGesture>
+    <KeyGesture x:Key="CreateHotkey">
+        ctrl+insert
+    </KeyGesture>
+    <KeyGesture x:Key="SearchHotkey">
+        ctrl+enter
+    </KeyGesture>
+    <KeyGesture x:Key="OpenTagsHotkey">
+        ctrl+d1
+    </KeyGesture>
+    <KeyGesture x:Key="OpenUrlsHotkey">
+        ctrl+d2
+    </KeyGesture>
+    <KeyGesture x:Key="OpenDatabasesHotkey">
+        ctrl+d3
+    </KeyGesture>
+    <KeyGesture x:Key="OpenHotkeysHotkey">
+        ctrl+d4
+    </KeyGesture>
+    <KeyGesture x:Key="OpenFolderHotkey">
+        ctrl+shift+a
+    </KeyGesture>
+    <KeyGesture x:Key="LaunchHotkey">
+        ctrl+shift+enter
+    </KeyGesture>
+    <KeyGesture x:Key="UpdateHotkey">
+        ctrl+up
+    </KeyGesture>
+    <KeyGesture x:Key="ConfirmHotkey">
+        ctrl+s
+    </KeyGesture>
+    <KeyGesture x:Key="RefreshHotkey">
+        ctrl+r
+    </KeyGesture>
+    <KeyGesture x:Key="ClearHotkey">
+        ctrl+shift+r
+    </KeyGesture>
+    <KeyGesture x:Key="CancelMarkHotkey">
+        ctrl+z
+    </KeyGesture>
+    <KeyGesture x:Key="ForceUpdateHotkey">
+        ctrl+shift+up
+    </KeyGesture>
+    <KeyGesture x:Key="ExitHotkey">
+        escape
+    </KeyGesture>
+    <KeyGesture x:Key="ToAndTagHotkey">
+        ctrl+q
+    </KeyGesture>
+    <KeyGesture x:Key="ToOrTagHotkey">
+        ctrl+w
+    </KeyGesture>
+    <KeyGesture x:Key="ToNotTagHotkey">
+        ctrl+e
+    </KeyGesture>
+    <KeyGesture x:Key="ToPlayPauseHotkey">
+        ctrl+d
+    </KeyGesture>
+</ResourceDictionary>

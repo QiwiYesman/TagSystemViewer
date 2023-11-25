@@ -15,13 +15,11 @@ namespace TagSystemViewer.Models;
 public static class Database
 {
 
-    public static SQLiteConnection DbNewConnection(string dbPath)
-    {
-        File.Open(dbPath, FileMode.Truncate);
-        return new SQLiteConnection(dbPath, SQLiteOpenFlags.Create |
-                                            SQLiteOpenFlags.FullMutex |
-                                            SQLiteOpenFlags.ReadWrite);
-    }
+    public static SQLiteConnection DbNewConnection(string dbPath) =>
+        new(dbPath, SQLiteOpenFlags.Create |
+                    SQLiteOpenFlags.FullMutex |
+                    SQLiteOpenFlags.ReadWrite);
+
     public static SQLiteConnection DbExistingConnection(string dbPath) => 
         new (dbPath, SQLiteOpenFlags.ReadWrite);
 
@@ -36,8 +34,15 @@ public static class Database
         db.CreateTable<Tag>();
         db.CreateTable<Url>();
         db.CreateTable<TaggedUrl>();
+        db.AddDefaultTags();
     }
-    
+
+    public static void AddDefaultTags(this SQLiteConnection db)
+    {
+        var tagNames = DefaultTagsAndExtensions.TagNames;
+        var tags = tagNames.Select(x => new Tag() { Id = 0, Name = x });
+        db.InsertAll(tags, typeof(Tag));
+    }
 
     public static List<Url> SelectUrls(this SQLiteConnection db, TagGroups tags)
     {

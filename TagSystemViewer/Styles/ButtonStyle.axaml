@@ -1,0 +1,62 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style Selector="Button">
+        <Setter Property="BorderThickness" Value="{StaticResource ThinWidth}"/>
+        <Setter Property="CornerRadius" Value="0"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DefaultTextBrush}"/>
+        <Setter Property="Background" Value="{StaticResource DefaultDarkBrush}"/>
+        <Setter Property="FontSize" Value="{StaticResource LargeFontSize}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        
+        <Style Selector="^.Add, ^.Confirm, ^.AddDatabase">
+            <Setter Property="Foreground" Value="{StaticResource AcceptBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource AcceptBrush}"/>
+            <Style Selector="^:pointerover /template/ ContentPresenter">
+                <Setter Property="Foreground" Value="{StaticResource DefaultDarkBrush}"/>
+                <Setter Property="Background" Value="{StaticResource AcceptBrush}"/>
+            </Style>
+            <Style Selector="^:pressed /template/ ContentPresenter">
+                <Setter Property="Background" Value="{StaticResource AcceptPressBrush}"/>
+            </Style>
+        </Style>
+        
+        <Style Selector="^.Exclude, ^.Cancel, ^.Exit, ^.CancelMark, ^.RemoveDatabase">
+            <Setter Property="Foreground" Value="{StaticResource CancelBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource CancelBrush}"/>
+            <Style Selector="^:pointerover /template/ ContentPresenter">
+                <Setter Property="Foreground" Value="{StaticResource DefaultDarkBrush}"/>
+                <Setter Property="Background" Value="{StaticResource CancelBrush}"/>
+            </Style>
+            <Style Selector="^:pressed /template/ ContentPresenter">
+                <Setter Property="Background" Value="{StaticResource CancelPressBrush}"/>
+            </Style>
+        </Style>
+        
+        <Style Selector="^.CopyPath, ^.CopyContent, ^.Search, ^.Update, ^.ForceUpdate, ^.Refresh, ^.Erase">
+            <Setter Property="Foreground" Value="{StaticResource NeutralBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource NeutralBrush}"/>
+            <Style Selector="^:pointerover /template/ ContentPresenter">
+                <Setter Property="Foreground" Value="{StaticResource DefaultDarkBrush}"/>
+                <Setter Property="Background" Value="{StaticResource NeutralBrush}"/>
+            </Style>
+            <Style Selector="^:pressed /template/ ContentPresenter">
+                <Setter Property="Background" Value="{StaticResource NeutralPressBrush}"/>
+            </Style>
+        </Style>
+        
+        <Style Selector="^.Launch, ^.OpenFolder, ^.BrowseFolder, ^.ManageTags,
+         ^.ManageUrls, ^.ManageDatabase, ^.AdvancedUrls, ^.ManageHotkeys">
+            <Setter Property="Foreground" Value="{StaticResource LaunchBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource LaunchBrush}"/>
+            <Style Selector="^:pointerover /template/ ContentPresenter">
+                <Setter Property="Foreground" Value="{StaticResource DefaultDarkBrush}"/>
+                <Setter Property="Background" Value="{StaticResource LaunchBrush}"/>
+            </Style>
+            <Style Selector="^:pressed /template/ ContentPresenter">
+                <Setter Property="Background" Value="{StaticResource LaunchPressBrush}"/>
+            </Style>
+        </Style>
+    </Style>
+</Styles>

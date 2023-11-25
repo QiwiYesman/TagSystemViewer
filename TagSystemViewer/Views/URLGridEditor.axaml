@@ -4,43 +4,79 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:TagSystemViewer.ViewModels"
         xmlns:models="clr-namespace:TagSystemViewer.Models"
-        xmlns:controls="clr-namespace:TagSystemViewer.Controls"
+        xmlns:enums="clr-namespace:TagSystemViewer.Enums"
+        xmlns:controls="clr-namespace:TagSystemViewer.Views.Controls"
+        xmlns:observables="clr-namespace:TagSystemViewer.ViewModels.Observables"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="TagSystemViewer.Views.URLGridEditor"
-        Title="URLGridEditor">
+        Icon="/Assets/Icons/url_editor.ico"
+        Title="Редактор посилань">
     <Design.DataContext>
         <viewModels:UrlGridEditorViewModel/>
     </Design.DataContext>
     <DockPanel>
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-            <TextBox Text="{Binding NewName, Mode=TwoWay}"/>
-            <Button Classes="Browse" Command="{Binding BrowseFile}"/>
-            <Button Classes="Add" Command="{Binding MarkInsertUrl}"/>
-            <Button Classes="Update" Command="{Binding MarkUpdateUrl}"/>
-            <Button Classes="Refresh" Command="{Binding ReadTags}"/>
-            <Button Classes="Cancel" Command="{Binding $parent[Window].Close}"/>
-            <Button Classes="Confirm" Command="{Binding Confirm}"/>
-        </StackPanel>
-        <Grid ColumnDefinitions="4*,6*" RowDefinitions="8*, 2*">
+        <Grid ColumnDefinitions="8*, 2*" DockPanel.Dock="Bottom">
+            <WrapPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Classes="Refresh" Command="{Binding ReadTags}"
+                        ToolTip.Tip="{StaticResource RefreshViewTip}"
+                        HotKey="{DynamicResource RefreshHotkey}"
+                        />
+                <Button Classes="Cancel" Command="{Binding $parent[Window].Close}"
+                        ToolTip.Tip="{StaticResource ExitWithoutChangesTip}"
+                        HotKey="{DynamicResource ExitHotkey}"
+                        />
+                <Button Classes="Confirm" Command="{Binding Confirm}"
+                        ToolTip.Tip="{StaticResource ConfirmTip}"
+                        HotKey="{DynamicResource ConfirmHotkey}"
+                        />    
+            </WrapPanel>
+            <StackPanel Grid.Column="0" Orientation="Vertical">
+                <TextBox Text="{Binding NewName, Mode=TwoWay}"/>
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                    <Button Classes="BrowseFolder" Command="{Binding BrowseFile}"
+                            ToolTip.Tip="{StaticResource BrowseFileTip}"
+                            HotKey="{DynamicResource OpenFolderHotkey}"
+                    />
+                    <Button Classes="Add" Command="{Binding MarkInsertUrl}"
+                            ToolTip.Tip="{StaticResource AddUrlTip}"
+                            HotKey="{DynamicResource AddHotkey}"
+                    />
+                    <Button Classes="Update" Command="{Binding MarkUpdateUrl}"
+                            ToolTip.Tip="{StaticResource ChangeUrlNameTip}"
+                            HotKey="{DynamicResource UpdateHotkey}"
+                    />   
+                </WrapPanel>
+            </StackPanel>
+        </Grid>
+        <Grid ColumnDefinitions="6*, 1, 3*" RowDefinitions="8*, 2*">
             <ListBox 
                 ItemsSource="{Binding Urls}"
-                SelectedItem="{Binding CurrentUrl, Mode=TwoWay}"
-                >
+                SelectedItem="{Binding CurrentUrl, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
-                    <DataTemplate DataType="{x:Type viewModels:ObservableUrl}">
+                    <DataTemplate DataType="{x:Type observables:ObservableUrl}">
                         <DockPanel>
                             <TextBlock DockPanel.Dock="Right"
-                                Text="{Binding RecordStateName}"/>
+                                Classes.Add="{Binding RecordStates,
+                                               Converter={StaticResource BoolEnumConvertor},
+                                               ConverterParameter={x:Static enums:RecordStates.Insert}, Mode=TwoWay}"
+                                Classes.Exclude="{Binding RecordStates,
+                                               Converter={StaticResource BoolEnumConvertor},
+                                               ConverterParameter={x:Static enums:RecordStates.Delete}, Mode=TwoWay}"
+                                Classes.Update="{Binding RecordStates,
+                                               Converter={StaticResource BoolEnumConvertor},
+                                               ConverterParameter={x:Static enums:RecordStates.Update}, Mode=TwoWay}"/>
                             <TextBlock Text="{Binding CurrentLink}"/>
                         </DockPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <controls:WrapListBox Grid.Row="0" Grid.Column="1"
+            <GridSplitter Grid.Row="0" Grid.Column="1" ResizeDirection="Columns"/>
+            <controls:WrapListBox Grid.Row="0" Grid.Column="2"
                      ItemsSource="{Binding CurrentUrl.Tags, FallbackValue={x:Null}, Mode=TwoWay}"
                      SelectedItem="{Binding CurrentTag, Mode=TwoWay}"
                      />
-            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            
+            <WrapPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
                 <AutoCompleteBox ItemsSource="{Binding Tags}" 
                                  SelectedItem="{Binding CurrentTag, Mode=TwoWay}">
                     <AutoCompleteBox.ItemTemplate>
@@ -49,29 +85,45 @@
                         </DataTemplate>
                     </AutoCompleteBox.ItemTemplate>
                 </AutoCompleteBox>
-                <Button Classes="Add" Command="{Binding AddTag}"/>
-                <Button Classes="Exclude" Command="{Binding RemoveTag}"/>
-                <Button Classes="ManageTags" Click="OpenTagWindow"/>
-            </StackPanel>
+                <Button Classes="Add" Command="{Binding AddTag}"
+                        ToolTip.Tip="{StaticResource ConnectTagTip}"
+                        HotKey="{DynamicResource AddSecondHotkey}"
+                        />
+                <Button Classes="Exclude" Command="{Binding RemoveTag}"
+                        ToolTip.Tip="{StaticResource DisconnectTagTip}"
+                        HotKey="{DynamicResource ExcludeSecondHotkey}"
+                        />
+                <Button Classes="ManageTags" Click="OpenTagWindow"
+                        ToolTip.Tip="{StaticResource TagEditTip}"
+                        HotKey="{DynamicResource OpenTagsHotkey}"
+                        />
+            </WrapPanel>
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
                 <AutoCompleteBox ItemsSource="{Binding Urls}" 
-                                 SelectedItem="{Binding CurrentUrl, Mode=TwoWay}">
+                                 SelectedItem="{Binding CurrentUrl, Mode=TwoWay}" 
+                                 FilterMode="ContainsOrdinal">
                     <AutoCompleteBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type viewModels:ObservableUrl}">
+                        <DataTemplate DataType="{x:Type observables:ObservableUrl}">
                             <TextBlock Text="{Binding CurrentLink}"/>
                         </DataTemplate>
                     </AutoCompleteBox.ItemTemplate>
                 </AutoCompleteBox>
                 <WrapPanel>
                     <Button Classes="Exclude" Command="{Binding MarkDeleteUrl}"
-                            ToolTip.Tip="Позначити для видалення"/>
-                    <Button Classes="ForceUpdate" Command="{Binding ForceMarkUpdate}"
-                            ToolTip.Tip="Встановити позначку оновлення"/>
-                    <Button Classes="CancelMark" Command="{Binding CancelMark}"
-                            ToolTip.Tip="Скасувати будь-яку позначку"
+                            ToolTip.Tip="{StaticResource MarkDeleteTip}"
+                            HotKey="{DynamicResource ExcludeHotkey}"
                             />
-                    <Button Classes="Launch" Command="{Binding CheckConnection}"
-                            ToolTip.Tip="Запустити / відвідати файл"
+                    <Button Classes="ForceUpdate" Command="{Binding ForceMarkUpdate}"
+                            ToolTip.Tip="{StaticResource MarkForceUpdateTip}"
+                            HotKey="{DynamicResource ForceUpdateHotkey}"
+                            />
+                    <Button Classes="CancelMark" Command="{Binding CancelMark}"
+                            ToolTip.Tip="{StaticResource CancelPressBrush}"
+                            HotKey="{DynamicResource CancelMarkHotkey}"
+                            />
+                    <Button Classes="Launch" Command="{Binding StartFile}"
+                            ToolTip.Tip="{StaticResource LaunchFileTip}"
+                            HotKey="{DynamicResource  LaunchHotkey}"
                             />
                 </WrapPanel>
             </StackPanel>

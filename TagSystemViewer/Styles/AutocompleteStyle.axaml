@@ -1,0 +1,27 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style Selector="AutoCompleteBox">
+        <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}"/>
+        <Setter Property="Background" Value="{StaticResource DefaultDarkBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DefaultTextBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource DefaultTextBrush}"/>
+        <Setter Property="BorderThickness" Value="{StaticResource ThickWidth}"/>
+        <Setter Property="CornerRadius" Value="{StaticResource TextBoxCornerRadius}"/>
+        
+        <Style Selector="^ ListBox Border">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="CornerRadius" Value="0"/>
+        </Style>
+        <Style Selector="^ ListBox ListBoxItem">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="{StaticResource DefaultDarkBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource DefaultTextBrush}"/>
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="{StaticResource DefaultTextBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource DefaultDarkBrush}"/>
+            </Style>
+        </Style>
+    </Style>
+</Styles>

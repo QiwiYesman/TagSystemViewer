@@ -16,11 +16,17 @@ namespace TagSystemViewer.ViewModels;
 public class UrlViewerViewModel: ViewModelBase
 {
     private TagInputSearchViewModel _urlSearch;
+    private bool _play = false;
 
     public TagInputSearchViewModel UrlSearchViewModel
     {
         get => _urlSearch;
         set => this.RaiseAndSetIfChanged(ref _urlSearch, value);
+    }
+    public bool ToPlayGifs
+    {
+        get => _play;
+        set => this.RaiseAndSetIfChanged(ref _play, value);
     }
 
     public UrlViewerViewModel()
@@ -46,49 +52,34 @@ public class UrlViewerViewModel: ViewModelBase
 
     public void CopyPath(object arg)
     {
-        string path = arg.ToString() ?? "";
-        var uri = new Uri(path).AbsoluteUri;
+        var path = arg.ToString() ?? "";
         var clipboard = App.Current?.Services?.GetService<ClipboardService>();
-        clipboard?.SetTextAsync(uri);
+        clipboard?.SetTextAsync(path);
     }
 
     public async Task CopyFile(object arg)
     {
         string path = arg.ToString() ?? "";
-        var uri = new Uri(path).AbsoluteUri;
-        Console.WriteLine(path + "  :  " +uri);
+        if (!Uri.TryCreate(path, UriKind.Absolute, out var uri)) return;
         var clipboard = App.Current?.Services?.GetService<ClipboardService>();
         if (clipboard is null) return;
-        await clipboard.SetFileAsync(uri);
+        await clipboard.SetFileAsync(uri.AbsolutePath);
     }
     public void OpenFolder(object arg)
     {
         string path = arg.ToString() ?? "";
-        var folder = Path.GetDirectoryName(path);
-        if (folder is null) return;
-        StartProcess(folder);
+        FileProcess.StartDirectory(path);
     }
-
-    public static void StartProcess(string path)
-    {
-        if (path == "") return;
-        try
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = path,
-                UseShellExecute = true
-            });
-        }
-        catch
-        {
-            Console.WriteLine("Can't start process: " +path);
-        }
-    }
+    
 
     public void OpenFile(object arg)
     {
         string path = arg.ToString() ?? "";
-        StartProcess(path);
+        FileProcess.StartFile(path);
+    }
+
+    public void RefreshTags()
+    {
+        UrlSearchViewModel = new();
     }
 }

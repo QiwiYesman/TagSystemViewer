@@ -1,0 +1,43 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style Selector="TextBox">
+        <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}"/>
+        <Setter Property="Foreground" Value="{StaticResource DefaultTextBrush}"/>
+        <Setter Property="Background" Value="{StaticResource DefaultDarkBrush}"/>
+        <Setter Property="CaretBrush" Value="{StaticResource DefaultTextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DefaultTextBrush}"/>
+        <Setter Property="BorderThickness" Value="{StaticResource ThickWidth}"/>
+        <Setter Property="CornerRadius" Value="{StaticResource TextBoxCornerRadius}"/>
+        <Style Selector="^:pointerover">
+            <Setter Property="Foreground" Value="{StaticResource LaunchBrush}"/>
+            <Setter Property="CaretBrush" Value="{StaticResource LaunchBrush}"/>
+            <Style Selector="^ /template/ Border#PART_BorderElement">
+                <Setter Property="Background" Value="{StaticResource DefaultDarkBrush}"/>
+                <Setter Property="CornerRadius" Value="{StaticResource TextBoxCornerRadius}"/>
+                <Setter Property="BorderThickness" Value="{StaticResource ThickWidth}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource LaunchBrush}"/>
+            </Style>
+        </Style>
+        <Style Selector="^:focus">
+            <Setter Property="Foreground" Value="{StaticResource AcceptBrush}"/>
+            <Setter Property="CaretBrush" Value="{StaticResource AcceptBrush}"/>
+            <Style Selector="^ /template/ Border#PART_BorderElement">
+                <Setter Property="Background" Value="{StaticResource DefaultDarkBrush}"/>
+                <Setter Property="CornerRadius" Value="{StaticResource TextBoxCornerRadius}"/>
+                <Setter Property="BorderThickness" Value="{StaticResource ThickWidth}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource AcceptBrush}"/>
+            </Style>
+        </Style>
+        <Style Selector="^[IsEnabled=False]">
+            <Setter Property="Foreground" Value="{StaticResource CancelPressBrush}"/>
+            <Setter Property="CaretBrush" Value="{StaticResource CancelPressBrush}"/>
+            <Style Selector="^ /template/ Border#PART_BorderElement">
+                <Setter Property="Background" Value="{StaticResource DefaultDarkBrush}"/>
+                <Setter Property="CornerRadius" Value="{StaticResource TextBoxCornerRadius}"/>
+                <Setter Property="BorderThickness" Value="{StaticResource ThickWidth}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource CancelPressBrush}"/>
+            </Style>
+        </Style>
+    </Style>
+</Styles>

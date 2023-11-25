@@ -1,0 +1,82 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:TagSystemViewer.Models"
+             xmlns:viewModels="clr-namespace:TagSystemViewer.ViewModels"
+             xmlns:enums="clr-namespace:TagSystemViewer.Enums"
+             xmlns:controls="clr-namespace:TagSystemViewer.Views.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TagSystemViewer.Views.Controls.TagsInputSearch">
+    <UserControl.Styles>
+        <StyleInclude Source="WrapListBox.axaml"/>
+        <StyleInclude Source="/Styles/RadioButtonStyle.axaml"/>
+    </UserControl.Styles>
+    <Design.DataContext>
+        <viewModels:TagInputSearchViewModel/>
+    </Design.DataContext>
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" LastChildFill="False">
+            <WrapPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <AutoCompleteBox SelectedItem="{Binding CurrentTag, Mode=TwoWay}"
+                                 ItemsSource="{Binding Tags}">
+                    <AutoCompleteBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:Tag}">
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </AutoCompleteBox.ItemTemplate>
+                </AutoCompleteBox>
+           
+                <Button Classes="Add" Command="{Binding AddTag}"
+                        ToolTip.Tip="{StaticResource AddTagToListTip}"
+                        HotKey="{DynamicResource AddHotkey}"
+                />
+                <Button Classes="Exclude" Command="{Binding RemoveTag}"
+                        ToolTip.Tip="{StaticResource RemoveTagFromListTip}"
+                        HotKey="{DynamicResource ExcludeHotkey}"
+                />
+            </WrapPanel>
+            <WrapPanel DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <RadioButton Content="І" GroupName="H" IsChecked="{Binding CurrentStates,
+                Converter={StaticResource BoolEnumConvertor},
+                ConverterParameter={x:Static enums:TagSearchStates.And}, Mode=TwoWay}"
+                             ToolTip.Tip="{StaticResource AndListTip}"
+                             HotKey="{DynamicResource ToAndTagHotkey}"/>
+                <RadioButton Content="Або" GroupName="H" IsChecked="{Binding CurrentStates,
+                Converter={StaticResource BoolEnumConvertor},
+                ConverterParameter={x:Static enums:TagSearchStates.Or}, Mode=TwoWay}"
+                             ToolTip.Tip="{StaticResource OrListTip}"
+                             HotKey="{DynamicResource ToOrTagHotkey}"/>
+                <RadioButton Content="Без" GroupName="H" IsChecked="{Binding CurrentStates,
+                 Converter={StaticResource BoolEnumConvertor},
+                 ConverterParameter={x:Static enums:TagSearchStates.Not}, Mode=TwoWay}"
+                             ToolTip.Tip="{StaticResource NotListTip}"
+                             HotKey="{DynamicResource ToNotTagHotkey}"/>
+                <Button Classes="Erase" Command="{Binding ClearAll}"
+                        ToolTip.Tip="{StaticResource ClearListsTip}"
+                        HotKey="{DynamicResource ClearHotkey}"
+                />
+                <ToggleButton Classes.Show="{Binding $self.IsChecked}"
+                              Classes.Hide="{Binding !$self.IsChecked}"
+                              IsChecked="{Binding #Tags.IsVisible, Mode=TwoWay }"
+                              ToolTip.Tip="{StaticResource ShowHideListTip}"
+                              HotKey="{DynamicResource UpdateHotkey}"
+                />
+            </WrapPanel>
+        </DockPanel>
+        
+        <Grid Name="Tags" ColumnDefinitions="*,1,*,1,*">
+            <controls:WrapListBox Grid.Column="0" Classes="AndTags" 
+                                  SelectedItem="{Binding CurrentListTag, Mode=TwoWay}"
+                               ItemsSource="{Binding AndTags}"/>
+            <GridSplitter Grid.Column="1" ResizeDirection="Columns"/>
+            <controls:WrapListBox Grid.Column="2" Classes="OrTags" 
+                                  SelectedItem="{Binding CurrentListTag, Mode=TwoWay}"
+                               ItemsSource="{Binding OrTags}"/>
+            <GridSplitter Grid.Column="3" ResizeDirection="Columns"/>
+            <controls:WrapListBox Grid.Column="4" Classes="NotTags"
+                                  SelectedItem="{Binding CurrentListTag, Mode=TwoWay}"
+                               ItemsSource="{Binding NotTags}"/>
+        </Grid>
+    </DockPanel>
+</UserControl>

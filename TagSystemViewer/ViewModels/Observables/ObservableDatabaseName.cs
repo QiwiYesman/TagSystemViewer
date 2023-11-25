@@ -1,6 +1,6 @@
 using ReactiveUI;
 
-namespace TagSystemViewer.ViewModels;
+namespace TagSystemViewer.ViewModels.Observables;
 
 public class ObservableDatabaseName :ViewModelBase
 {
@@ -16,4 +16,5 @@ public class ObservableDatabaseName :ViewModelBase
         get => _path;
         set => this.RaiseAndSetIfChanged(ref _path, value);
     }
+    
 }

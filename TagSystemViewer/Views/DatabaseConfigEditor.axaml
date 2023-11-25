@@ -3,38 +3,76 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:TagSystemViewer.ViewModels"
-        xmlns:models="clr-namespace:TagSystemViewer.Models"
+        xmlns:observables="clr-namespace:TagSystemViewer.ViewModels.Observables"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="TagSystemViewer.Views.DatabaseConfigEditor"
-        Title="DatabaseConfigEditor">
+        Icon="/Assets/Icons/database_editor.ico"
+        Title="Конфігурація баз даних">
     <Design.DataContext>
         <viewModels:DatabaseConfigViewModel/>
     </Design.DataContext>
-    <StackPanel>
         <Grid ColumnDefinitions="3*,7*">
-            <ListBox Grid.Column="0" ItemsSource="{Binding DatabaseNames}"
-                     SelectedItem="{Binding SelectedDatabaseName, Mode=TwoWay}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate DataType="{x:Type viewModels:ObservableDatabaseName}">
-                        <TextBlock Text="{Binding Name}"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <DockPanel Grid.Column="1">
-                <Button DockPanel.Dock="Right" Classes="Browse" Command="{Binding BrowseDatabase}"/>
-                <Button DockPanel.Dock="Right" Classes="Add" Command="{Binding BrowseNewDatabase}"/>
-                <TextBox Text="{Binding SelectedDatabaseName.Path, FallbackValue={x:Null}, Mode=TwoWay}"
-                         TextWrapping="Wrap"/>
+            <DockPanel Grid.Column="0">
+                    <WrapPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Button Classes="Add" Command="{Binding AddName}"
+                                    ToolTip.Tip="{StaticResource CreateDatabaseNameTip}"
+                                    HotKey="{DynamicResource AddHotkey}"
+                            />
+                            <Button Classes="Update" Command="{Binding UpdateName}"
+                                    ToolTip.Tip="{StaticResource ChangeDatabaseNameTip}"
+                                    HotKey="{DynamicResource UpdateHotkey}"
+                            />
+                            <Button Classes="Exclude" Command="{Binding RemoveName}"
+                                    ToolTip.Tip="{StaticResource RemoveDatabasePathTip}"
+                                    HotKey="{DynamicResource ExcludeHotkey}"
+                            />
+                            <Button Classes="RemoveDatabase" Command="{Binding RemoveDatabase}"
+                                    ToolTip.Tip="{StaticResource RemoveDatabaseTip}"
+                                    HotKey="{DynamicResource RemoveHotkey}"
+                            />    
+                    </WrapPanel>
+                    <TextBox DockPanel.Dock="Bottom"
+                             Text="{Binding NewName, Mode=TwoWay}"/>
+                    <ListBox ItemsSource="{Binding DatabaseNames}"
+                             SelectedItem="{Binding SelectedDatabaseName, Mode=TwoWay}">
+                            <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type observables:ObservableDatabaseName}">
+                                            <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                            </ListBox.ItemTemplate>
+                    </ListBox>    
+            </DockPanel>
+            <DockPanel Grid.Column="1" LastChildFill="False">
+                    <WrapPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Classes="Refresh" Command="{Binding Refresh}"
+                                    ToolTip.Tip="{StaticResource RefreshViewFromFileTip}"
+                                    HotKey="{DynamicResource RefreshHotkey}"
+                            />
+                            <Button Classes="Exit" Command="{Binding $parent[Window].Close}"
+                                    ToolTip.Tip="{StaticResource ExitWithChangesTip}"
+                                    HotKey="{DynamicResource ExitHotkey}"
+                            />
+                            <Button Classes="Confirm" Command="{Binding Confirm}"
+                                    ToolTip.Tip="{StaticResource ConfirmSelectTip}"
+                                    HotKey="{DynamicResource ConfirmHotkey}"
+                            />
+                         
+                    </WrapPanel>
+                    <DockPanel DockPanel.Dock="Top">
+                            <Button DockPanel.Dock="Right" Classes="BrowseFolder"
+                                    Command="{Binding BrowseDatabase}"
+                                    ToolTip.Tip="{StaticResource BrowseDatabaseTip}"
+                                    HotKey="{DynamicResource OpenFolderHotkey}"
+                            />
+                            <Button DockPanel.Dock="Right"
+                                    Classes="AddDatabase" Command="{Binding CreateNewDatabase}"
+                                    ToolTip.Tip="{StaticResource BrowseNewDatabaseTip}"
+                                    HotKey="{DynamicResource CreateHotkey}"
+                            />
+                            <TextBox Text="{Binding SelectedDatabaseName.Path, FallbackValue={x:Null}, Mode=TwoWay}"
+                                     TextWrapping="Wrap"/>            
+                    </DockPanel>
+                    
             </DockPanel>
         </Grid>
-        <StackPanel Orientation="Horizontal">
-            <TextBox Text="{Binding NewName, Mode=TwoWay}"/>
-            <Button Classes="Add" Command="{Binding AddName}"/>
-            <Button Classes="Update" Command="{Binding UpdateName}"/>
-            <Button Classes="Exclude" Command="{Binding RemoveName}"/>
-            <Button Content="RemoveDatabase" Command="{Binding RemoveDatabase}"/>
-            <Button Classes="Confirm" Command="{Binding Confirm}"/>
-            <Button Classes="Cancel" Command="{Binding Cancel}"/>
-        </StackPanel>
-    </StackPanel>
 </Window>

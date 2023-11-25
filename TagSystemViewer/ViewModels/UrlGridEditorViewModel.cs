@@ -10,6 +10,7 @@ using SQLiteNetExtensions.Extensions;
 using TagSystemViewer.Enums;
 using TagSystemViewer.Models;
 using TagSystemViewer.Services;
+using TagSystemViewer.ViewModels.Observables;
 
 namespace TagSystemViewer.ViewModels;
 
@@ -150,7 +151,12 @@ public class UrlGridEditorViewModel: ViewModelBase
                 break;
         }
     }
-    
+
+    public void StartFile()
+    {
+        if (CurrentUrl is null) return;
+        FileProcess.StartFile(CurrentUrl.CurrentLink);
+    }
 
     public async Task BrowseFile()
     {

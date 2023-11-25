@@ -18,9 +18,8 @@ public class TagInputSearchViewModel: ViewModelBase
     {
         ReadTags();
     }
-    private Tag? _currentTag;
+    private Tag? _currentTag, _currentListTag;
     private TagSearchStates _currentStates = TagSearchStates.Or;
-    private string _currentStateString = "Or";
     public ObservableCollection<Tag> Tags { get; set; } = new();
     public ObservableCollection<Tag> AndTags { get; set; } = new();
     public ObservableCollection<Tag> NotTags { get; set; } = new();
@@ -29,23 +28,30 @@ public class TagInputSearchViewModel: ViewModelBase
     public Tag? CurrentTag
     {
         get => _currentTag;
-        set => this.RaiseAndSetIfChanged(ref _currentTag, value);
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _currentTag, value);
+            _currentListTag = value;
+            this.RaisePropertyChanged(nameof(CurrentListTag));
+        } 
     }
-
+    public Tag? CurrentListTag
+    {
+        get => _currentListTag;
+        set
+        {
+            if (value is null) return;
+            this.RaiseAndSetIfChanged(ref _currentListTag, value);
+            if(Equals(_currentTag, value)) return;
+            _currentTag = value;
+            this.RaisePropertyChanged(nameof(CurrentTag));
+            
+        } 
+    }
     public TagSearchStates CurrentStates
     {
         get => _currentStates;
-        set
-        {
-            this.RaiseAndSetIfChanged(ref _currentStates, value);
-            CurrentStateString = value.ToString();
-        }
-    }
-
-    public string CurrentStateString
-    {
-        get => _currentStateString;
-        set => this.RaiseAndSetIfChanged(ref _currentStateString, value);
+        set =>this.RaiseAndSetIfChanged(ref _currentStates, value);
     }
     
     public void ReadTags()
@@ -72,26 +78,23 @@ public class TagInputSearchViewModel: ViewModelBase
     public void AddTag()
     {
         if(CurrentTag is null) return;
-        Tag? tag;
+        var tag = CurrentTag;
         switch (CurrentStates)
         {
             case TagSearchStates.And:
                 if (AndTags.Contains(CurrentTag)) return;
-                tag = CurrentTag;
                 AndTags.Add(tag);
                 RemoveIfExist(tag, NotTags);
                 RemoveIfExist(tag, OrTags);
                 break;
             case TagSearchStates.Or:
                 if (OrTags.Contains(CurrentTag)) return;
-                tag = CurrentTag;
                 OrTags.Add(tag);
                 RemoveIfExist(tag, NotTags);
                 RemoveIfExist(tag, AndTags);
                 break;
             case TagSearchStates.Not:
                 if (NotTags.Contains(CurrentTag)) return;
-                tag = CurrentTag;
                 NotTags.Add(tag);
                 RemoveIfExist(tag, AndTags);
                 RemoveIfExist(tag, OrTags);
@@ -105,7 +108,10 @@ public class TagInputSearchViewModel: ViewModelBase
         var tag = CurrentTag;
         foreach (var list in new []{AndTags, OrTags, NotTags})
         {
-            list.Remove(tag);
+            var i = list.IndexOf(tag);
+            if (i == -1) continue;
+            list.RemoveAt(i);
+            return;
         }
     }
     public List<Url> Search()
@@ -118,5 +124,12 @@ public class TagInputSearchViewModel: ViewModelBase
             OrTags = OrTags,
             NotTags = NotTags
         });
+    }
+
+    public void ClearAll()
+    {
+        AndTags.Clear();
+        OrTags.Clear();
+        NotTags.Clear();
     }
 }

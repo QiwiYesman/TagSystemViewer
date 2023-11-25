@@ -1,11 +1,7 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:models="clr-namespace:TagSystemViewer.Models"
-        xmlns:controls1="clr-namespace:TagSystemViewer.Controls">
-    <Design.PreviewWith>
-        <controls1:WrapListBox ItemsSource="123" SelectedItem="2"/>
-    </Design.PreviewWith>
-
+        xmlns:controls1="clr-namespace:TagSystemViewer.Views.Controls">
     <Style Selector="controls1|WrapListBox">
         <!-- Set Defaults -->
         <Setter Property="Template">

@@ -30,7 +30,6 @@
 
 
     <ItemGroup>
-      <Folder Include="Assets\Images\" />
       <Folder Include="Database\" />
     </ItemGroup>
 
@@ -48,5 +47,19 @@
         <DependentUpon>TagsInputSearch.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Reference Include="AvaloniaGif">
+        <HintPath>..\..\Avalonia.GIF\AvaloniaGif\bin\Release\netstandard2.1\AvaloniaGif.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <AdditionalFiles Include="Views\Controls\TagGrid.axaml" />
+      <AdditionalFiles Include="Views\Controls\TagsInputSearch.axaml" />
+      <AdditionalFiles Include="Views\Controls\WrapListBox.axaml" />
     </ItemGroup>
 </Project>

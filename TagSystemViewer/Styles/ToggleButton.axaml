@@ -1,0 +1,24 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <ToggleButton Content="12345" ToolTip.Tip="HOHO"/>
+    </Design.PreviewWith>
+    <Style Selector="ToggleButton">
+        <Setter Property="CornerRadius" Value="0"/>
+        <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}"/>
+        <Setter Property="Foreground" Value="{StaticResource DefaultDarkBrush}"/>
+        <Style Selector="^:checked">
+            <Style Selector="^ /template/ ContentPresenter">
+                <Setter Property="Background" Value="{StaticResource AcceptBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource DefaultDarkBrush}"/>
+            </Style>    
+        </Style>
+        <Style Selector="^:unchecked">
+            <Style Selector="^ /template/ ContentPresenter">
+                <Setter Property="Background" Value="{StaticResource CancelBrush}"/>
+            </Style>
+        </Style>
+        
+    </Style>
+    
+</Styles>

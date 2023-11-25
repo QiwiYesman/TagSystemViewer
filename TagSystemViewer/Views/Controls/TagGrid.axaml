@@ -1,21 +1,19 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:models="clr-namespace:TagSystemViewer.Models"
-        xmlns:controls="clr-namespace:TagSystemViewer.Controls">
+        xmlns:controls1="clr-namespace:TagSystemViewer.Views.Controls">
     <Design.PreviewWith>
-        <controls:TagGrid ItemsSource="123" Height="200"/>
+        <controls1:TagGrid ItemsSource="123" Height="200"/>
     </Design.PreviewWith>
 
-    <Style Selector="controls|TagGrid">
-        <!-- Set Defaults -->
+    <Style Selector="controls1|TagGrid">
         <Setter Property="Template">
             <ControlTemplate>
-                <DockPanel>
+                <DockPanel Name="Header">
                     <TextBlock DockPanel.Dock="Top" 
                         Text="{TemplateBinding Text}" 
                                HorizontalAlignment="Center"/>
-                    <Grid DockPanel.Dock="Top" 
-                        ColumnDefinitions="1*,4*">
+                    <Grid DockPanel.Dock="Top" ColumnDefinitions="1*,4*">
                         <TextBlock Grid.Column="0" Text="Id"/>
                         <TextBlock Grid.Column="1" Text="Name"/>
                     </Grid>
@@ -29,7 +27,8 @@
                             </AutoCompleteBox.ItemTemplate>
                         </AutoCompleteBox>
                         <Button Classes="Exclude"
-                                Command="{TemplateBinding Command}"/>
+                                Command="{TemplateBinding Command}"
+                                ToolTip.Tip="{StaticResource ExcludeTip}"/>
                     </StackPanel>
                     <ListBox ItemsSource="{TemplateBinding ItemsSource}"
                              SelectedItem="{TemplateBinding SelectedItem, Mode=TwoWay}"

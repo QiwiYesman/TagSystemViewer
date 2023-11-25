@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace TagSystemViewer.Controls;
+namespace TagSystemViewer.Views.Controls;
 
 public partial class TagsInputSearch : UserControl
 {

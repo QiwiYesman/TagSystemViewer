@@ -78,7 +78,7 @@ public class TagEditorViewModel : ViewModelBase
     {
         if (CurrentUpdateTag is null) return;
         string name = _history[CurrentUpdateTag.Id];
-        if (InList(name)) return;
+        if (InTagList(name)) return;
         Tags.Add(new Tag{Id=CurrentUpdateTag.Id, Name = name});
         _history.Remove(CurrentUpdateTag.Id);
         Tags.Remove(CurrentUpdateTag);
@@ -94,18 +94,17 @@ public class TagEditorViewModel : ViewModelBase
 
     public void ExcludeRemoves()
     {
-        if (CurrentRemoveTag is null || InList(CurrentRemoveTag.Name)) return;
+        if (CurrentRemoveTag is null || InTagList(CurrentRemoveTag.Name)) return;
         Tags.Add(CurrentRemoveTag);
         TagsToRemove.Remove(CurrentRemoveTag);
         
     }
 
-    bool InList(string name) 
-        => Tags.Any(tag => tag.Name == name);
+    private bool InTagList(string name) => Tags.Any(tag => tag.Name == name);
     
     public void AddCurrentToAdds()
     {
-        if (string.IsNullOrEmpty(NewName) || InList(NewName)) return;
+        if (string.IsNullOrEmpty(NewName) || InTagList(NewName)) return;
         var newTag = new Tag{ Id = 0, Name = NewName };
         TagsToAdd.Add(newTag);
         Tags.Add(newTag);
@@ -113,16 +112,23 @@ public class TagEditorViewModel : ViewModelBase
     public void AddCurrentToUpdates()
     {
         if (string.IsNullOrEmpty(NewName) || CurrentTag is null ||
-            CurrentTag.Id==0 || InList(NewName)) return;
-        var newTag = new Tag { Id = CurrentTag.Id, Name = NewName };
-        _history[CurrentTag.Id] = CurrentTag.Name;
-        Tags.Remove(CurrentTag);
+            CurrentTag.Id==0 || InTagList(NewName)) return;
+        var tag = CurrentTag;
+        var newTag = new Tag { Id = tag.Id, Name = NewName };
+        bool contains = false;
         for (int i = 0; i < TagsToUpdate.Count; i++)
         {
             if (TagsToUpdate[i].Id != newTag.Id) continue;
             TagsToUpdate.RemoveAt(i);
-            return;
+            contains = true;
         }
+
+        if (!contains)
+        {
+            _history[tag.Id] = tag.Name;
+        }
+
+        Tags.Remove(tag);
 
         TagsToUpdate.Add(newTag);
         Tags.Add(newTag);

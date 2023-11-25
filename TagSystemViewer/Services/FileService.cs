@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Avalonia.Controls;
@@ -36,6 +37,14 @@ public class FileService
             }
         );
         return folders.Count > 0 ? folders[0] : null;
+    }
+
+    public async Task RemoveFile(string filePath)
+    {
+        var uri = new Uri(filePath);
+        var file = await _window.StorageProvider.TryGetFileFromPathAsync(uri);
+        if (file is null) return;
+        await file.DeleteAsync();
     }
 
     public async Task<IStorageFile?> SaveFileDialog() =>

@@ -5,10 +5,45 @@
       <map>
         <entry key="App.axaml" value="TagSystemViewer.csproj" />
         <entry key="Controls/TagGrid.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Controls/TagsInputSearch.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Controls/WrapListBox.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Resources/Brushes.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Resources/Brushes/BackgroundBrushes.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Resources/Brushes/Brushes.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Resources/Brushes/DarkTheme.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Resources/Brushes/ForegroundBrushes.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Resources/Converters.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Resources/FileThumbnailsResource.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Resources/Fonts/Fonts.axaml" value="TagSystemViewer.csproj" />
         <entry key="Resources/Fonts/IcoMoon.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Resources/Hotkeys.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Resources/Hotkeys/DefaultHotkeys.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Resources/Hotkeys/Hotkeys.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Resources/Icons.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Resources/IntValues.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Resources/ToolTips.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/AllFoundUrlsStyle.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/AutocompleteStyle.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/ButtonStyle.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/DefaultStyle.axaml" value="TagSystemViewer.csproj" />
         <entry key="Styles/IcoMoonStyle.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/IconStyle.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/IncludeResources.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/ListboxStyle.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/RadioButtonStyle.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/SplitterStyle.axaml" value="TagSystemViewer.csproj" />
         <entry key="Styles/Styles.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/TagGridStyle.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/TagsSearchStyle.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/TextBoxStyle.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/TextblockStyle.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/ToggleButton.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Styles/ToolTipStyle.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Views/Controls/TagGrid.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Views/Controls/TagsInputSearch.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Views/Controls/WrapListBox.axaml" value="TagSystemViewer.csproj" />
         <entry key="Views/DatabaseConfigEditor.axaml" value="TagSystemViewer.csproj" />
+        <entry key="Views/HotkeyEditor.axaml" value="TagSystemViewer.csproj" />
         <entry key="Views/TagGridEditor.axaml" value="TagSystemViewer.csproj" />
         <entry key="Views/URLGridEditor.axaml" value="TagSystemViewer.csproj" />
         <entry key="Views/UrlViewer.axaml" value="TagSystemViewer.csproj" />

@@ -2,14 +2,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="TagSystemViewer.App"
              xmlns:local="using:TagSystemViewer"
-             xmlns:converters="clr-namespace:TagSystemViewer.Converters"
              RequestedThemeVariant="Default">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
      <Application.Resources>
          <ResourceDictionary>
-             <converters:BoolEnumConvertor x:Key="BoolEnumConvertor" />
-             <converters:TagsToThumbnailsConverter x:Key="ThumbnailConverter" />
+             <ResourceDictionary.MergedDictionaries>
+                 <ResourceInclude Source="/Resources/Converters.axaml"/>
+                 <ResourceInclude Source="/Resources/Hotkeys.axaml"/>
+                 <ResourceInclude Source="/Resources/IntValues.axaml"/>
+                 <ResourceInclude Source="/Resources/Brushes.axaml"/>
+                 <ResourceInclude Source="/Resources/ToolTips.axaml"/>
+             </ResourceDictionary.MergedDictionaries>
          </ResourceDictionary>
      </Application.Resources>
     <Application.DataTemplates>
@@ -19,8 +23,8 @@
     <Application.Styles>
         <FluentTheme />
         <StyleInclude Source="avares://AsyncImageLoader.Avalonia/AdvancedImage.axaml" />
-        <StyleInclude Source="/Controls/WrapListBox.axaml"/>
-        <StyleInclude Source="/Controls/TagGrid.axaml"/>
+        <StyleInclude Source="/Views/Controls/WrapListBox.axaml"/>
+        <StyleInclude Source="/Views/Controls/TagGrid.axaml"/>
         <StyleInclude Source="/Styles/Styles.axaml"/>
         
     </Application.Styles>

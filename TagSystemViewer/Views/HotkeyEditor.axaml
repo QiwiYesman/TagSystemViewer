@@ -1,0 +1,73 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:TagSystemViewer.ViewModels"
+        xmlns:observables="clr-namespace:TagSystemViewer.ViewModels.Observables"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TagSystemViewer.Views.HotkeyEditor"
+        Icon="/Assets/Icons/hotkey_editor.ico"
+        Title="HotkeyEditor"
+        KeyDown="OnKeyDown">
+    <Design.DataContext>
+        <viewModels:HotkeyEditorViewModel/>
+    </Design.DataContext>
+    <DockPanel>
+        <DockPanel LastChildFill="False" DockPanel.Dock="Top">
+            <WrapPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Top">
+                <TextBox Name="KeyGesturesText" 
+                         Text="{Binding KeysString, Mode=TwoWay}"
+                         IsReadOnly="True"
+                         IsEnabled="{Binding IsEditing}"/>
+                <ToggleButton Content="To read" IsChecked="{Binding IsEditing}"
+                              ToolTip.Tip="{StaticResource ToReadKeysTip}"/>
+                <Button Classes="Update" 
+                        Command="{Binding UpdateCurrentHotkey}"
+                        ToolTip.Tip="{StaticResource ChangeKeyGestureTip}"/>
+                <ToggleButton Content="Ctrl" IsChecked="{Binding IsCtrl}"
+                              ToolTip.Tip="{StaticResource ToCtrlKeyTip}"/>
+                <ToggleButton Content="Shift" IsChecked="{Binding  IsShift}"
+                              ToolTip.Tip="{StaticResource ToShiftKeyTip}"/>
+                <ToggleButton Content="Alt" IsChecked="{Binding IsAlt}"
+                              ToolTip.Tip="{StaticResource ToAltKeyTip}"/>
+            </WrapPanel>
+            <WrapPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Top">
+               <TextBox Text="{Binding NewName}"/>
+               <Button Classes="Add" Command="{Binding AddNewMap}"
+                       ToolTip.Tip="{StaticResource  AddKeyMapTip}" />
+               <Button Classes="Exclude" Command="{Binding RemoveCurrentMap}"
+                       ToolTip.Tip="{StaticResource ExcludeKeyMapTip}"/>
+               <Button Classes="Update" Command="{Binding UpdateCurrentMap}"
+                       ToolTip.Tip="{StaticResource ChangeKeyMapNameTip}"/>
+            </WrapPanel>
+        </DockPanel>
+        <WrapPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Classes="Refresh" Command="{Binding Read}"
+                    ToolTip.Tip="{StaticResource RefreshViewFromFileTip}"/>
+            <Button Classes="Cancel" Command="{Binding $parent[Window].Close}"
+                    ToolTip.Tip="{StaticResource ExitWithoutChangesTip}"
+                    />
+            <Button Classes="Confirm" Command="{Binding Confirm}"
+                    ToolTip.Tip="{StaticResource ConfirmTip}"/>
+        </WrapPanel>
+        <Grid ColumnDefinitions="2*,1,8*">
+            <ListBox Grid.Column="0"
+                     ItemsSource="{Binding ConfigNames, Mode=TwoWay}"
+                     SelectedItem="{Binding CurrentConfigName, Mode=TwoWay}"
+                     />
+            <GridSplitter Grid.Column="1" ResizeDirection="Columns"/>
+            <ListBox Grid.Column="2"
+                     ItemsSource="{Binding CurrentHotkeys, Mode=TwoWay}"
+                     SelectedItem="{Binding CurrentHotkey, Mode=TwoWay}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="observables:ObservableHotkeyName">
+                        <Grid ColumnDefinitions="7*, 3*">
+                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Keys}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </DockPanel>
+</Window>

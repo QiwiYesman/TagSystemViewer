@@ -7,19 +7,17 @@
             <Button Classes="Refresh"/>
             <Button Classes="Launch"/>
             <Button Classes="OpenFolder"/>
-            <Button Classes="Browse"/>
+            <Button Classes="BrowseFolder"/>
             <Button Classes="Confirm"/>
             <Button Classes="Cancel"/>
-            <Button Classes="Copy"/>
+            <Button Classes="CopyPath"/>
             <Button Classes="Search"/>
             <Button Classes="ManageTags"/>
             <Button Classes="ManageUrls"/>
             <Button Classes="Update"/>
             <Button Classes="ForceUpdate"/>
             <Button Classes="CancelMark"/>
-            
         </UniformGrid>
-            
     </Design.PreviewWith>
     
     <Styles.Resources>
@@ -31,10 +29,10 @@
     </Styles.Resources>
     <Style Selector="Button">
         <Style Selector="^.Add, ^.Exclude, ^.Confirm, ^.Search, ^.Update, ^.ForceUpdate,
-         ^.Refresh, ^.Launch, ^.OpenFolder, ^.Browse, ^.Confirm, ^.Cancel, ^.Copy,
-               ^.CancelMark, ^.ManageTags, ^.ManageUrls">
+         ^.Refresh, ^.Launch, ^.OpenFolder, ^.BrowseFolder, ^.Cancel, ^.CancelMark, 
+          ^.ManageTags, ^.ManageUrls, ^.ManageDatabase, ^.AddDatabase, ^.RemoveDatabase, 
+          ^.AdvancedUrl, ^.Exit, ^.CopyContent, ^.CopyPath, ^.Erase, ^.Play, ^.Pause, ^.ManageHotkeys">
             <Setter Property="FontFamily" Value="{StaticResource IcoMoonFont}"/>
-            <Setter Property="FontSize" Value="24"/>
             <Setter Property="Width" Value="{Binding $self.Height}"/>
         </Style>
         
@@ -54,7 +52,7 @@
     <Style Selector="Button.OpenFolder">
         <Setter Property="Content" Value="{StaticResource IcoMoonOpenFolder}"/>
     </Style>
-    <Style Selector="Button.Browse">
+    <Style Selector="Button.BrowseFolder">
         <Setter Property="Content" Value="{StaticResource IcoMoonBrowseFolder}"/>
     </Style>
     <Style Selector="Button.Confirm">
@@ -63,8 +61,11 @@
     <Style Selector="Button.Cancel">
         <Setter Property="Content" Value="{StaticResource IcoMoonCancel}"/>
     </Style>
-    <Style Selector="Button.Copy">
-        <Setter Property="Content" Value="{StaticResource IcoMoonCopy}"/>
+    <Style Selector="Button.CopyPath">
+        <Setter Property="Content" Value="{StaticResource IcoMoonCopyPath}"/>
+    </Style>
+    <Style Selector="Button.CopyContent">
+        <Setter Property="Content" Value="{StaticResource IcoMoonCopyContent}"/>
     </Style>
     <Style Selector="Button.Search">
         <Setter Property="Content" Value="{StaticResource IcoMoonSearch}"/>
@@ -83,5 +84,61 @@
     </Style>
     <Style Selector="Button.CancelMark">
         <Setter Property="Content" Value="{StaticResource IcoMoonCancelMark}"/>
+    </Style>
+    <Style Selector="Button.ManageDatabase">
+        <Setter Property="Content" Value="{StaticResource IcoMoonManageDatabase}"/>
+    </Style>
+    <Style Selector="Button.AddDatabase">
+        <Setter Property="Content" Value="{StaticResource IcoMoonAddDatabase}"/>
+    </Style>
+    <Style Selector="Button.RemoveDatabase">
+        <Setter Property="Content" Value="{StaticResource IcoMoonRemoveDatabase}"/>
+    </Style>
+    <Style Selector="Button.Exit">
+        <Setter Property="Content" Value="{StaticResource IcoMoonExit}"/>
+    </Style>
+    <Style Selector="Button.AdvancedUrl">
+        <Setter Property="Content" Value="{StaticResource IcoMoonAdvancedUrls}"/>
+    </Style>
+    <Style Selector="Button.Erase">
+        <Setter Property="Content" Value="{StaticResource IcoMoonClear}"/>
+    </Style>
+    <Style Selector="Button.ManageHotkeys">
+        <Setter Property="Content" Value="{StaticResource IcoMoonManageHotkeys}"/>
+    </Style>
+    
+    
+    <Style Selector="TextBlock">
+        <Style Selector="^.Add, ^.Exclude, ^.Update">
+            <Setter Property="FontFamily" Value="{StaticResource IcoMoonFont}"/>
+        </Style>
+        <Style Selector="^.Add">
+            <Setter Property="Text" Value="{StaticResource IcoMoonAdd}"/>
+        </Style>
+        <Style Selector="^.Exclude">
+            <Setter Property="Text" Value="{StaticResource IcoMoonExclude}"/>
+        </Style>
+        <Style Selector="^.Update">
+            <Setter Property="Text" Value="{StaticResource IcoMoonUpdate}"/>
+        </Style>
+    </Style>
+    
+    <Style Selector="ToggleButton">
+        <Style Selector="^.Show, ^.Hide, ^.Pause, ^.Play">
+            <Setter Property="FontFamily" Value="{StaticResource IcoMoonFont}"/>
+            <Setter Property="FontSize" Value="{StaticResource LargeFontSize}"/>
+        </Style>
+        <Style Selector="^.Play">
+            <Setter Property="Content" Value="{StaticResource IcoMoonPlay}"/>
+        </Style>
+        <Style Selector="^.Pause">
+            <Setter Property="Content" Value="{StaticResource IcoMoonPause}"/>
+        </Style>
+        <Style Selector="^.Show">
+            <Setter Property="Content" Value="{StaticResource IcoMoonShowDown}"/>
+        </Style>
+        <Style Selector="^.Hide">
+            <Setter Property="Content" Value="{StaticResource IcoMoonHideUp}"/>
+        </Style>
     </Style>
 </Styles>

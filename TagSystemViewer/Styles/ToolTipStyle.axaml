@@ -1,0 +1,15 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style Selector="ToolTip">
+        <Setter Property="Background" Value="{StaticResource DefaultDarkBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource LaunchBrush}"/>
+        <Style Selector="^ TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource LaunchBrush}"/>
+        </Style>
+    </Style>
+    <Style Selector=":pointerover ToolTip TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource LaunchBrush}"/>
+    </Style>
+</Styles>

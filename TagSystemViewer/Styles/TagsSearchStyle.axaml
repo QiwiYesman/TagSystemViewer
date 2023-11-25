@@ -1,0 +1,81 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:TagSystemViewer.Views.Controls">
+
+    <Style Selector="controls|WrapListBox">
+        <Style Selector="^.AndTags">
+            <Style Selector="^ /template/ ListBox">
+                <Setter Property="Background" Value="{StaticResource AcceptPressBrush}"/>
+                <Style Selector="^ TextBlock">
+                    <Setter Property="Foreground" Value="{StaticResource DefaultTextBrush}"/>                    
+                </Style>
+                <Style Selector="^ ListBoxItem:pointerover">
+                    <Style Selector="^ /template/ ContentPresenter">
+                        <Setter Property="Background" Value="{StaticResource AcceptBrush}"/>
+                    </Style>
+                    <Style Selector="^ TextBlock">
+                        <Setter Property="Foreground" Value="{StaticResource DefaultDarkBrush}"/>
+                    </Style>
+                </Style>
+                <Style Selector="^ ListBoxItem:selected">
+                    <Style Selector="^ /template/ ContentPresenter">
+                        <Setter Property="Background" Value="{StaticResource DefaultTextBrush}"/>
+                    </Style>
+                    <Style Selector="^ TextBlock">
+                        <Setter Property="Foreground" Value="{StaticResource DefaultDarkBrush}"/>
+                    </Style>
+                </Style>
+            </Style>
+        </Style>
+        
+        <Style Selector="^.OrTags">
+            <Style Selector="^ /template/ ListBox">
+                <Setter Property="Background" Value="{StaticResource NeutralBrush}"/>
+                <Style Selector="^ TextBlock">
+                    <Setter Property="Foreground" Value="{StaticResource DefaultTextBrush}"/>                    
+                </Style>
+                <Style Selector="^ ListBoxItem:pointerover">
+                    <Style Selector="^ /template/ ContentPresenter">
+                        <Setter Property="Background" Value="{StaticResource AcceptBrush}"/>
+                    </Style>
+                    <Style Selector="^ TextBlock">
+                        <Setter Property="Foreground" Value="{StaticResource DefaultDarkBrush}"/>
+                    </Style>
+                </Style>
+                <Style Selector="^ ListBoxItem:selected">
+                    <Style Selector="^ /template/ ContentPresenter">
+                        <Setter Property="Background" Value="{StaticResource DefaultTextBrush}"/>
+                    </Style>
+                    <Style Selector="^ TextBlock">
+                        <Setter Property="Foreground" Value="{StaticResource DefaultDarkBrush}"/>
+                    </Style>
+                </Style>
+            </Style>
+        </Style>
+        
+        <Style Selector="^.NotTags">
+            <Style Selector="^ /template/ ListBox">
+                <Setter Property="Background" Value="{StaticResource CancelBrush}"/>
+                <Style Selector="^ TextBlock">
+                    <Setter Property="Foreground" Value="{StaticResource DefaultDarkBrush}"/>                    
+                </Style>
+                <Style Selector="^ ListBoxItem:pointerover">
+                    <Style Selector="^ /template/ ContentPresenter">
+                        <Setter Property="Background" Value="{StaticResource AcceptBrush}"/>
+                    </Style>
+                    <Style Selector="^ TextBlock">
+                        <Setter Property="Foreground" Value="{StaticResource DefaultDarkBrush}"/>
+                    </Style>
+                </Style>
+                <Style Selector="^ ListBoxItem:selected">
+                    <Style Selector="^ /template/ ContentPresenter">
+                        <Setter Property="Background" Value="{StaticResource DefaultTextBrush}"/>
+                    </Style>
+                    <Style Selector="^ TextBlock">
+                        <Setter Property="Foreground" Value="{StaticResource DefaultDarkBrush}"/>
+                    </Style>
+                </Style>
+            </Style>
+        </Style>
+    </Style>
+</Styles>

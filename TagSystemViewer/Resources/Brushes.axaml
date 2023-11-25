@@ -1,0 +1,40 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="ForegroundDefaultBrush">#1c1c1c</SolidColorBrush>
+    <SolidColorBrush x:Key="ForegroundButtonDefaultBrush">Cyan</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="ForegroundAcceptBrush">Lime</SolidColorBrush>
+    <SolidColorBrush x:Key="ForegroundAcceptPressBrush">Green</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="ForegroundCancelBrush">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="ForegroundCancelPressBrush">DarkRed</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="ForegroundNeutralBrush">DodgerBlue</SolidColorBrush>
+    <SolidColorBrush x:Key="ForegroundNeutralPressBrush">Blue</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="ForegroundLaunchBrush">Orange</SolidColorBrush>
+    <SolidColorBrush x:Key="ForegroundLaunchPressBrush">Yellow</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="DefaultBackgroundBrush">#1c1c1c</SolidColorBrush>
+    <SolidColorBrush x:Key="DefaultBackgroundLighterBrush">#2b2b2b</SolidColorBrush>
+    <SolidColorBrush x:Key="DefaultBackgroundLightBrush">#454545</SolidColorBrush>
+    <SolidColorBrush x:Key="DefaultDarkBrush">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="DefaultTextBrush">Cyan</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="CancelBrush">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="CancelPressBrush">DarkRed</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="AcceptBrush">Lime</SolidColorBrush>
+    <SolidColorBrush x:Key="AcceptPressBrush">Green</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="NeutralBrush">DodgerBlue</SolidColorBrush>
+    <SolidColorBrush x:Key="NeutralPressBrush">Blue</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="LaunchBrush">Orange</SolidColorBrush>
+    <SolidColorBrush x:Key="LaunchPressBrush">Yellow</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="ForegroundSelectedTagBrush"></SolidColorBrush>
+    <SolidColorBrush x:Key="ForegroundSelectedItemBrush"></SolidColorBrush>
+    <SolidColorBrush x:Key=""></SolidColorBrush>
+
+</ResourceDictionary>

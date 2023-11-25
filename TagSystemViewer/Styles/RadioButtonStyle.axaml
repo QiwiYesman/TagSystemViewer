@@ -1,0 +1,17 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style Selector="RadioButton">
+        <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}"/>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ToggleButton Content="{TemplateBinding Content}"
+                        Foreground="{TemplateBinding Foreground}"
+                        Background="{TemplateBinding Background}"
+                        FontSize="{TemplateBinding FontSize}"
+                        IsChecked="{TemplateBinding IsChecked, Mode=TwoWay}"
+                />        
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

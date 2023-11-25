@@ -4,52 +4,103 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:models="clr-namespace:TagSystemViewer.Models"
         xmlns:viewModels="clr-namespace:TagSystemViewer.ViewModels"
-        xmlns:controls="clr-namespace:TagSystemViewer.Controls"
-        xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+        xmlns:controls1="clr-namespace:TagSystemViewer.Views.Controls"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="TagSystemViewer.Views.UrlViewer"
-        Title="UrlViewer">
+        Icon="/Assets/Icons/url_viewer.ico"
+        Title="Пошук і перегляд посилань">
         <Design.DataContext>
                 <viewModels:UrlViewerViewModel/>
         </Design.DataContext>
         <DockPanel>
-                <Grid ColumnDefinitions="7*, 3*" DockPanel.Dock="Top">
-                        <controls:TagsInputSearch Grid.Column="0" 
-                                               DataContext="{Binding UrlSearchViewModel}"/>
-                        <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                <Button Classes="Search" Command="{Binding SearchUrls}"/>
-                                <Button Classes="ManageTags" Click="OpenTagWindow"/>
-                                <Button Classes="ManageUrls" Click="OpenUrlWindow"/>
-                                <Button Content="ManageDatabase" Click="OpenDatabaseWindow"/>
-                        </StackPanel>
-                </Grid>
-                <TextBox Name="ColumnText" Text="4" Watermark="Кількість стовпців" DockPanel.Dock="Top"/>
-                <ListBox ItemsSource="{Binding FoundUrls}">
+                <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
+                        <WrapPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                <Button Classes="ManageTags" Click="OpenTagWindow"
+                                        ToolTip.Tip="{StaticResource TagEditTip}"
+                                        HotKey="{DynamicResource OpenTagsHotkey}"
+                                />
+                                <Button Classes="ManageUrls" Click="OpenUrlWindow"
+                                        ToolTip.Tip="{StaticResource UrlEditTip}"
+                                        HotKey="{DynamicResource OpenUrlsHotkey}"
+                                />
+                                <Button Classes="ManageDatabase" Click="OpenDatabaseWindow"
+                                        ToolTip.Tip="{StaticResource DatabaseEditTip}"
+                                        HotKey="{DynamicResource OpenDatabasesHotkey}"
+                                />
+                                <Button Classes="ManageHotkeys" Click="OpenHotkeyWindow"
+                                        ToolTip.Tip="{StaticResource HotkeyEditTip}"
+                                        HotKey="{DynamicResource OpenHotkeysHotkey}"
+                                />
+                                <Button Classes="Exit" Command="{Binding $parent[Window].Close}"
+                                        ToolTip.Tip="{StaticResource ExitTip}"
+                                        HotKey="{DynamicResource ExitHotkey}"
+                                />
+                               
+                        </WrapPanel>
+                        <WrapPanel DockPanel.Dock="Left" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                <Button Classes="Search" Command="{Binding SearchUrls}"
+                                        ToolTip.Tip="{StaticResource SearchTip}"
+                                        HotKey="{DynamicResource SearchHotkey}"
+                                />
+                                <Button Classes="Refresh" Command="{Binding RefreshTags}"
+                                        ToolTip.Tip="{StaticResource RefreshViewTip}"
+                                        HotKey="{DynamicResource RefreshHotkey}"
+                                />
+                                <ToggleButton Classes.Play="{Binding $self.IsChecked}"
+                                              Classes.Pause="{Binding !$self.IsChecked}"
+                                              IsChecked="{Binding ToPlayGifs, Mode=TwoWay}"
+                                        ToolTip.Tip="{StaticResource ToPlayContentTip}"
+                                        HotKey="{DynamicResource ToPlayPauseHotkey}"
+                                />
+                                <TextBox Name="ColumnText" Text="4" 
+                                         ToolTip.Tip="{StaticResource ColumnAmountTip}"/>
+                               
+                        </WrapPanel>
+                </DockPanel>
+                
+                <controls1:TagsInputSearch DockPanel.Dock="Top"
+                                          DataContext="{Binding UrlSearchViewModel}"/>
+               
+                <ListBox Name="AllUrls" ItemsSource="{Binding FoundUrls}">
                         <ListBox.ItemTemplate>
                                 <DataTemplate DataType="models:Url">
-                                        <WrapPanel Orientation="Horizontal" Margin="0">
-                                                <asyncImageLoader:AdvancedImage Source="{Binding .,
-                                                         Converter={StaticResource ThumbnailConverter}}"
-                                                        Name="Image"
-                                                        Width="200" Height="200"/>
-                                                <Button Content="Copy path" 
-                                                        Command="{Binding $parent[ListBox].DataContext.CopyPath}" 
-                                                        CommandParameter="{Binding Link}"/>
-                                                <Button Content="Copy content"
-                                                        Command="{Binding $parent[ListBox].DataContext.CopyFile}"
-                                                        CommandParameter="{Binding Link}"/>
-                                                <Button Content="Open folder"
-                                                        Command="{Binding $parent[ListBox].DataContext.OpenFolder}"
-                                                        CommandParameter="{Binding Link}"/>
-                                                <Button Content="Open file" 
-                                                        Command="{Binding $parent[ListBox].DataContext.OpenFile}"
-                                                        CommandParameter="{Binding Link}"/>
-                                        </WrapPanel>
+                                        <DockPanel>
+                                                <WrapPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+                                                        <Button Classes="CopyPath" 
+                                                                Command="{Binding $parent[ListBox].DataContext.CopyPath}" 
+                                                                CommandParameter="{Binding Link}"
+                                                                ToolTip.Tip="{StaticResource CopyPathTip}"
+                                                                />
+                                                        <Button Classes="CopyContent"
+                                                                Command="{Binding $parent[ListBox].DataContext.CopyFile}"
+                                                                CommandParameter="{Binding Link}"
+                                                                ToolTip.Tip="{StaticResource CopyContentTip}"
+                                                                />
+                                                        <Button Classes="OpenFolder"
+                                                                Command="{Binding $parent[ListBox].DataContext.OpenFolder}"
+                                                                CommandParameter="{Binding Link}"
+                                                                ToolTip.Tip="{StaticResource OpenFolderWithFileTip}"
+                                                                />
+                                                        <Button Classes="Launch"
+                                                                Command="{Binding $parent[ListBox].DataContext.OpenFile}"
+                                                                CommandParameter="{Binding Link}"
+                                                                ToolTip.Tip="{StaticResource LaunchFileTip}"
+                                                                />
+                                                </WrapPanel>
+                                                <TextBox Text="{Binding Link, Mode=OneWay, Converter={StaticResource UrlToShortNameConverter}}"
+                                                         IsReadOnly="True" DockPanel.Dock="Bottom"/>
+                                                <Viewbox>
+                                                        <controls1:UniImageControl Source="{Binding Link}"
+                                                                ContentType="{Binding Tags, 
+                                                                Converter={StaticResource TagsToFileExtensionConverter}}"
+                                                                ToPlay="{Binding  $parent[Window].DataContext.ToPlayGifs, Mode=TwoWay}"/>
+                                                </Viewbox>
+                                        </DockPanel>
                                 </DataTemplate>
                         </ListBox.ItemTemplate>
                         <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                        <UniformGrid Columns="{Binding #ColumnText.Text}" Margin="0"/>
+                                        <UniformGrid Columns="{Binding #ColumnText.Text}"/>
                                 </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
                 </ListBox>

@@ -1,0 +1,13 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls1="clr-namespace:TagSystemViewer.Views.Controls">
+
+    <Style Selector="controls1|TagGrid">
+        <Style Selector="^ /template/ DockPanel#Header > TextBlock,
+         ^ /template/ DockPanel#Header > Grid > TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource LaunchBrush}"/>
+        </Style>    
+        <Setter Property="Margin" Value="5"/>  
+    </Style>
+    
+</Styles>

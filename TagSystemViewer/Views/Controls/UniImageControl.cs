@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using AsyncImageLoader;
 using Avalonia;
 using Avalonia.Controls;
@@ -87,6 +88,7 @@ public class UniImageControl: UserControl
     
     public void UpdateContent()
     {
+        if (Source is null) return ;
         try
         {
             switch (ContentType)
@@ -95,13 +97,10 @@ public class UniImageControl: UserControl
                     Content = GetGifImage();
                     break;
                 case FileExtensions.Image:
-                    Content = new AdvancedImage((Uri?)null){Source = Source?.AbsoluteUri};
+                    Content = new AdvancedImage((Uri?)null) { Source = Source.OriginalString };
                     break;
                 default:
-                    Content = new Image()
-                    {
-                        Source = new Bitmap(ExtensionToAsset.OpenThumbnail(ContentType))
-                    };
+                    Content = new AdvancedImage((Uri?)null){Source=ExtensionToAsset.GetFileName(ContentType)};
                     break;
             }
         }

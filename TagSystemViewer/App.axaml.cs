@@ -39,10 +39,7 @@ public partial class App : Application
             var services = new ServiceCollection();
 
             services.AddSingleton<FileService>(x => new FileService(desktop.MainWindow));
-            services.AddSingleton<ClipboardService>(x => new ClipboardService(desktop.MainWindow)
-            {
-                ContentDataFormat = isWindows ? DataFormats.Files: "text/uri-list"
-            });
+            services.AddSingleton<ClipboardService>(x => new ClipboardService(desktop.MainWindow));
             
             Services = services.BuildServiceProvider();
             desktop.MainWindow.Loaded += (sender, args) =>

@@ -63,7 +63,7 @@ public class UrlViewerViewModel: ViewModelBase
         if (!Uri.TryCreate(path, UriKind.Absolute, out var uri)) return;
         var clipboard = App.Current?.Services?.GetService<ClipboardService>();
         if (clipboard is null) return;
-        await clipboard.SetFileAsync(uri.AbsolutePath);
+        await clipboard.SetFileAsync(uri.AbsoluteUri);
     }
     public void OpenFolder(object arg)
     {

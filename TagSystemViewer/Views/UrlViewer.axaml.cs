@@ -1,7 +1,5 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 using TagSystemViewer.ViewModels;
 
 namespace TagSystemViewer.Views;
@@ -21,7 +19,7 @@ public partial class UrlViewer : Window
 
     private void OpenUrlWindow(object? sender, RoutedEventArgs e)
     {
-        var window = new URLGridEditor();
+        var window = new UrlEditor();
         window.Show(this);
     }
 

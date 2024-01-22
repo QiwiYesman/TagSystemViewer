@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 
-namespace TagSystemViewer.Models;
+namespace TagSystemViewer.Utility;
 
 public static class FileProcess
 {
@@ -22,6 +22,20 @@ public static class FileProcess
         }
     }
 
+    public static bool MoveFile(string fromFileName, string toFileName)
+    {
+        if (!File.Exists(fromFileName)) return false;
+        try
+        {
+            File.Move(fromFileName, toFileName, true);
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return false;
+        }
+    }
     public static void StartFile(string fileName)
     {
         if (!File.Exists(fileName)) return;

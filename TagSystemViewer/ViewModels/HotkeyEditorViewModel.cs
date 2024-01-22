@@ -104,7 +104,7 @@ public class HotkeyEditorViewModel: ViewModelBase
         var app = App.Current;
         if (app is null || CurrentConfigName is null) return;
         Config.ActiveName = CurrentConfigName;
-        Config.Save(app.DefaultHotkeyPath);
+        Config.Save(App.DefaultHotkeyPath);
         app.ApplyHotkeys(Config.ActiveMap);
         Read();
     }
@@ -150,7 +150,7 @@ public class HotkeyEditorViewModel: ViewModelBase
         if (app is null) return;
         try
         {
-            Config.Read(app.DefaultHotkeyPath);
+            Config.Read(App.DefaultHotkeyPath);
         }
         catch (Exception e)
         {

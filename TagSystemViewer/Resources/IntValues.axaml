@@ -6,7 +6,7 @@
     <system:Double x:Key="ThinWidthDouble">1</system:Double>
     <system:Double x:Key="ThickWidthDouble">2</system:Double>
     
-    <system:Double x:Key="IconFontSize">24</system:Double>
+    <system:Double x:Key="IconFontSize">22</system:Double>
     <system:Double x:Key="DefaultFontSize">20</system:Double>
     <system:Double x:Key="LargeFontSize">30</system:Double>
     <CornerRadius x:Key="TextBoxCornerRadius">10</CornerRadius>

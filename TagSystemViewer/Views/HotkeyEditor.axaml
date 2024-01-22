@@ -6,7 +6,7 @@
         xmlns:observables="clr-namespace:TagSystemViewer.ViewModels.Observables"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="TagSystemViewer.Views.HotkeyEditor"
-        Icon="/Assets/Icons/hotkey_editor.ico"
+        Icon="/Assets/Icons/hotkey.ico"
         Title="HotkeyEditor"
         KeyDown="OnKeyDown">
     <Design.DataContext>

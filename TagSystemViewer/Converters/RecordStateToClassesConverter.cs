@@ -8,10 +8,6 @@ namespace TagSystemViewer.Converters;
 
 public class RecordStateToClassesConverter: IValueConverter
 {
-    public static Classes CreateClass(string name)
-    {
-        return new Classes(name);
-    }
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is RecordStates state)
@@ -21,6 +17,7 @@ public class RecordStateToClassesConverter: IValueConverter
                 RecordStates.Delete => new Classes("Exclude"),
                 RecordStates.Insert => new Classes("Add"),
                 RecordStates.Update => new Classes("Update"),
+                RecordStates.UpdateAndMove => new Classes("MoveFile"),
                 _ => new Classes()
             };
         }

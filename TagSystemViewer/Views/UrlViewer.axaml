@@ -3,15 +3,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:models="clr-namespace:TagSystemViewer.Models"
-        xmlns:viewModels="clr-namespace:TagSystemViewer.ViewModels"
         xmlns:controls1="clr-namespace:TagSystemViewer.Views.Controls"
+        xmlns:viewModels="clr-namespace:TagSystemViewer.ViewModels"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="TagSystemViewer.Views.UrlViewer"
-        Icon="/Assets/Icons/url_viewer.ico"
+        Icon="/Assets/Icons/main_icon.ico"
         Title="Пошук і перегляд посилань">
-        <Design.DataContext>
-                <viewModels:UrlViewerViewModel/>
-        </Design.DataContext>
+        <Design.DataContext><viewModels:UrlViewerViewModel/></Design.DataContext>
         <DockPanel>
                 <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
                         <WrapPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
@@ -89,8 +87,9 @@
                                                 </WrapPanel>
                                                 <TextBox Text="{Binding Link, Mode=OneWay, Converter={StaticResource UrlToShortNameConverter}}"
                                                          IsReadOnly="True" DockPanel.Dock="Bottom"/>
-                                                <Viewbox>
-                                                        <controls1:UniImageControl Source="{Binding Link}"
+                                                <Viewbox MaxHeight="150">
+                                                        <controls1:UniImageControl MaxHeight="150"
+                                                                Source="{Binding Link}"
                                                                 ContentType="{Binding Tags, 
                                                                 Converter={StaticResource TagsToFileExtensionConverter}}"
                                                                 ToPlay="{Binding  $parent[Window].DataContext.ToPlayGifs, Mode=TwoWay}"/>

@@ -72,4 +72,10 @@
     <KeyGesture x:Key="ToPlayPauseHotkey">
         ctrl+d
     </KeyGesture>
+    <KeyGesture x:Key="SaveBrowseFileHotkey">
+        ctrl+m
+    </KeyGesture>
+    <KeyGesture x:Key="MoveFileHotkey">
+        ctrl+shift+m
+    </KeyGesture>
 </ResourceDictionary>

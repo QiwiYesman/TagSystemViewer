@@ -7,16 +7,16 @@
         xmlns:enums="clr-namespace:TagSystemViewer.Enums"
         xmlns:controls="clr-namespace:TagSystemViewer.Views.Controls"
         xmlns:observables="clr-namespace:TagSystemViewer.ViewModels.Observables"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="TagSystemViewer.Views.URLGridEditor"
-        Icon="/Assets/Icons/url_editor.ico"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="550"
+        x:Class="TagSystemViewer.Views.UrlEditor"
+        Icon="/Assets/Icons/url.ico"
         Title="Редактор посилань">
     <Design.DataContext>
-        <viewModels:UrlGridEditorViewModel/>
+        <viewModels:UrlEditorViewModel/>
     </Design.DataContext>
     <DockPanel>
         <Grid ColumnDefinitions="8*, 2*" DockPanel.Dock="Bottom">
-            <WrapPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <WrapPanel DockPanel.Dock="Right" Name="ControlPanel" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Button Classes="Refresh" Command="{Binding ReadTags}"
                         ToolTip.Tip="{StaticResource RefreshViewTip}"
                         HotKey="{DynamicResource RefreshHotkey}"
@@ -30,22 +30,35 @@
                         HotKey="{DynamicResource ConfirmHotkey}"
                         />    
             </WrapPanel>
-            <StackPanel Grid.Column="0" Orientation="Vertical">
+            <StackPanel Name="BottomUrlPanel" Grid.Column="0" Orientation="Vertical">
                 <TextBox Text="{Binding NewName, Mode=TwoWay}"/>
-                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                    <Button Classes="BrowseFolder" Command="{Binding BrowseFile}"
-                            ToolTip.Tip="{StaticResource BrowseFileTip}"
-                            HotKey="{DynamicResource OpenFolderHotkey}"
-                    />
-                    <Button Classes="Add" Command="{Binding MarkInsertUrl}"
-                            ToolTip.Tip="{StaticResource AddUrlTip}"
-                            HotKey="{DynamicResource AddHotkey}"
-                    />
-                    <Button Classes="Update" Command="{Binding MarkUpdateUrl}"
-                            ToolTip.Tip="{StaticResource ChangeUrlNameTip}"
-                            HotKey="{DynamicResource UpdateHotkey}"
-                    />   
-                </WrapPanel>
+                <Grid ColumnDefinitions="7*, 3*">
+                    <WrapPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <Button Classes="BrowseFolder" Command="{Binding BrowseFile}"
+                                ToolTip.Tip="{StaticResource BrowseFileTip}"
+                                HotKey="{DynamicResource OpenFolderHotkey}"
+                        />
+                        <Button Classes="Add" Command="{Binding MarkInsertUrl}"
+                                ToolTip.Tip="{StaticResource AddUrlTip}"
+                                HotKey="{DynamicResource AddHotkey}"
+                        />
+                        <Button Classes="Update" Command="{Binding MarkUpdateUrl}"
+                                ToolTip.Tip="{StaticResource ChangeUrlNameTip}"
+                                HotKey="{DynamicResource UpdateHotkey}"
+                        />   
+                    </WrapPanel>
+                    <WrapPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+
+                        <Button Classes="SaveBrowseFile" Command="{Binding BrowseSaveFile}"
+                                ToolTip.Tip="{StaticResource BrowseSaveFileTip}"
+                                HotKey="{DynamicResource AddHotkey}"
+                        />
+                        <Button Classes="MoveFile" Command="{Binding MarkMoveUrl}"
+                                ToolTip.Tip="{StaticResource MoveFileTip}"
+                                HotKey="{DynamicResource UpdateHotkey}"
+                        />   
+                    </WrapPanel>
+                </Grid>
             </StackPanel>
         </Grid>
         <Grid ColumnDefinitions="6*, 1, 3*" RowDefinitions="8*, 2*">
@@ -64,7 +77,11 @@
                                                ConverterParameter={x:Static enums:RecordStates.Delete}, Mode=TwoWay}"
                                 Classes.Update="{Binding RecordStates,
                                                Converter={StaticResource BoolEnumConvertor},
-                                               ConverterParameter={x:Static enums:RecordStates.Update}, Mode=TwoWay}"/>
+                                               ConverterParameter={x:Static enums:RecordStates.Update}, Mode=TwoWay}"
+                                Classes.MoveFile="{Binding RecordStates,
+                                               Converter={StaticResource BoolEnumConvertor},
+                                               ConverterParameter={x:Static enums:RecordStates.UpdateAndMove}, Mode=TwoWay}"
+                                />
                             <TextBlock Text="{Binding CurrentLink}"/>
                         </DockPanel>
                     </DataTemplate>
@@ -76,7 +93,7 @@
                      SelectedItem="{Binding CurrentTag, Mode=TwoWay}"
                      />
             
-            <WrapPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
+            <StackPanel Name="EditTagPanel" Grid.Row="1" Grid.Column="2" Orientation="Vertical">
                 <AutoCompleteBox ItemsSource="{Binding Tags}" 
                                  SelectedItem="{Binding CurrentTag, Mode=TwoWay}">
                     <AutoCompleteBox.ItemTemplate>
@@ -85,20 +102,22 @@
                         </DataTemplate>
                     </AutoCompleteBox.ItemTemplate>
                 </AutoCompleteBox>
-                <Button Classes="Add" Command="{Binding AddTag}"
-                        ToolTip.Tip="{StaticResource ConnectTagTip}"
-                        HotKey="{DynamicResource AddSecondHotkey}"
-                        />
-                <Button Classes="Exclude" Command="{Binding RemoveTag}"
-                        ToolTip.Tip="{StaticResource DisconnectTagTip}"
-                        HotKey="{DynamicResource ExcludeSecondHotkey}"
-                        />
-                <Button Classes="ManageTags" Click="OpenTagWindow"
-                        ToolTip.Tip="{StaticResource TagEditTip}"
-                        HotKey="{DynamicResource OpenTagsHotkey}"
-                        />
-            </WrapPanel>
-            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+                <WrapPanel Orientation="Horizontal">
+                    <Button Classes="Add" Command="{Binding AddTag}"
+                            ToolTip.Tip="{StaticResource ConnectTagTip}"
+                            HotKey="{DynamicResource AddSecondHotkey}"
+                    />
+                    <Button Classes="Exclude" Command="{Binding RemoveTag}"
+                            ToolTip.Tip="{StaticResource DisconnectTagTip}"
+                            HotKey="{DynamicResource ExcludeSecondHotkey}"
+                    />
+                    <Button Classes="ManageTags" Click="OpenTagWindow"
+                            ToolTip.Tip="{StaticResource TagEditTip}"
+                            HotKey="{DynamicResource OpenTagsHotkey}"
+                    />
+                </WrapPanel>
+            </StackPanel>
+            <StackPanel Name="EditUrlPanel" Grid.Row="1" Grid.Column="0" Orientation="Vertical">
                 <AutoCompleteBox ItemsSource="{Binding Urls}" 
                                  SelectedItem="{Binding CurrentUrl, Mode=TwoWay}" 
                                  FilterMode="ContainsOrdinal">
@@ -108,7 +127,7 @@
                         </DataTemplate>
                     </AutoCompleteBox.ItemTemplate>
                 </AutoCompleteBox>
-                <WrapPanel>
+                <WrapPanel Orientation="Horizontal">
                     <Button Classes="Exclude" Command="{Binding MarkDeleteUrl}"
                             ToolTip.Tip="{StaticResource MarkDeleteTip}"
                             HotKey="{DynamicResource ExcludeHotkey}"

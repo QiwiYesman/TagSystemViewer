@@ -10,20 +10,25 @@ public static class ExtensionToAsset
     private static readonly OrderedDictionary Files = new();
     static ExtensionToAsset()
     {
-        Files[FileExtensions.Docx] = "word.png";
-        Files[FileExtensions.Unknown] = "unknown.png";
-        Files[FileExtensions.Txt] = "txt.png";
-        Files[FileExtensions.Xlsx] = "excel.png";
-        Files[FileExtensions.Error] = "no_access.png";
-        Files[FileExtensions.Video] = "video.png";
-        Files[FileExtensions.Audio] = "audio.png";
-        Files[FileExtensions.Web] = "web.png";
-        Files[FileExtensions.Pdf] = "pdf.png";
+        Files[FileExtensions.Docx] = "word";
+        Files[FileExtensions.Unknown] = "unknown";
+        Files[FileExtensions.Txt] = "txt";
+        Files[FileExtensions.Xlsx] = "excel";
+        Files[FileExtensions.Error] = "no_access";
+        Files[FileExtensions.Video] = "video";
+        Files[FileExtensions.Audio] = "audio";
+        Files[FileExtensions.Web] = "web";
+        Files[FileExtensions.Pdf] = "pdf";
     }
     
     public static string GetFileName(FileExtensions ext) =>
-        AssetsResolver.Thumbnails + Files[ext];
+        AssetsResolver.Thumbnails + GetFileNameMedium(ext);
 
+    public static string GetFileNameWithoutExtension(FileExtensions ext) =>
+        Files[ext] + "_file_";
+
+    public static string GetFileNameMedium(FileExtensions ext) =>
+        GetFileNameWithoutExtension(ext) + "_medium" + ".png";
     public static Stream OpenThumbnail(FileExtensions ext)
     {
         var name = GetFileName(ext);

@@ -5,6 +5,7 @@ public enum RecordStates
     NotModified,
     Insert,
     Update,
-    Delete
+    Delete,
+    UpdateAndMove
 }
 

@@ -6,7 +6,7 @@
         xmlns:observables="clr-namespace:TagSystemViewer.ViewModels.Observables"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="TagSystemViewer.Views.DatabaseConfigEditor"
-        Icon="/Assets/Icons/database_editor.ico"
+        Icon="/Assets/Icons/database.ico"
         Title="Конфігурація баз даних">
     <Design.DataContext>
         <viewModels:DatabaseConfigViewModel/>

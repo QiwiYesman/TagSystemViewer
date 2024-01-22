@@ -2,21 +2,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <UniformGrid >
-            <Button Classes="Add"/>
-            <Button Classes="Exclude"/>    
-            <Button Classes="Refresh"/>
-            <Button Classes="Launch"/>
-            <Button Classes="OpenFolder"/>
-            <Button Classes="BrowseFolder"/>
-            <Button Classes="Confirm"/>
-            <Button Classes="Cancel"/>
-            <Button Classes="CopyPath"/>
-            <Button Classes="Search"/>
-            <Button Classes="ManageTags"/>
-            <Button Classes="ManageUrls"/>
-            <Button Classes="Update"/>
-            <Button Classes="ForceUpdate"/>
-            <Button Classes="CancelMark"/>
+            <Button Classes="Add"/><Button Classes="Exclude"/>
+            <Button Classes="Confirm"/><Button Classes="Search"/>
+            <Button Classes="Update"/><Button Classes="ForceUpdate"/>
+            <Button Classes="Refresh"/><Button Classes="Launch"/>
+            <Button Classes="OpenFolder"/><Button Classes="BrowseFolder"/>
+            <Button Classes="Cancel"/><Button Classes="CancelMark"/>
+            <Button Classes="ManageTags"/><Button Classes="ManageUrls"/>
+            <Button Classes="ManageDatabase"/><Button Classes="ManageHotkeys"/>
+            <Button Classes="AddDatabase"/><Button Classes="RemoveDatabase"/>
+            <Button Classes="Exit"/><Button Classes="Erase"/>
+            <Button Classes="CopyContent"/><Button Classes="CopyPath"/>
+            <Button Classes="SaveBrowseFile"/><Button Classes="MoveFile"/>
         </UniformGrid>
     </Design.PreviewWith>
     
@@ -30,8 +27,8 @@
     <Style Selector="Button">
         <Style Selector="^.Add, ^.Exclude, ^.Confirm, ^.Search, ^.Update, ^.ForceUpdate,
          ^.Refresh, ^.Launch, ^.OpenFolder, ^.BrowseFolder, ^.Cancel, ^.CancelMark, 
-          ^.ManageTags, ^.ManageUrls, ^.ManageDatabase, ^.AddDatabase, ^.RemoveDatabase, 
-          ^.AdvancedUrl, ^.Exit, ^.CopyContent, ^.CopyPath, ^.Erase, ^.Play, ^.Pause, ^.ManageHotkeys">
+         ^.ManageTags, ^.ManageUrls, ^.ManageDatabase, ^.AddDatabase, ^.RemoveDatabase, 
+         ^.Exit, ^.CopyContent, ^.CopyPath, ^.Erase, ^.Play, ^.Pause, ^.ManageHotkeys, ^.SaveBrowseFile, ^.MoveFile">
             <Setter Property="FontFamily" Value="{StaticResource IcoMoonFont}"/>
             <Setter Property="Width" Value="{Binding $self.Height}"/>
         </Style>
@@ -97,20 +94,22 @@
     <Style Selector="Button.Exit">
         <Setter Property="Content" Value="{StaticResource IcoMoonExit}"/>
     </Style>
-    <Style Selector="Button.AdvancedUrl">
-        <Setter Property="Content" Value="{StaticResource IcoMoonAdvancedUrls}"/>
-    </Style>
     <Style Selector="Button.Erase">
         <Setter Property="Content" Value="{StaticResource IcoMoonClear}"/>
     </Style>
     <Style Selector="Button.ManageHotkeys">
         <Setter Property="Content" Value="{StaticResource IcoMoonManageHotkeys}"/>
     </Style>
-    
-    
+    <Style Selector="Button.SaveBrowseFile">
+        <Setter Property="Content" Value="{StaticResource IcoMoonSaveBrowseFolder}"/>
+    </Style>
+    <Style Selector="Button.MoveFile">
+        <Setter Property="Content" Value="{StaticResource IcoMoonMoveFile}"/>
+    </Style>
     <Style Selector="TextBlock">
-        <Style Selector="^.Add, ^.Exclude, ^.Update">
+        <Style Selector="^.Add, ^.Exclude, ^.Update, ^.MoveFile">
             <Setter Property="FontFamily" Value="{StaticResource IcoMoonFont}"/>
+            <Setter Property="FontSize" Value="{StaticResource LargeFontSize}"/>
         </Style>
         <Style Selector="^.Add">
             <Setter Property="Text" Value="{StaticResource IcoMoonAdd}"/>
@@ -120,6 +119,9 @@
         </Style>
         <Style Selector="^.Update">
             <Setter Property="Text" Value="{StaticResource IcoMoonUpdate}"/>
+        </Style>
+        <Style Selector="^.MoveFile">
+            <Setter Property="Text" Value="{StaticResource IcoMoonMoveFile}"/>
         </Style>
     </Style>
     

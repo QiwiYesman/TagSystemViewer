@@ -56,4 +56,8 @@
     <system:String x:Key="ToAltKeyTip">Додати/не додавати Alt до комбінації</system:String>
     <system:String x:Key="ToShiftKeyTip">Додати/не додавати Shift до комбінації</system:String>
     <system:String x:Key="ToPlayContentTip">Запустити/зупинити відтворення контенту</system:String>
+    <system:String x:Key="BrowseSaveFileTip">Знайти новий шлях до файлу для переміщення (збереження в інше місце)</system:String>
+    <system:String x:Key="MoveFileTip">Позначити файл для переміщення в нове місце.
+Шлях до файлу буде автоматично оновлено. Переміщення буде при прийнятті змін
+Не спрацює для веб-файлів</system:String>
 </ResourceDictionary>

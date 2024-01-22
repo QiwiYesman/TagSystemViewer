@@ -1,7 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Avalonia.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using TagSystemViewer.Models;
@@ -102,14 +101,14 @@ public class DatabaseConfigViewModel: ViewModelBase
         {
             config.CurrentName = SelectedDatabaseName.Name;
         }
-        config.Save(app.DefaultConfigPath);
+        config.Save(App.DefaultConfigPath);
     }
 
     public void Refresh()
     {
         var app = App.Current;
         if (app is null) return;
-        var config = DatabaseConfig.FromFile(app.DefaultConfigPath);
+        var config = DatabaseConfig.FromFile(App.DefaultConfigPath);
         DatabaseNames.Clear();
         foreach (var pair in config)
         {

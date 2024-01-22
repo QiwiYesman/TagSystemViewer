@@ -6,7 +6,7 @@
         xmlns:controls1="clr-namespace:TagSystemViewer.Views.Controls"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="TagSystemViewer.Views.TagGridEditor"
-        Icon="/Assets/Icons/tag_editor.ico"
+        Icon="/Assets/Icons/tag.ico"
         Title="Редактор тегів">
   <Design.DataContext>
     <viewModels:TagEditorViewModel/>

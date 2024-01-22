@@ -1,21 +1,17 @@
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
 using System.Threading.Tasks;
-using Avalonia.Controls;
-using Avalonia.Input;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
-using SQLiteNetExtensions.Extensions;
 using TagSystemViewer.Models;
 using TagSystemViewer.Services;
+using TagSystemViewer.Utility;
 
 namespace TagSystemViewer.ViewModels;
 
 public class UrlViewerViewModel: ViewModelBase
 {
-    private TagInputSearchViewModel _urlSearch;
+    private TagInputSearchViewModel _urlSearch = new();
     private bool _play = false;
 
     public TagInputSearchViewModel UrlSearchViewModel
@@ -28,13 +24,7 @@ public class UrlViewerViewModel: ViewModelBase
         get => _play;
         set => this.RaiseAndSetIfChanged(ref _play, value);
     }
-
-    public UrlViewerViewModel()
-    {
-        FoundUrls = new();
-        UrlSearchViewModel = new();
-    }
-    public ObservableCollection<Url> FoundUrls { get; set; }
+    public ObservableCollection<Url> FoundUrls { get; set; } = new();
     
     public async Task SearchUrls()
     {
@@ -65,21 +55,12 @@ public class UrlViewerViewModel: ViewModelBase
         if (clipboard is null) return;
         await clipboard.SetFileAsync(uri.AbsoluteUri);
     }
-    public void OpenFolder(object arg)
-    {
-        string path = arg.ToString() ?? "";
-        FileProcess.StartDirectory(path);
-    }
+    public static void OpenFolder(object arg) =>
+        FileProcess.StartDirectory(arg.ToString() ?? "");
     
 
-    public void OpenFile(object arg)
-    {
-        string path = arg.ToString() ?? "";
-        FileProcess.StartFile(path);
-    }
+    public static void OpenFile(object arg)=>
+        FileProcess.StartFile(arg.ToString() ?? "");
 
-    public void RefreshTags()
-    {
-        UrlSearchViewModel = new();
-    }
+    public void RefreshTags() => UrlSearchViewModel.ReadTags();
 }

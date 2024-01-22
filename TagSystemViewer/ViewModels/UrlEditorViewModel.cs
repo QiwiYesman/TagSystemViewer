@@ -10,11 +10,12 @@ using SQLiteNetExtensions.Extensions;
 using TagSystemViewer.Enums;
 using TagSystemViewer.Models;
 using TagSystemViewer.Services;
+using TagSystemViewer.Utility;
 using TagSystemViewer.ViewModels.Observables;
 
 namespace TagSystemViewer.ViewModels;
 
-public class UrlGridEditorViewModel: ViewModelBase
+public class UrlEditorViewModel: ViewModelBase
 {
     private ObservableUrl? _currentUrl;
     private Tag? _currentTag;
@@ -51,7 +52,7 @@ public class UrlGridEditorViewModel: ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _currentTag, value);
     }
 
-    public UrlGridEditorViewModel()
+    public UrlEditorViewModel()
     {
         Urls = new();
         ReadTags();
@@ -152,6 +153,30 @@ public class UrlGridEditorViewModel: ViewModelBase
         }
     }
 
+    public async Task BrowseSaveFile()
+    {
+        var fileService = App.Current?.Services?.GetService<FileService>();
+        if(fileService is null) return;
+        var file = await fileService.SaveFileDialog();
+        if (file is null) return;
+        NewName = Uri.UnescapeDataString(file.Path.AbsolutePath);
+    }
+
+    public static bool Move(ObservableUrl url)
+    {
+        return !string.IsNullOrEmpty(url.OldName) &&
+               FileProcess.MoveFile(url.OldName, url.CurrentLink);
+    }
+    public void MarkMoveUrl()
+    {  
+        if (CurrentUrl is null || string.IsNullOrEmpty(NewName) ||
+           CurrentUrl.RecordStates == RecordStates.Insert ||
+           CurrentUrl.RecordStates == RecordStates.Update ||
+           InList(NewName)) return;
+        CurrentUrl.RecordStates = RecordStates.UpdateAndMove;
+        CurrentUrl.OldName = CurrentUrl.CurrentLink;
+        CurrentUrl.CurrentLink = NewName;
+    }
     public void StartFile()
     {
         if (CurrentUrl is null) return;
@@ -181,6 +206,19 @@ public class UrlGridEditorViewModel: ViewModelBase
                         Id = url.Id,
                     };
                     conn.Delete(commonUrl, true);
+                    break;
+                case RecordStates.UpdateAndMove:
+                    if (Move(url))
+                    {
+                        commonUrl = new Url
+                        {
+                            Id = url.Id,
+                            Link = url.CurrentLink,
+                            Tags = url.Tags.ToList()
+                        };
+                        conn.UpdateWithChildren(commonUrl);
+                    }
+
                     break;
                 case RecordStates.Update:
                     commonUrl = new Url

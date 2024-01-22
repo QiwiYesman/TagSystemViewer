@@ -6,12 +6,12 @@ using TagSystemViewer.ViewModels;
 
 namespace TagSystemViewer.Views;
 
-public partial class URLGridEditor : Window
+public partial class UrlEditor : Window
 {
-    public URLGridEditor()
+    public UrlEditor()
     {
         InitializeComponent();
-        DataContext = new UrlGridEditorViewModel();
+        DataContext = new UrlEditorViewModel();
     }
 
     private void OpenTagWindow(object? sender, RoutedEventArgs e)

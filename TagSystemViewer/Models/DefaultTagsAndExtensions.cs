@@ -25,5 +25,5 @@ public static class DefaultTagsAndExtensions
 
     public static IEnumerable<string> TagNames => Dictionary.Keys;
     public static FileExtensions Get(string tagName) =>
-        Dictionary.TryGetValue(tagName, out var ext) ? ext : FileExtensions.Unknown;
+        Dictionary.GetValueOrDefault(tagName, FileExtensions.Unknown);
 }

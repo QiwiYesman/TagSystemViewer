@@ -34,7 +34,7 @@
             </Style>
         </Style>
         
-        <Style Selector="^.CopyPath, ^.CopyContent, ^.Search, ^.Update, ^.ForceUpdate, ^.Refresh, ^.Erase">
+        <Style Selector="^.CopyPath, ^.CopyContent, ^.Search, ^.Update, ^.ForceUpdate, ^.Refresh, ^.Erase, ^.MoveFile">
             <Setter Property="Foreground" Value="{StaticResource NeutralBrush}"/>
             <Setter Property="BorderBrush" Value="{StaticResource NeutralBrush}"/>
             <Style Selector="^:pointerover /template/ ContentPresenter">
@@ -47,7 +47,7 @@
         </Style>
         
         <Style Selector="^.Launch, ^.OpenFolder, ^.BrowseFolder, ^.ManageTags,
-         ^.ManageUrls, ^.ManageDatabase, ^.AdvancedUrls, ^.ManageHotkeys">
+         ^.ManageUrls, ^.ManageDatabase, ^.AdvancedUrls, ^.ManageHotkeys, ^.SaveBrowseFile">
             <Setter Property="Foreground" Value="{StaticResource LaunchBrush}"/>
             <Setter Property="BorderBrush" Value="{StaticResource LaunchBrush}"/>
             <Style Selector="^:pointerover /template/ ContentPresenter">

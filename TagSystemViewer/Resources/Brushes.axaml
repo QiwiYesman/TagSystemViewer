@@ -33,8 +33,5 @@
     <SolidColorBrush x:Key="LaunchBrush">Orange</SolidColorBrush>
     <SolidColorBrush x:Key="LaunchPressBrush">Yellow</SolidColorBrush>
     
-    <SolidColorBrush x:Key="ForegroundSelectedTagBrush"></SolidColorBrush>
-    <SolidColorBrush x:Key="ForegroundSelectedItemBrush"></SolidColorBrush>
-    <SolidColorBrush x:Key=""></SolidColorBrush>
-
-</ResourceDictionary>
+    <SolidColorBrush x:Key="PinkyBrush">HotPink</SolidColorBrush>
+  </ResourceDictionary>

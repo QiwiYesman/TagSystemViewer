@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Input;
 using Avalonia.Markup.Xaml;
-using Avalonia.Markup.Xaml.Styling;
 using TagSystemViewer.ViewModels;
 using TagSystemViewer.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,8 +17,8 @@ namespace TagSystemViewer;
 
 public partial class App : Application
 {
-    public readonly string DefaultConfigPath = "database_config.json";
-    public readonly string DefaultHotkeyPath = "hotkey_config.json";
+    public const string DefaultConfigPath = "database_config.json";
+    public const string DefaultHotkeyPath = "hotkey_config.json";
     private ResourceDictionary? _hotkeyDictionary;
     
     public override void Initialize()
@@ -29,25 +26,25 @@ public partial class App : Application
         AvaloniaXamlLoader.Load(this);
     }
 
+    
+
     public override void OnFrameworkInitializationCompleted()
     {
-       
-        var isWindows = OperatingSystem.IsWindows();
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = new UrlViewer();
             var services = new ServiceCollection();
 
-            services.AddSingleton<FileService>(x => new FileService(desktop.MainWindow));
-            services.AddSingleton<ClipboardService>(x => new ClipboardService(desktop.MainWindow));
+            services.AddSingleton<FileService>(_ => new FileService(desktop.MainWindow));
+            services.AddSingleton<ClipboardService>(_ => new ClipboardService(desktop.MainWindow));
             
             Services = services.BuildServiceProvider();
-            desktop.MainWindow.Loaded += (sender, args) =>
+            desktop.MainWindow.Loaded += (_, _) =>
             {
                 try
                 {
                     DatabaseConfig = DatabaseConfig.FromFile(DefaultConfigPath);
-                    if (DatabaseConfig.CurrentName == "")
+                    if (string.IsNullOrEmpty(DatabaseConfig.CurrentName))
                     {
                         DatabaseConfig.CurrentName = DatabaseConfig.Keys.First();
                     }
@@ -60,32 +57,36 @@ public partial class App : Application
                 }
 
                 desktop.MainWindow.DataContext = new UrlViewerViewModel();
-                var hotkey = new ObservableHotkeyConfig();
-                try
-                {
-                    hotkey.Read(DefaultHotkeyPath);
-                    ApplyHotkeys(hotkey.ActiveMap);
-                }
-                catch (Exception e)
-                {
-                    hotkey.LoadDefault();
-                    hotkey.Save(DefaultHotkeyPath);
-                    ApplyHotkeys(hotkey.ActiveMap);
-                    
-                }
+                LoadHotkeys();
             };
         }
         
         base.OnFrameworkInitializationCompleted();
     }
 
+    private void LoadHotkeys()
+    {
+        var hotkey = new ObservableHotkeyConfig();
+        try
+        {
+            hotkey.Read(DefaultHotkeyPath);
+            ApplyHotkeys(hotkey.ActiveMap);
+        }
+        catch
+        {
+            hotkey.LoadDefault();
+            hotkey.Save(DefaultHotkeyPath);
+            ApplyHotkeys(hotkey.ActiveMap);
+                    
+        }
+    }
     public void ApplyHotkeys(List<ObservableHotkeyName> hotkeys)
     {
         if (hotkeys.Count == 0) return;
         if (_hotkeyDictionary is null)
         {
-            var dicts = Resources.MergedDictionaries;
-            foreach (var resourceProvider in dicts)
+            var mergedDictionaries = Resources.MergedDictionaries;
+            foreach (var resourceProvider in mergedDictionaries)
             {
                 var d = (ResourceDictionary)resourceProvider;
                 if (!d.ContainsKey(hotkeys[0].ResourceName)) continue;
@@ -103,7 +104,7 @@ public partial class App : Application
 
     }
     public IServiceProvider? Services { get; private set; }
-    public DatabaseConfig DatabaseConfig { get; set; }
-    public SQLiteConnection? Connection => Database.CurrentConnection(DatabaseConfig);
+    public DatabaseConfig? DatabaseConfig { get; set; }
+    public SQLiteConnection? Connection =>DatabaseConfig is null ? null: Database.CurrentConnection(DatabaseConfig);
     public new static App? Current => Application.Current as App;
 }

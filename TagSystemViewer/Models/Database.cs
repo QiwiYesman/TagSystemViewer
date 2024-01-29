@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
-using Newtonsoft.Json;
+using System.Threading.Tasks;
 using SQLite;
-using SQLiteNetExtensions.Extensions;
+using SQLiteNetExtensionsAsync.Extensions;
 
 namespace TagSystemViewer.Models;
 
@@ -15,61 +12,68 @@ namespace TagSystemViewer.Models;
 public static class Database
 {
 
-    public static SQLiteConnection DbNewConnection(string dbPath) =>
+    public static SQLiteAsyncConnection DbNewConnection(string dbPath) =>
         new(dbPath, SQLiteOpenFlags.Create |
                     SQLiteOpenFlags.FullMutex |
                     SQLiteOpenFlags.ReadWrite);
 
-    public static SQLiteConnection DbExistingConnection(string dbPath) => 
+    public static SQLiteAsyncConnection DbExistingConnection(string dbPath) => 
         new (dbPath, SQLiteOpenFlags.ReadWrite);
 
-    public static SQLiteConnection? CurrentConnection(DatabaseConfig config) =>
+    public static SQLiteAsyncConnection? CurrentConnection(DatabaseConfig config) =>
        config.CurrentPath is null ? null : DbExistingConnection(config.CurrentPath);
 
-    public static TableQuery<T> SelectAll<T>(this SQLiteConnection db) where T : new() 
+    public static AsyncTableQuery<T> SelectAll<T>(this SQLiteAsyncConnection db) where T : new() 
         => db.Table<T>();
 
-    public static void CreateTables(this SQLiteConnection db)
+    public static void CreateTables(this SQLiteAsyncConnection db)
     {
-        db.CreateTable<Tag>();
-        db.CreateTable<Url>();
-        db.CreateTable<TaggedUrl>();
+        db.CreateTableAsync<Tag>();
+        db.CreateTableAsync<Url>();
+        db.CreateTableAsync<TaggedUrl>();
         db.AddDefaultTags();
     }
 
-    public static void AddDefaultTags(this SQLiteConnection db)
+    public static void AddDefaultTags(this SQLiteAsyncConnection db)
     {
         var tagNames = DefaultTagsAndExtensions.TagNames;
-        var tags = tagNames.Select(x => new Tag() { Id = 0, Name = x });
-        db.InsertAll(tags, typeof(Tag));
+        var tags = tagNames.Select(x => new Tag { Id = 0, Name = x });
+        db.InsertAllAsync(tags, typeof(Tag));
     }
 
-    public static List<Url> SelectUrls(this SQLiteConnection db, TagGroups tags)
+    public static async Task<List<Url>> SelectUrls(this SQLiteAsyncConnection db, TagGroups tags)
     {
-       var onlyUrlsIds = SelectOnlyUrls(db, 
+       var onlyUrlsIds = await SelectOnlyUrls(db, 
            tags.AndTags.ToList(), tags.OrTags.ToList(), tags.NotTags.ToList());
-       var urlsWithTags = SelectUrlsWithTags(db, onlyUrlsIds);
+       var urlsWithTags = await SelectUrlsWithTags(db, onlyUrlsIds);
        return urlsWithTags;
     }
-
-    public static List<Url> SelectUrlsWithTags(this SQLiteConnection db, List<Url> ids)
+    
+    public static async Task<List<Url>> SelectUrlsWithTags(this SQLiteAsyncConnection db, List<Url> ids)
     {
+        List<Url> urls = new();
         try
         {
-            return ids.Select(id => db.GetWithChildren<Url>(id.Id, true)).ToList();
+            foreach (var urlWithIdOnly in ids)
+            {
+                var fullUrl = await db.GetWithChildrenAsync<Url>(urlWithIdOnly.Id);
+                urls.Add(fullUrl);
+            }
+
+            return urls;
         }
         catch (InvalidOperationException ex)
         {
             Console.WriteLine(ex.Message);
-            return new();
+            return urls;
         }
     }
 
-    public static List<Url> SelectOnlyUrls(this SQLiteConnection db,
+    public static async Task<List<Url>> SelectOnlyUrls(this SQLiteAsyncConnection db,
         List<Tag> andTags, List<Tag> orTags, List<Tag> notTags)
     {
         var query = SelectTaggedUrl.Query(andTags, orTags, notTags);
-        return query == "" ? new() : db.Query<Url>(query);
+        return query == "" ? new() : await db.QueryAsync<Url>(query);
     }
     
 }

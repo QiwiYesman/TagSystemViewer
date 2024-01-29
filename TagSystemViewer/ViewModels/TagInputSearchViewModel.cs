@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using DynamicData.Binding;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
@@ -54,15 +55,16 @@ public class TagInputSearchViewModel: ViewModelBase
         set =>this.RaiseAndSetIfChanged(ref _currentStates, value);
     }
     
-    public void ReadTags()
+    public async void ReadTags()
     {
         var conn = App.Current?.Connection;
         if(conn is null) return;
-        var items = conn.SelectAll<Tag>();
+        var items = await conn.SelectAll<Tag>().ToListAsync();
         Tags.Clear();
-        foreach (var i in items)
+        foreach (var tag in items)
         {
-            Tags.Add(i);
+            if(tag is null) continue;
+            Tags.Add(tag);
         }
     }
 
@@ -114,11 +116,11 @@ public class TagInputSearchViewModel: ViewModelBase
             return;
         }
     }
-    public List<Url> Search()
+    public async Task<List<Url>> Search()
     {
         var conn = App.Current?.Connection;
         if(conn is null) return new();
-        return conn.SelectUrls(new()
+        return await conn.SelectUrls(new()
         {
             AndTags = AndTags,
             OrTags = OrTags,

@@ -1,8 +1,5 @@
 using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
 using Newtonsoft.Json;
-using Formatting = System.Xml.Formatting;
 
 namespace TagSystemViewer.Utility;
 

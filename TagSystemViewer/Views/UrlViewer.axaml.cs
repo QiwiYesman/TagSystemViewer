@@ -11,27 +11,30 @@ public partial class UrlViewer : Window
         InitializeComponent();
     }
 
+    private void OpenWindow<T>(object? dataContext) where T: Window, new()
+    {
+        T window = new T();
+        window.Show(this);
+        if (dataContext is null) return;
+        window.DataContext = dataContext;
+    }
     private void OpenTagWindow(object? sender, RoutedEventArgs e)
     {
-        var window = new TagGridEditor();
-        window.Show(this);
+        OpenWindow<TagGridEditor>(null);
     }
 
     private void OpenUrlWindow(object? sender, RoutedEventArgs e)
     {
-        var window = new UrlEditor();
-        window.Show(this);
+        OpenWindow<UrlEditor>(null);
     }
 
     private void OpenDatabaseWindow(object? sender, RoutedEventArgs e)
     {
-        var window = new DatabaseConfigEditor();
-        window.Show(this);
+        OpenWindow<DatabaseConfigEditor>(null);
     }
 
     private void OpenHotkeyWindow(object? sender, RoutedEventArgs e)
     {
-        var window = new HotkeyEditor() { DataContext = new HotkeyEditorViewModel() };
-        window.Show(this);
+        OpenWindow<HotkeyEditor>(new HotkeyEditorViewModel());
     }
 }

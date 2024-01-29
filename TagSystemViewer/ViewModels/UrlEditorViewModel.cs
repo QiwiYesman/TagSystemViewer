@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
-using SQLiteNetExtensions.Extensions;
+using SQLiteNetExtensionsAsync.Extensions;
 using TagSystemViewer.Enums;
 using TagSystemViewer.Models;
 using TagSystemViewer.Services;
@@ -58,17 +56,17 @@ public class UrlEditorViewModel: ViewModelBase
         ReadTags();
     }
     
-    public void ReadTags()
+    public async Task ReadTags()
     {
         var conn = App.Current?.Connection;
         if(conn is null) return;
-        var urls = conn.GetAllWithChildren<Url>();
+        var urls = await conn.GetAllWithChildrenAsync<Url>();
         Urls.Clear();
         foreach (var url in urls)
         {
             Urls.Add(new ObservableUrl(url));
         }
-        var tags = conn.SelectAll<Tag>();
+        var tags = await conn.SelectAll<Tag>().ToArrayAsync();
         Tags = new ObservableCollection<Tag>(tags);
     }
 
@@ -191,7 +189,7 @@ public class UrlEditorViewModel: ViewModelBase
         if (file is null) return;
         NewName = Uri.UnescapeDataString(file.Path.AbsolutePath);
     }
-    public void Confirm()
+    public async Task Confirm()
     {
         var conn = App.Current?.Connection;
         if(conn is null) return;
@@ -205,7 +203,7 @@ public class UrlEditorViewModel: ViewModelBase
                     {
                         Id = url.Id,
                     };
-                    conn.Delete(commonUrl, true);
+                    await conn.DeleteAsync(commonUrl, true);
                     break;
                 case RecordStates.UpdateAndMove:
                     if (Move(url))
@@ -216,7 +214,7 @@ public class UrlEditorViewModel: ViewModelBase
                             Link = url.CurrentLink,
                             Tags = url.Tags.ToList()
                         };
-                        conn.UpdateWithChildren(commonUrl);
+                        await conn.UpdateWithChildrenAsync(commonUrl);
                     }
 
                     break;
@@ -227,7 +225,7 @@ public class UrlEditorViewModel: ViewModelBase
                         Link = url.CurrentLink,
                         Tags = url.Tags.ToList()
                     };
-                    conn.UpdateWithChildren(commonUrl);
+                    await conn.UpdateWithChildrenAsync(commonUrl);
                     break;
                 case RecordStates.Insert:
                     commonUrl = new Url
@@ -235,11 +233,11 @@ public class UrlEditorViewModel: ViewModelBase
                         Link = url.CurrentLink,
                         Tags = url.Tags.ToList()
                     };
-                    conn.InsertWithChildren(commonUrl);
+                    await conn.InsertWithChildrenAsync(commonUrl);
                     break;
             }
         }
-        ReadTags();
+        await ReadTags();
     }
     
 }

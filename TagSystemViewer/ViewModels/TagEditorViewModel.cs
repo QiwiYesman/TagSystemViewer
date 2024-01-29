@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using SQLite;
-using SQLiteNetExtensions.Extensions;
+using SQLiteNetExtensionsAsync.Extensions;
 using TagSystemViewer.Models;
-using TagSystemViewer.Services;
 
 namespace TagSystemViewer.ViewModels;
 
@@ -62,15 +58,16 @@ public class TagEditorViewModel : ViewModelBase
         TagsToUpdate.Clear();
         TagsToRemove.Clear();
     }
-    public void ReadTags()
+    public async void ReadTags()
     {
         var conn = App.Current?.Connection;
         if(conn is null) return;
-        var items = conn.SelectAll<Tag>();
+        var items = await conn.SelectAll<Tag>().ToListAsync();
         FullClear();
-        foreach (var i in items)
+        foreach (var tag in items)
         {
-            Tags.Add(i);
+            if(tag is null) continue;
+            Tags.Add(tag);
         }
     }
 
@@ -151,19 +148,19 @@ public class TagEditorViewModel : ViewModelBase
         Tags.Remove(CurrentTag);
     }
 
-    public void RemoveCascade(SQLiteConnection conn)
+    public void RemoveCascade(SQLiteAsyncConnection conn)
     {
         foreach (var tag in TagsToRemove)
         {
-            conn.Delete(tag.Id, recursive: true);
+            conn.DeleteAsync(tag.Id, recursive: true);
         }
     }
-    public void Confirm()
+    public async void Confirm()
     {
         var conn = App.Current?.Connection;
         if(conn is null) return;
-        conn.UpdateAll(TagsToUpdate);
-        conn.InsertAll(TagsToAdd);
+        await conn.UpdateAllAsync(TagsToUpdate);
+        await conn.InsertAllAsync(TagsToAdd);
         RemoveCascade(conn);
         ReadTags();
     }

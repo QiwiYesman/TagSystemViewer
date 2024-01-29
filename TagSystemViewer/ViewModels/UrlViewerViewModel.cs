@@ -29,15 +29,11 @@ public class UrlViewerViewModel: ViewModelBase
     public async Task SearchUrls()
     {
         FoundUrls.Clear();
-        await Task.Run(()=>
+        var list = await UrlSearchViewModel.Search();
+        foreach (var url in list)
         {
-            var list = UrlSearchViewModel.Search();
-            foreach (var url in list)
-            {
-                FoundUrls.Add(url);
-            }
-        });
-        
+            FoundUrls.Add(url);
+        }
     }
 
     public void CopyPath(object arg)

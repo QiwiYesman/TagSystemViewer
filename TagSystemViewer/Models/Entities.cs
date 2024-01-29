@@ -28,7 +28,7 @@ public class Url
     public int Id { get; set; }
     
     [Unique, NotNull]
-    public string Link { get; set; }
+    public string Link { get; set; } ="";
     
     public DateTime DateAdded { get; set; } = DateTime.Now;
 

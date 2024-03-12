@@ -157,7 +157,7 @@ public class TagEditorViewModel : ViewModelBase
     {
         foreach (var tag in TagsToRemove)
         {
-            conn.Delete(tag.Id, recursive: true);
+            conn.Delete(tag, recursive: true);
         }
     }
     public void Confirm()
@@ -170,7 +170,7 @@ public class TagEditorViewModel : ViewModelBase
         ReadTags();
     }
 
-    public async Task ConfirmAsync() => await AsyncLauncher.LaunchDispatcher(Confirm);
+    public void ConfirmAsync() => AsyncLauncher.LaunchDispatcherVoid(Confirm);
     public async Task ReadTagsAsync() => await AsyncLauncher.LaunchDispatcher(ReadTags);
     public async Task ExcludeUpdatesAsync() => await AsyncLauncher.LaunchDispatcher(ExcludeUpdates);
     public async Task ExcludeAddsAsync() => await AsyncLauncher.LaunchDispatcher(ExcludeAdds);

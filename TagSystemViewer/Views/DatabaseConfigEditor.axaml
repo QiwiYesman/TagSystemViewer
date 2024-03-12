@@ -14,19 +14,19 @@
         <Grid ColumnDefinitions="3*,7*">
             <DockPanel Grid.Column="0">
                     <WrapPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Left">
-                            <Button Classes="Add" Command="{Binding AddName}"
+                            <Button Classes="Add" Command="{Binding AddNameAsync}"
                                     ToolTip.Tip="{StaticResource CreateDatabaseNameTip}"
                                     HotKey="{DynamicResource AddHotkey}"
                             />
-                            <Button Classes="Update" Command="{Binding UpdateName}"
+                            <Button Classes="Update" Command="{Binding UpdateNameAsync}"
                                     ToolTip.Tip="{StaticResource ChangeDatabaseNameTip}"
                                     HotKey="{DynamicResource UpdateHotkey}"
                             />
-                            <Button Classes="Exclude" Command="{Binding RemoveName}"
+                            <Button Classes="Exclude" Command="{Binding RemoveNameAsync}"
                                     ToolTip.Tip="{StaticResource RemoveDatabasePathTip}"
                                     HotKey="{DynamicResource ExcludeHotkey}"
                             />
-                            <Button Classes="RemoveDatabase" Command="{Binding RemoveDatabase}"
+                            <Button Classes="RemoveDatabase" Command="{Binding RemoveDatabaseAsync}"
                                     ToolTip.Tip="{StaticResource RemoveDatabaseTip}"
                                     HotKey="{DynamicResource RemoveHotkey}"
                             />    
@@ -44,7 +44,7 @@
             </DockPanel>
             <DockPanel Grid.Column="1" LastChildFill="False">
                     <WrapPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button Classes="Refresh" Command="{Binding Refresh}"
+                            <Button Classes="Refresh" Command="{Binding RefreshAsync}"
                                     ToolTip.Tip="{StaticResource RefreshViewFromFileTip}"
                                     HotKey="{DynamicResource RefreshHotkey}"
                             />
@@ -52,7 +52,7 @@
                                     ToolTip.Tip="{StaticResource ExitWithChangesTip}"
                                     HotKey="{DynamicResource ExitHotkey}"
                             />
-                            <Button Classes="Confirm" Command="{Binding Confirm}"
+                            <Button Classes="Confirm" Command="{Binding ConfirmAsync}"
                                     ToolTip.Tip="{StaticResource ConfirmSelectTip}"
                                     HotKey="{DynamicResource ConfirmHotkey}"
                             />
@@ -65,7 +65,7 @@
                                     HotKey="{DynamicResource OpenFolderHotkey}"
                             />
                             <Button DockPanel.Dock="Right"
-                                    Classes="AddDatabase" Command="{Binding CreateNewDatabase}"
+                                    Classes="AddDatabase" Command="{Binding CreateNewDatabaseAsync}"
                                     ToolTip.Tip="{StaticResource BrowseNewDatabaseTip}"
                                     HotKey="{DynamicResource CreateHotkey}"
                             />

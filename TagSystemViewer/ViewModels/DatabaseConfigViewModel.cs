@@ -1,10 +1,12 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using TagSystemViewer.Models;
 using TagSystemViewer.Services;
+using TagSystemViewer.Utility;
 using TagSystemViewer.ViewModels.Observables;
 
 namespace TagSystemViewer.ViewModels;
@@ -13,7 +15,7 @@ public class DatabaseConfigViewModel: ViewModelBase
 {
     public DatabaseConfigViewModel()
     {
-        Read();
+        ReadAsync();
     }
     public ObservableCollection<ObservableDatabaseName> DatabaseNames { get; set; } = new();
     private ObservableDatabaseName? _selectedDatabaseName;
@@ -140,4 +142,13 @@ public class DatabaseConfigViewModel: ViewModelBase
         Database.CreateTables(conn);
         SelectedDatabaseName.Path = path;
     }
+    
+    public async void ReadAsync() => await AsyncLauncher.LaunchDispatcher(Read);
+    public async Task AddNameAsync() => await AsyncLauncher.LaunchDispatcher(AddName);
+    public async Task UpdateNameAsync() => await AsyncLauncher.LaunchDispatcher(UpdateName);
+    public async Task RemoveNameAsync() => await AsyncLauncher.LaunchDispatcher(RemoveName);
+    public async Task ConfirmAsync() => await AsyncLauncher.LaunchDispatcher(Confirm);
+    public async Task RefreshAsync() => await AsyncLauncher.LaunchDispatcher(Refresh);
+    public async Task CreateNewDatabaseAsync() => await AsyncLauncher.LaunchDispatcher(CreateNewDatabase);
+    public async Task RemoveDatabaseAsync() => await AsyncLauncher.LaunchDispatcher(RemoveDatabase);
 }

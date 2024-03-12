@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Avalonia.Input;
 using ReactiveUI;
+using TagSystemViewer.Utility;
 using TagSystemViewer.ViewModels.Observables;
 
 namespace TagSystemViewer.ViewModels;
@@ -133,7 +135,7 @@ public class HotkeyEditorViewModel: ViewModelBase
         ConfigNames = Config.KeyNames;
     }
     
-    public void SetModifiersBools(KeyGesture keys)
+    private void SetModifiersBools(KeyGesture keys)
     {
         var modifiers = keys.KeyModifiers;
         IsCtrl = modifiers.HasFlag(KeyModifiers.Control);
@@ -165,7 +167,13 @@ public class HotkeyEditorViewModel: ViewModelBase
     }
     public HotkeyEditorViewModel()
     {
-        Read();
+        ReadAsync();
     }
-    
+
+    public async Task UpdateCurrentMapAsync() => await AsyncLauncher.LaunchDispatcher(UpdateCurrentMap);
+    public async Task AddNewMapAsync() => await AsyncLauncher.LaunchDispatcher(AddNewMap);
+    public async Task RemoveCurrentMapAsync() => await AsyncLauncher.LaunchDispatcher(RemoveCurrentMap);
+    public async Task UpdateCurrentHotkeyAsync() => await AsyncLauncher.LaunchDispatcher(UpdateCurrentHotkey);
+    public async Task ConfirmAsync() => await AsyncLauncher.LaunchDispatcher(Confirm);
+    public async void ReadAsync() => await AsyncLauncher.LaunchTask(Read);
 }

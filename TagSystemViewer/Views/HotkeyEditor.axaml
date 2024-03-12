@@ -33,21 +33,21 @@
             </WrapPanel>
             <WrapPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Top">
                <TextBox Text="{Binding NewName}"/>
-               <Button Classes="Add" Command="{Binding AddNewMap}"
+               <Button Classes="Add" Command="{Binding AddNewMapAsync}"
                        ToolTip.Tip="{StaticResource  AddKeyMapTip}" />
-               <Button Classes="Exclude" Command="{Binding RemoveCurrentMap}"
+               <Button Classes="Exclude" Command="{Binding RemoveCurrentMapAsync}"
                        ToolTip.Tip="{StaticResource ExcludeKeyMapTip}"/>
-               <Button Classes="Update" Command="{Binding UpdateCurrentMap}"
+               <Button Classes="Update" Command="{Binding UpdateCurrentMapAsync}"
                        ToolTip.Tip="{StaticResource ChangeKeyMapNameTip}"/>
             </WrapPanel>
         </DockPanel>
         <WrapPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Classes="Refresh" Command="{Binding Read}"
+            <Button Classes="Refresh" Command="{Binding ReadAsync}"
                     ToolTip.Tip="{StaticResource RefreshViewFromFileTip}"/>
             <Button Classes="Cancel" Command="{Binding $parent[Window].Close}"
                     ToolTip.Tip="{StaticResource ExitWithoutChangesTip}"
                     />
-            <Button Classes="Confirm" Command="{Binding Confirm}"
+            <Button Classes="Confirm" Command="{Binding ConfirmAsync}"
                     ToolTip.Tip="{StaticResource ConfirmTip}"/>
         </WrapPanel>
         <Grid ColumnDefinitions="2*,1,8*">

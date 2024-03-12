@@ -144,6 +144,8 @@
                             ToolTip.Tip="{StaticResource LaunchFileTip}"
                             HotKey="{DynamicResource  LaunchHotkey}"
                             />
+                    <TextBlock Text="{Binding CurrentUrl.SaveAsRelative, FallbackValue='Error'}"/>
+                    <Button Content="SwitchRelative" Command="{Binding SwitchRelativeUrl}"/>
                 </WrapPanel>
             </StackPanel>
         </Grid>

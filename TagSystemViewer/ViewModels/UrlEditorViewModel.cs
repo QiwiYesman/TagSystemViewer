@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Avalonia.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using SQLiteNetExtensions.Extensions;
@@ -68,7 +65,16 @@ public class UrlEditorViewModel: ViewModelBase
         Urls.Clear();
         foreach (var url in urls)
         {
-            Urls.Add(new ObservableUrl(url));
+            var observableUrl = new ObservableUrl(url);
+            var isRelative = LinkResolver.IsRelative(url.Link);
+            if (isRelative)
+            {
+                observableUrl.SaveAsRelative = true;
+                observableUrl.CurrentLink = LinkResolver.ResolveAbsoluteUrl(
+                    App.Current?.DatabaseConfig?.CurrentPath??"", 
+                    observableUrl.CurrentLink);
+            }
+            Urls.Add(observableUrl);
         }
         var tags = conn.SelectAll<Tag>();
         Tags = new ObservableCollection<Tag>(tags);
@@ -215,6 +221,12 @@ public class UrlEditorViewModel: ViewModelBase
                             Link = url.CurrentLink,
                             Tags = url.Tags.ToList()
                         };
+                        if (url.SaveAsRelative)
+                        {
+                            commonUrl.Link = LinkResolver.GetRelativeUrl(
+                                App.Current?.DatabaseConfig?.CurrentPath ?? "",
+                                commonUrl.Link);
+                        }
                         conn.UpdateWithChildren(commonUrl);
                     }
 
@@ -226,6 +238,12 @@ public class UrlEditorViewModel: ViewModelBase
                         Link = url.CurrentLink,
                         Tags = url.Tags.ToList()
                     };
+                    if (url.SaveAsRelative)
+                    {
+                        commonUrl.Link = LinkResolver.GetRelativeUrl(
+                            App.Current?.DatabaseConfig?.CurrentPath ?? "",
+                            commonUrl.Link);
+                    }
                     conn.UpdateWithChildren(commonUrl);
                     break;
                 case RecordStates.Insert:
@@ -241,6 +259,12 @@ public class UrlEditorViewModel: ViewModelBase
         ReadTagsAsync();
     }
 
+    public void SwitchRelativeUrl()
+    {
+        if (CurrentUrl is null) return;
+        CurrentUrl.SaveAsRelative = !CurrentUrl.SaveAsRelative;
+        ForceMarkUpdate();
+    }
     public async void ReadTagsAsync() => AsyncLauncher.LaunchDispatcherVoid(ReadTags);
     public async Task ConfirmAsync() => await AsyncLauncher.LaunchDispatcher(Confirm);
     public async Task StartFileAsync() => await AsyncLauncher.LaunchDispatcher(StartFile);
@@ -253,4 +277,5 @@ public class UrlEditorViewModel: ViewModelBase
     public async Task RemoveTagAsync() => await AsyncLauncher.LaunchDispatcher(RemoveTag);
     public async Task AddTagAsync() => await AsyncLauncher.LaunchDispatcher(AddTag);
     public async Task MarkDeleteUrlAsync() => await AsyncLauncher.LaunchDispatcher(MarkDeleteUrl);
+    public async Task SwitchRelativeUrlAsync() => await AsyncLauncher.LaunchDispatcher(SwitchRelativeUrl);
 }

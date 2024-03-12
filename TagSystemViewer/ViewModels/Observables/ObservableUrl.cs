@@ -9,7 +9,14 @@ public class ObservableUrl: ViewModelBase
 {
     
     private RecordStates _recordStates;
-    private string _currentLink ="";
+    private string _currentLink = "";
+    private bool _saveAsRelative = false;
+
+    public bool SaveAsRelative
+    {
+        get => _saveAsRelative;
+        set => this.RaiseAndSetIfChanged(ref _saveAsRelative, value);
+    }
     public int Id { get; set; }
 
     public string CurrentLink

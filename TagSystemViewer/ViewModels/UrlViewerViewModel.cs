@@ -26,20 +26,17 @@ public class UrlViewerViewModel: ViewModelBase
     }
     public ObservableCollection<Url> FoundUrls { get; set; } = new();
     
-    public async Task SearchUrls()
+    public void SearchUrls()
     {
         FoundUrls.Clear();
-        await Task.Run(()=>
+        var list = UrlSearchViewModel.Search();
+        foreach (var url in list)
         {
-            var list = UrlSearchViewModel.Search();
-            foreach (var url in list)
-            {
-                FoundUrls.Add(url);
-            }
-        });
-        
+            FoundUrls.Add(url);
+        }
     }
 
+    public async Task SearchUrlsAsync() => await AsyncLauncher.LaunchDispatcher(SearchUrls);
     public void CopyPath(object arg)
     {
         var path = arg.ToString() ?? "";

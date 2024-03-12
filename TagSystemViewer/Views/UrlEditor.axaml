@@ -17,7 +17,7 @@
     <DockPanel>
         <Grid ColumnDefinitions="8*, 2*" DockPanel.Dock="Bottom">
             <WrapPanel DockPanel.Dock="Right" Name="ControlPanel" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Classes="Refresh" Command="{Binding ReadTags}"
+                <Button Classes="Refresh" Command="{Binding ReadTagsAsync}"
                         ToolTip.Tip="{StaticResource RefreshViewTip}"
                         HotKey="{DynamicResource RefreshHotkey}"
                         />
@@ -25,7 +25,7 @@
                         ToolTip.Tip="{StaticResource ExitWithoutChangesTip}"
                         HotKey="{DynamicResource ExitHotkey}"
                         />
-                <Button Classes="Confirm" Command="{Binding Confirm}"
+                <Button Classes="Confirm" Command="{Binding ConfirmAsync}"
                         ToolTip.Tip="{StaticResource ConfirmTip}"
                         HotKey="{DynamicResource ConfirmHotkey}"
                         />    
@@ -38,11 +38,11 @@
                                 ToolTip.Tip="{StaticResource BrowseFileTip}"
                                 HotKey="{DynamicResource OpenFolderHotkey}"
                         />
-                        <Button Classes="Add" Command="{Binding MarkInsertUrl}"
+                        <Button Classes="Add" Command="{Binding MarkInsertUrlAsync}"
                                 ToolTip.Tip="{StaticResource AddUrlTip}"
                                 HotKey="{DynamicResource AddHotkey}"
                         />
-                        <Button Classes="Update" Command="{Binding MarkUpdateUrl}"
+                        <Button Classes="Update" Command="{Binding MarkUpdateUrlAsync}"
                                 ToolTip.Tip="{StaticResource ChangeUrlNameTip}"
                                 HotKey="{DynamicResource UpdateHotkey}"
                         />   
@@ -53,7 +53,7 @@
                                 ToolTip.Tip="{StaticResource BrowseSaveFileTip}"
                                 HotKey="{DynamicResource AddHotkey}"
                         />
-                        <Button Classes="MoveFile" Command="{Binding MarkMoveUrl}"
+                        <Button Classes="MoveFile" Command="{Binding MarkMoveUrlAsync}"
                                 ToolTip.Tip="{StaticResource MoveFileTip}"
                                 HotKey="{DynamicResource UpdateHotkey}"
                         />   
@@ -103,11 +103,11 @@
                     </AutoCompleteBox.ItemTemplate>
                 </AutoCompleteBox>
                 <WrapPanel Orientation="Horizontal">
-                    <Button Classes="Add" Command="{Binding AddTag}"
+                    <Button Classes="Add" Command="{Binding AddTagAsync}"
                             ToolTip.Tip="{StaticResource ConnectTagTip}"
                             HotKey="{DynamicResource AddSecondHotkey}"
                     />
-                    <Button Classes="Exclude" Command="{Binding RemoveTag}"
+                    <Button Classes="Exclude" Command="{Binding RemoveTagAsync}"
                             ToolTip.Tip="{StaticResource DisconnectTagTip}"
                             HotKey="{DynamicResource ExcludeSecondHotkey}"
                     />
@@ -128,19 +128,19 @@
                     </AutoCompleteBox.ItemTemplate>
                 </AutoCompleteBox>
                 <WrapPanel Orientation="Horizontal">
-                    <Button Classes="Exclude" Command="{Binding MarkDeleteUrl}"
+                    <Button Classes="Exclude" Command="{Binding MarkDeleteUrlAsync}"
                             ToolTip.Tip="{StaticResource MarkDeleteTip}"
                             HotKey="{DynamicResource ExcludeHotkey}"
                             />
-                    <Button Classes="ForceUpdate" Command="{Binding ForceMarkUpdate}"
+                    <Button Classes="ForceUpdate" Command="{Binding ForceMarkUpdateAsync}"
                             ToolTip.Tip="{StaticResource MarkForceUpdateTip}"
                             HotKey="{DynamicResource ForceUpdateHotkey}"
                             />
-                    <Button Classes="CancelMark" Command="{Binding CancelMark}"
+                    <Button Classes="CancelMark" Command="{Binding CancelMarkAsync}"
                             ToolTip.Tip="{StaticResource CancelPressBrush}"
                             HotKey="{DynamicResource CancelMarkHotkey}"
                             />
-                    <Button Classes="Launch" Command="{Binding StartFile}"
+                    <Button Classes="Launch" Command="{Binding StartFileAsync}"
                             ToolTip.Tip="{StaticResource LaunchFileTip}"
                             HotKey="{DynamicResource  LaunchHotkey}"
                             />

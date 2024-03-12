@@ -27,11 +27,11 @@
                     </AutoCompleteBox.ItemTemplate>
                 </AutoCompleteBox>
            
-                <Button Classes="Add" Command="{Binding AddTag}"
+                <Button Classes="Add" Command="{Binding AddTagAsync}"
                         ToolTip.Tip="{StaticResource AddTagToListTip}"
                         HotKey="{DynamicResource AddHotkey}"
                 />
-                <Button Classes="Exclude" Command="{Binding RemoveTag}"
+                <Button Classes="Exclude" Command="{Binding RemoveTagAsync}"
                         ToolTip.Tip="{StaticResource RemoveTagFromListTip}"
                         HotKey="{DynamicResource ExcludeHotkey}"
                 />

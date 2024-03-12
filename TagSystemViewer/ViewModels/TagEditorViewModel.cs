@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using SQLite;
 using SQLiteNetExtensions.Extensions;
 using TagSystemViewer.Models;
 using TagSystemViewer.Services;
+using TagSystemViewer.Utility;
 
 namespace TagSystemViewer.ViewModels;
 
@@ -20,7 +22,7 @@ public class TagEditorViewModel : ViewModelBase
     public TagEditorViewModel()
     {
         _currentNames = new Tag[4];
-        ReadTags();
+        ReadTagsAsync();
     }
 
     public ObservableCollection<Tag> Tags { get; set; } = new();
@@ -151,7 +153,7 @@ public class TagEditorViewModel : ViewModelBase
         Tags.Remove(CurrentTag);
     }
 
-    public void RemoveCascade(SQLiteConnection conn)
+    private void RemoveCascade(SQLiteConnection conn)
     {
         foreach (var tag in TagsToRemove)
         {
@@ -167,4 +169,13 @@ public class TagEditorViewModel : ViewModelBase
         RemoveCascade(conn);
         ReadTags();
     }
+
+    public async Task ConfirmAsync() => await AsyncLauncher.LaunchDispatcher(Confirm);
+    public async Task ReadTagsAsync() => await AsyncLauncher.LaunchDispatcher(ReadTags);
+    public async Task ExcludeUpdatesAsync() => await AsyncLauncher.LaunchDispatcher(ExcludeUpdates);
+    public async Task ExcludeAddsAsync() => await AsyncLauncher.LaunchDispatcher(ExcludeAdds);
+    public async Task ExcludeRemovesAsync() => await AsyncLauncher.LaunchDispatcher(ExcludeRemoves);
+    public async Task AddCurrentToAddsAsync() => await AsyncLauncher.LaunchDispatcher(AddCurrentToAdds);
+    public async Task AddCurrentToUpdatesAsync() =>await AsyncLauncher.LaunchDispatcher(AddCurrentToUpdates);
+    public async Task AddCurrentToRemovesAsync() => await AsyncLauncher.LaunchDispatcher(AddCurrentToRemoves);
 }

@@ -36,7 +36,7 @@
                                
                         </WrapPanel>
                         <WrapPanel DockPanel.Dock="Left" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                                <Button Classes="Search" Command="{Binding SearchUrls}"
+                                <Button Classes="Search" Command="{Binding SearchUrlsAsync}"
                                         ToolTip.Tip="{StaticResource SearchTip}"
                                         HotKey="{DynamicResource SearchHotkey}"
                                 />

@@ -15,40 +15,40 @@
         <Grid ColumnDefinitions="*,1,*,1,*,1,*" RowDefinitions="9*,1*">
             <controls1:TagGrid Grid.Row="0" Grid.Column="0" Text="Усі" ItemsSource="{Binding Tags}"
                               SelectedItem="{Binding CurrentTag, Mode=TwoWay}"
-                              Command="{Binding AddCurrentToRemoves}"
+                              Command="{Binding AddCurrentToRemovesAsync}"
             />
             <GridSplitter Grid.Row="0" Grid.Column="1" ResizeDirection="Columns"/>
             <controls1:TagGrid Grid.Row="0" Grid.Column="2" 
                               Text="Для додання" ItemsSource="{Binding TagsToAdd}"
                               SelectedItem="{Binding CurrentAddTag, Mode=TwoWay}"
-                              Command="{Binding ExcludeAdds}"
+                              Command="{Binding ExcludeAddsAsync}"
             />
             <GridSplitter Grid.Row="0" Grid.Column="3" ResizeDirection="Columns"/>
             <controls1:TagGrid Grid.Row="0" Grid.Column="4"
                               Text="Для оновлення" ItemsSource="{Binding TagsToUpdate}"
                               SelectedItem="{Binding CurrentUpdateTag, Mode=TwoWay}"
-                              Command="{Binding ExcludeUpdates}"
+                              Command="{Binding ExcludeUpdatesAsync}"
             />
             <GridSplitter Grid.Row="0" Grid.Column="5" ResizeDirection="Columns"/>
             <controls1:TagGrid Grid.Row="0" Grid.Column="6"
                               Text="Для видалення" ItemsSource="{Binding TagsToRemove}"
                               SelectedItem="{Binding CurrentRemoveTag, Mode=TwoWay}"
-                              Command="{Binding ExcludeRemoves}"/>
+                              Command="{Binding ExcludeRemovesAsync}"/>
         </Grid>
         <Grid Grid.Row="1" ColumnDefinitions="8*, 2*">
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
                 <TextBox Text="{Binding NewName}"/>
-                <Button Classes="Add" Command="{Binding AddCurrentToAdds}"
+                <Button Classes="Add" Command="{Binding AddCurrentToAddsAsync}"
                         ToolTip.Tip="{StaticResource AddTagToAddsTip}"
                         HotKey="{DynamicResource AddHotkey}"
                 />
-                <Button Classes="Update" Command="{Binding AddCurrentToUpdates}"
+                <Button Classes="Update" Command="{Binding AddCurrentToUpdatesAsync}"
                         ToolTip.Tip="{StaticResource AddTagToUpdatesTip}"
                         HotKey="{DynamicResource UpdateHotkey}"
                 />
             </WrapPanel>
             <WrapPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Classes="Refresh" Command="{Binding ReadTags}"
+                <Button Classes="Refresh" Command="{Binding ReadTagsAsync}"
                         ToolTip.Tip="{StaticResource RefreshViewTip}"
                         HotKey="{DynamicResource RefreshHotkey}"
                         />
@@ -56,7 +56,7 @@
                         ToolTip.Tip="{StaticResource ExitWithoutChangesTip}"
                         HotKey="{DynamicResource ExitHotkey}"
                         />
-                <Button Classes="Confirm" Command="{Binding Confirm}"
+                <Button Classes="Confirm" Command="{Binding ConfirmAsync}"
                         ToolTip.Tip="{StaticResource ConfirmTip}"
                         HotKey="{DynamicResource ConfirmHotkey}"
                         />

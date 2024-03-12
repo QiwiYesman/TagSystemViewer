@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using SQLiteNetExtensions.Extensions;
@@ -55,7 +56,8 @@ public class UrlEditorViewModel: ViewModelBase
     public UrlEditorViewModel()
     {
         Urls = new();
-        ReadTags();
+        AsyncLauncher.LaunchDispatcherVoid(ReadTags);
+        //ReadTagsAsync();
     }
     
     public void ReadTags()
@@ -79,7 +81,6 @@ public class UrlEditorViewModel: ViewModelBase
         {
             return;
         }
-
         CurrentUrl.Tags.Add(CurrentTag);
         ForceMarkUpdate();
     }
@@ -105,8 +106,6 @@ public class UrlEditorViewModel: ViewModelBase
         CurrentUrl.RecordStates = RecordStates.Delete;
         SetPrevName();
     }
-
-
     public void ForceMarkUpdate()
     {
         if (CurrentUrl is null || CurrentUrl.RecordStates == RecordStates.Insert) return;
@@ -162,7 +161,7 @@ public class UrlEditorViewModel: ViewModelBase
         NewName = Uri.UnescapeDataString(file.Path.AbsolutePath);
     }
 
-    public static bool Move(ObservableUrl url)
+    private static bool Move(ObservableUrl url)
     {
         return !string.IsNullOrEmpty(url.OldName) &&
                FileProcess.MoveFile(url.OldName, url.CurrentLink);
@@ -239,7 +238,19 @@ public class UrlEditorViewModel: ViewModelBase
                     break;
             }
         }
-        ReadTags();
+        ReadTagsAsync();
     }
+
+    public async void ReadTagsAsync() => AsyncLauncher.LaunchDispatcherVoid(ReadTags);
+    public async Task ConfirmAsync() => await AsyncLauncher.LaunchDispatcher(Confirm);
+    public async Task StartFileAsync() => await AsyncLauncher.LaunchDispatcher(StartFile);
+    public async Task MarkMoveUrlAsync() => await AsyncLauncher.LaunchDispatcher(MarkMoveUrl);
+    public async Task CancelMarkAsync() => await AsyncLauncher.LaunchDispatcher(CancelMark);
+    public async Task MarkInsertUrlAsync() => await AsyncLauncher.LaunchDispatcher(MarkInsertUrl);
+    public async Task MarkUpdateUrlAsync() => await AsyncLauncher.LaunchDispatcher(MarkUpdateUrl);
     
+    public async Task ForceMarkUpdateAsync() => await AsyncLauncher.LaunchDispatcher(ForceMarkUpdate);
+    public async Task RemoveTagAsync() => await AsyncLauncher.LaunchDispatcher(RemoveTag);
+    public async Task AddTagAsync() => await AsyncLauncher.LaunchDispatcher(AddTag);
+    public async Task MarkDeleteUrlAsync() => await AsyncLauncher.LaunchDispatcher(MarkDeleteUrl);
 }

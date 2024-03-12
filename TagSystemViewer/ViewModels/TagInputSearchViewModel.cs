@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using DynamicData.Binding;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using TagSystemViewer.Enums;
 using TagSystemViewer.Models;
 using TagSystemViewer.Services;
+using TagSystemViewer.Utility;
 
 namespace TagSystemViewer.ViewModels;
 
@@ -16,14 +18,14 @@ public class TagInputSearchViewModel: ViewModelBase
 {
     public TagInputSearchViewModel()
     {
-        ReadTags();
+        ReadTagsAsync();
     }
     private Tag? _currentTag, _currentListTag;
     private TagSearchStates _currentStates = TagSearchStates.Or;
-    public ObservableCollection<Tag> Tags { get; set; } = new();
-    public ObservableCollection<Tag> AndTags { get; set; } = new();
-    public ObservableCollection<Tag> NotTags { get; set; } = new();
-    public ObservableCollection<Tag> OrTags { get; set; } = new();
+    public ObservableCollection<Tag> Tags { get; set; } = [];
+    public ObservableCollection<Tag> AndTags { get; set; } = [];
+    public ObservableCollection<Tag> NotTags { get; set; } = [];
+    public ObservableCollection<Tag> OrTags { get; set; } = [];
     
     public Tag? CurrentTag
     {
@@ -65,8 +67,9 @@ public class TagInputSearchViewModel: ViewModelBase
             Tags.Add(i);
         }
     }
+    
 
-    public static void RemoveIfExist(Tag tag, ObservableCollection<Tag> list)
+    private static void RemoveIfExist(Tag tag, ObservableCollection<Tag> list)
     {
         var i = list.IndexOf(tag);
         if (i != -1)
@@ -132,4 +135,10 @@ public class TagInputSearchViewModel: ViewModelBase
         OrTags.Clear();
         NotTags.Clear();
     }
+    
+    
+    public async void ReadTagsAsync() => await AsyncLauncher.LaunchDispatcher(ReadTags);
+   // public async Task SearchAsync() => await AsyncLauncher.LaunchTask(Search);
+    public async Task AddTagAsync() => await AsyncLauncher.LaunchDispatcher(AddTag);
+    public async Task RemoveTagAsync() => await AsyncLauncher.LaunchDispatcher(RemoveTag);
 }

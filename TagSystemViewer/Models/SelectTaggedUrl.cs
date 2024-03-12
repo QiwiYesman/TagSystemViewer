@@ -37,10 +37,10 @@ public static class SelectTaggedUrl
     public static string Query(List<Tag> andTags, List<Tag> orTags, List<Tag> notTags)
     {
         List<string> partialQueries = new();
-        if(andTags.Any()) partialQueries.Add(FormatBigQueries(andTags, SelectAndTags));
-        if(orTags.Any()) partialQueries.Add(FormatSimpleQueries(orTags, SelectOrTags));
-        if(notTags.Any()) partialQueries.Add(FormatSimpleQueries(notTags, SelectNotTags));
-        if (!partialQueries.Any()) return "select * from Urls";
+        if(andTags.Count != 0) partialQueries.Add(FormatBigQueries(andTags, SelectAndTags));
+        if(orTags.Count != 0) partialQueries.Add(FormatSimpleQueries(orTags, SelectOrTags));
+        if(notTags.Count != 0) partialQueries.Add(FormatSimpleQueries(notTags, SelectNotTags));
+        if (partialQueries.Count == 0) return "select * from Urls";
         return string.Format(SelectQueryBase, string.Join(" and ", partialQueries));
     }
 }

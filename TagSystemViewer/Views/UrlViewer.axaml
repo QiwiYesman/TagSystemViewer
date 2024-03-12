@@ -90,8 +90,6 @@
                                                 <Viewbox MaxHeight="150">
                                                         <controls1:UniImageControl MaxHeight="150"
                                                                 Source="{Binding Link}"
-                                                                ContentType="{Binding Tags, 
-                                                                Converter={StaticResource TagsToFileExtensionConverter}}"
                                                                 ToPlay="{Binding  $parent[Window].DataContext.ToPlayGifs, Mode=TwoWay}"/>
                                                 </Viewbox>
                                         </DockPanel>

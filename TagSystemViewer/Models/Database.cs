@@ -1,16 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
-using Newtonsoft.Json;
 using SQLite;
 using SQLiteNetExtensions.Extensions;
 
 namespace TagSystemViewer.Models;
-
-
 
 public static class Database
 {
@@ -39,7 +33,7 @@ public static class Database
 
     public static void AddDefaultTags(this SQLiteConnection db)
     {
-        var tagNames = DefaultTagsAndExtensions.TagNames;
+        IEnumerable<string> tagNames = ["image", "video", "hoho"];
         var tags = tagNames.Select(x => new Tag() { Id = 0, Name = x });
         db.InsertAll(tags, typeof(Tag));
     }

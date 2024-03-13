@@ -28,7 +28,8 @@
         <Style Selector="^.Add, ^.Exclude, ^.Confirm, ^.Search, ^.Update, ^.ForceUpdate,
          ^.Refresh, ^.Launch, ^.OpenFolder, ^.BrowseFolder, ^.Cancel, ^.CancelMark, 
          ^.ManageTags, ^.ManageUrls, ^.ManageDatabase, ^.AddDatabase, ^.RemoveDatabase, 
-         ^.Exit, ^.CopyContent, ^.CopyPath, ^.Erase, ^.Play, ^.Pause, ^.ManageHotkeys, ^.SaveBrowseFile, ^.MoveFile">
+         ^.Exit, ^.CopyContent, ^.CopyPath, ^.Erase, ^.Play, ^.Pause, ^.ManageHotkeys, ^.SaveBrowseFile, ^.MoveFile,
+         ^.Relative">
             <Setter Property="FontFamily" Value="{StaticResource IcoMoonFont}"/>
             <Setter Property="Width" Value="{Binding $self.Height}"/>
         </Style>
@@ -106,8 +107,11 @@
     <Style Selector="Button.MoveFile">
         <Setter Property="Content" Value="{StaticResource IcoMoonMoveFile}"/>
     </Style>
+    <Style Selector="Button.Relative">
+        <Setter Property="Content" Value="{StaticResource IcoMoonRelative}"/>
+    </Style>
     <Style Selector="TextBlock">
-        <Style Selector="^.Add, ^.Exclude, ^.Update, ^.MoveFile">
+        <Style Selector="^.Add, ^.Exclude, ^.Update, ^.MoveFile, ^.Relative">
             <Setter Property="FontFamily" Value="{StaticResource IcoMoonFont}"/>
             <Setter Property="FontSize" Value="{StaticResource LargeFontSize}"/>
         </Style>
@@ -122,6 +126,9 @@
         </Style>
         <Style Selector="^.MoveFile">
             <Setter Property="Text" Value="{StaticResource IcoMoonMoveFile}"/>
+        </Style>
+        <Style Selector="^.Relative">
+            <Setter Property="Text" Value="{StaticResource IcoMoonRelative}"/>
         </Style>
     </Style>
     

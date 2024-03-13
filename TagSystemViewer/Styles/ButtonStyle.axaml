@@ -34,7 +34,8 @@
             </Style>
         </Style>
         
-        <Style Selector="^.CopyPath, ^.CopyContent, ^.Search, ^.Update, ^.ForceUpdate, ^.Refresh, ^.Erase, ^.MoveFile">
+        <Style Selector="^.CopyPath, ^.CopyContent, ^.Search, ^.Update, ^.ForceUpdate, ^.Refresh, ^.Erase, ^.MoveFile,
+         ^.Relative">
             <Setter Property="Foreground" Value="{StaticResource NeutralBrush}"/>
             <Setter Property="BorderBrush" Value="{StaticResource NeutralBrush}"/>
             <Style Selector="^:pointerover /template/ ContentPresenter">

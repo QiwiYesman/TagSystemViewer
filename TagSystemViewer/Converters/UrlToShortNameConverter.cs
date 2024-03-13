@@ -12,10 +12,8 @@ public class UrlToShortNameConverter: IValueConverter
         if (value is not string) return "";
         
         var link = value.ToString();
-        if (link is null) return "";
-        if (!File.Exists(link)) return Uri.UnescapeDataString(link);
-        var uri = new Uri(link);
-        return Uri.UnescapeDataString(uri.Segments[^1]);
+        return string.IsNullOrEmpty(link) ? 
+            "" : Path.GetFileName(Uri.UnescapeDataString(link));
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

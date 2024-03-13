@@ -91,6 +91,7 @@ public class ObservableHotkeyConfig: ViewModelBase
             new("Видалити базу даних", "ctrl+delete","RemoveHotkey"),
             new("Позначити файл для переміщення", "ctrl+m","MoveFileHotkey"),
             new("Вказати новий файл для переміщення", "ctrl+shift+m","SaveBrowserHotkey"),
+            new("Позначити файл для зміни шляху на відносний або навпаки", "ctrl+h","MarkRelativeHotkey"),
         };
         ActiveName = "default";
     }

@@ -18,7 +18,37 @@ public class DatabaseConfig : Dictionary<string ,string>
         }
     }
 
+    public bool IsAccessible(string dbName)
+    {
+        var path = CurrentPath;
+        return path is not null && File.Exists(path);
+    }
 
+    public bool IsAccessibleCurrent()
+    {
+        return IsAccessible(CurrentName);
+    }
+    public bool PickCorrectPath()
+    {
+        foreach (var dbName in Keys)
+        {
+            if (!IsAccessible(dbName)) continue;
+            CurrentName = dbName;
+            return true;
+        }
+
+        return false;
+    }
+
+    public void CreateDefault()
+    {
+        string defaultDbName = "default";
+        string defaultDbPath = "db_default.sqlite3";
+        using var conn = Database.DbNewConnection(defaultDbPath);
+        Database.CreateTables(conn);
+        Add(defaultDbName, defaultDbPath);
+        CurrentName = defaultDbName;
+    }
     public void Save(string path)
     {
         var dict = new Dictionary<string, DatabaseConfig>()

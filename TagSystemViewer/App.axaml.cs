@@ -48,6 +48,14 @@ public partial class App : Application
                     {
                         DatabaseConfig.CurrentName = DatabaseConfig.Keys.First();
                     }
+
+                    if (!DatabaseConfig.IsAccessibleCurrent())
+                    {
+                        if (!DatabaseConfig.PickCorrectPath())
+                        {
+                            DatabaseConfig.CreateDefault();
+                        }
+                    }
                 }
                 catch
                 {

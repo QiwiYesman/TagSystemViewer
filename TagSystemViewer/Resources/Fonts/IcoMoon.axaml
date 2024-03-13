@@ -42,4 +42,6 @@
     
     <system:String x:Key="IcoMoonShowDown">&#xe902;</system:String>
     <system:String x:Key="IcoMoonHideUp">&#xe903;</system:String>
+    
+    <system:String x:Key="IcoMoonRelative">&#xe922;</system:String>
 </ResourceDictionary>

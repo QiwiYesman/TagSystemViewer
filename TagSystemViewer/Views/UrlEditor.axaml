@@ -68,20 +68,23 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type observables:ObservableUrl}">
                         <DockPanel>
-                            <TextBlock DockPanel.Dock="Right"
-                                Classes.Add="{Binding RecordStates,
+                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" Spacing="0">
+                                <TextBlock Classes="Relative" IsVisible="{Binding SaveAsRelative}"/>
+                                <TextBlock Classes.Add="{Binding RecordStates,
                                                Converter={StaticResource BoolEnumConvertor},
                                                ConverterParameter={x:Static enums:RecordStates.Insert}, Mode=TwoWay}"
-                                Classes.Exclude="{Binding RecordStates,
+                                           Classes.Exclude="{Binding RecordStates,
                                                Converter={StaticResource BoolEnumConvertor},
                                                ConverterParameter={x:Static enums:RecordStates.Delete}, Mode=TwoWay}"
-                                Classes.Update="{Binding RecordStates,
+                                           Classes.Update="{Binding RecordStates,
                                                Converter={StaticResource BoolEnumConvertor},
                                                ConverterParameter={x:Static enums:RecordStates.Update}, Mode=TwoWay}"
-                                Classes.MoveFile="{Binding RecordStates,
+                                           Classes.MoveFile="{Binding RecordStates,
                                                Converter={StaticResource BoolEnumConvertor},
                                                ConverterParameter={x:Static enums:RecordStates.UpdateAndMove}, Mode=TwoWay}"
                                 />
+                            </StackPanel>
+                            
                             <TextBlock Text="{Binding CurrentLink}"/>
                         </DockPanel>
                     </DataTemplate>
@@ -144,8 +147,10 @@
                             ToolTip.Tip="{StaticResource LaunchFileTip}"
                             HotKey="{DynamicResource  LaunchHotkey}"
                             />
-                    <TextBlock Text="{Binding CurrentUrl.SaveAsRelative, FallbackValue='Error'}"/>
-                    <Button Content="SwitchRelative" Command="{Binding SwitchRelativeUrl}"/>
+                    <Button Classes="Relative" Command="{Binding SwitchRelativeUrl}"
+                            ToolTip.Tip="{StaticResource RelativeFileTip}"
+                            HotKey="{DynamicResource MarkRelativeHotkey}"
+                            />
                 </WrapPanel>
             </StackPanel>
         </Grid>

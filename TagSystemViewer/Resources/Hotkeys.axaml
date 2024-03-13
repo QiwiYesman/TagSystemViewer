@@ -78,4 +78,7 @@
     <KeyGesture x:Key="MoveFileHotkey">
         ctrl+shift+m
     </KeyGesture>
+    <KeyGesture x:Key="MarkRelativeHotkey">
+        ctrl+h
+    </KeyGesture>
 </ResourceDictionary>

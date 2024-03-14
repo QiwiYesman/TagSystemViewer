@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TagSystemViewer.Utility;
 
@@ -20,7 +21,7 @@ public class DatabaseConfig : Dictionary<string ,string>
 
     public bool IsAccessible(string dbName)
     {
-        var path = CurrentPath;
+        TryGetValue(dbName, out var path);
         return path is not null && File.Exists(path);
     }
 
@@ -40,12 +41,12 @@ public class DatabaseConfig : Dictionary<string ,string>
         return false;
     }
 
-    public void CreateDefault()
+    public async Task CreateDefault()
     {
         string defaultDbName = "default";
         string defaultDbPath = "db_default.sqlite3";
-        using var conn = Database.DbNewConnection(defaultDbPath);
-        Database.CreateTables(conn);
+        var conn = Database.DbNewConnection(defaultDbPath);
+        await Database.CreateTables(conn);
         Add(defaultDbName, defaultDbPath);
         CurrentName = defaultDbName;
     }

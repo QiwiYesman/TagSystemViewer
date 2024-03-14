@@ -113,6 +113,6 @@ public partial class App : Application
     }
     public IServiceProvider? Services { get; private set; }
     public DatabaseConfig? DatabaseConfig { get; set; }
-    public SQLiteConnection? Connection =>DatabaseConfig is null ? null: Database.CurrentConnection(DatabaseConfig);
+    public SQLiteAsyncConnection? Connection =>DatabaseConfig is null ? null: Database.CurrentConnection(DatabaseConfig);
     public new static App? Current => Application.Current as App;
 }

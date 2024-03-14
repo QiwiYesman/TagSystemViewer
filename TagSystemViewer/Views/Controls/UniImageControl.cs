@@ -4,6 +4,7 @@ using AsyncImageLoader;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
+using Avalonia.Threading;
 using AvaloniaGif;
 using TagSystemViewer.Enums;
 using TagSystemViewer.Utility;
@@ -55,7 +56,7 @@ public class UniImageControl: UserControl
         set 
         {
             SetAndRaise(SourceProperty, ref _source, value);
-            UpdateContent();
+            AsyncLauncher.LaunchDispatcherVoid(UpdateContent);
         }
     }
 
@@ -80,6 +81,7 @@ public class UniImageControl: UserControl
         if (Source is null) return ;
         var extension = UriToAsset.GetExtension(Source.OriginalString);
         var type = UriToAsset.GetAssetName(extension);
+        Console.WriteLine("\t starting uniimage");
         try
         {
             switch (type)
@@ -94,6 +96,7 @@ public class UniImageControl: UserControl
                     Content = new AdvancedImage((Uri?)null){Source=UriToAsset.GetAssetPath(type)};
                     break;
             }
+            Console.WriteLine("\t finishing uniimage");
         }
         catch (Exception e)
         {

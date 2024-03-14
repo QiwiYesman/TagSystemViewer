@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
+using SQLite;
 using SQLiteNetExtensions.Extensions;
+using SQLiteNetExtensionsAsync.Extensions;
 using TagSystemViewer.Enums;
 using TagSystemViewer.Models;
 using TagSystemViewer.Services;
@@ -53,15 +55,16 @@ public class UrlEditorViewModel: ViewModelBase
     public UrlEditorViewModel()
     {
         Urls = new();
-        AsyncLauncher.LaunchDispatcherVoid(ReadTags);
+        ReadTags();
+        //AsyncLauncher.LaunchDispatcherVoid(ReadTags);
         //ReadTagsAsync();
     }
     
-    public void ReadTags()
+    public async void ReadTags()
     {
         var conn = App.Current?.Connection;
         if(conn is null) return;
-        var urls = conn.GetAllWithChildren<Url>();
+        var urls = await conn.GetAllWithChildrenAsync<Url>();
         Urls.Clear();
         foreach (var url in urls)
         {
@@ -76,7 +79,7 @@ public class UrlEditorViewModel: ViewModelBase
             }
             Urls.Add(observableUrl);
         }
-        var tags = conn.SelectAll<Tag>();
+        var tags = await conn.SelectAll<Tag>().ToArrayAsync();
         Tags = new ObservableCollection<Tag>(tags);
     }
 
@@ -196,7 +199,24 @@ public class UrlEditorViewModel: ViewModelBase
         if (file is null) return;
         NewName = Uri.UnescapeDataString(file.Path.AbsolutePath);
     }
-    public void Confirm()
+
+    private async Task UpdateUrl(SQLiteAsyncConnection conn, ObservableUrl currentUrl)
+    {
+        var commonUrl = new Url
+        {
+            Id = currentUrl.Id,
+            Link = currentUrl.CurrentLink,
+            Tags = currentUrl.Tags.ToList()
+        };
+        if (currentUrl.SaveAsRelative)
+        {
+            commonUrl.Link = LinkResolver.GetRelativeUrl(
+                App.Current?.DatabaseConfig?.CurrentPath ?? "",
+                commonUrl.Link);
+        }
+        await conn.UpdateWithChildrenAsync(commonUrl);
+    }
+    public async Task Confirm()
     {
         var conn = App.Current?.Connection;
         if(conn is null) return;
@@ -210,41 +230,17 @@ public class UrlEditorViewModel: ViewModelBase
                     {
                         Id = url.Id,
                     };
-                    conn.Delete(commonUrl, true);
+                    await conn.DeleteAsync(commonUrl, true);
                     break;
                 case RecordStates.UpdateAndMove:
                     if (Move(url))
                     {
-                        commonUrl = new Url
-                        {
-                            Id = url.Id,
-                            Link = url.CurrentLink,
-                            Tags = url.Tags.ToList()
-                        };
-                        if (url.SaveAsRelative)
-                        {
-                            commonUrl.Link = LinkResolver.GetRelativeUrl(
-                                App.Current?.DatabaseConfig?.CurrentPath ?? "",
-                                commonUrl.Link);
-                        }
-                        conn.UpdateWithChildren(commonUrl);
+                        await UpdateUrl(conn, url);
                     }
 
                     break;
                 case RecordStates.Update:
-                    commonUrl = new Url
-                    {
-                        Id = url.Id,
-                        Link = url.CurrentLink,
-                        Tags = url.Tags.ToList()
-                    };
-                    if (url.SaveAsRelative)
-                    {
-                        commonUrl.Link = LinkResolver.GetRelativeUrl(
-                            App.Current?.DatabaseConfig?.CurrentPath ?? "",
-                            commonUrl.Link);
-                    }
-                    conn.UpdateWithChildren(commonUrl);
+                    await UpdateUrl(conn, url);
                     break;
                 case RecordStates.Insert:
                     commonUrl = new Url
@@ -252,11 +248,11 @@ public class UrlEditorViewModel: ViewModelBase
                         Link = url.CurrentLink,
                         Tags = url.Tags.ToList()
                     };
-                    conn.InsertWithChildren(commonUrl);
+                    await conn.InsertWithChildrenAsync(commonUrl);
                     break;
             }
         }
-        ReadTagsAsync();
+        ReadTags();
     }
 
     public void SwitchRelativeUrl()
@@ -265,8 +261,11 @@ public class UrlEditorViewModel: ViewModelBase
         CurrentUrl.SaveAsRelative = !CurrentUrl.SaveAsRelative;
         ForceMarkUpdate();
     }
-    public async void ReadTagsAsync() => AsyncLauncher.LaunchDispatcherVoid(ReadTags);
-    public async Task ConfirmAsync() => await AsyncLauncher.LaunchDispatcher(Confirm);
+
+    public async void ReadTagsAsync() => ReadTags(); 
+        //AsyncLauncher.LaunchDispatcherVoid(ReadTags);
+        public async Task ConfirmAsync() => await Confirm();
+    // await AsyncLauncher.LaunchDispatcher(Confirm);
     public async Task StartFileAsync() => await AsyncLauncher.LaunchDispatcher(StartFile);
     public async Task MarkMoveUrlAsync() => await AsyncLauncher.LaunchDispatcher(MarkMoveUrl);
     public async Task CancelMarkAsync() => await AsyncLauncher.LaunchDispatcher(CancelMark);

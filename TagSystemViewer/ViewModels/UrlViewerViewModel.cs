@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Avalonia.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using TagSystemViewer.Models;
@@ -25,18 +27,41 @@ public class UrlViewerViewModel: ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _play, value);
     }
     public ObservableCollection<Url> FoundUrls { get; set; } = new();
-    
-    public void SearchUrls()
+
+    public async Task SearchUrls()
     {
-        FoundUrls.Clear();
-        var list = UrlSearchViewModel.Search();
+        Console.WriteLine("searching");
+        var list = await UrlSearchViewModel.Search();
+        Console.WriteLine("found, starting fill");
+//        await Dispatcher.UIThread.InvokeAsync(() => 
+        FillFoundUrls(list);
+        //);
+        /*FoundUrls.Clear();
         foreach (var url in list)
         {
             FoundUrls.Add(url);
-        }
+        }*/
     }
 
-    public async Task SearchUrlsAsync() => await AsyncLauncher.LaunchDispatcher(SearchUrls);
+    private void FillFoundUrls(IEnumerable<Url> urls)
+    {
+            FoundUrls.Clear();
+            foreach (var url in urls)
+            {
+                var isRelative = LinkResolver.IsRelative(url.Link);
+                if (isRelative)
+                {
+                    url.Link = LinkResolver.ResolveAbsoluteUrl(
+                        App.Current?.DatabaseConfig?.CurrentPath??"", 
+                        url.Link);
+                }
+                FoundUrls.Add(url);
+            }
+            Console.WriteLine("added urls");
+    }
+
+    public async void SearchUrlsAsync() => await SearchUrls(); 
+        //await AsyncLauncher.LaunchTask(SearchUrls);
     public void CopyPath(object arg)
     {
         var path = arg.ToString() ?? "";
@@ -59,5 +84,5 @@ public class UrlViewerViewModel: ViewModelBase
     public static void OpenFile(object arg)=>
         FileProcess.StartFile(arg.ToString() ?? "");
 
-    public void RefreshTags() => UrlSearchViewModel.ReadTags();
+    public async void RefreshTags() => await UrlSearchViewModel.ReadTags();
 }

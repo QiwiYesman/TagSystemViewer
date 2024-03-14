@@ -36,7 +36,7 @@
                                
                         </WrapPanel>
                         <WrapPanel DockPanel.Dock="Left" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                                <Button Classes="Search" Command="{Binding SearchUrlsAsync}"
+                                <Button Classes="Search" Command="{Binding SearchUrls}"
                                         ToolTip.Tip="{StaticResource SearchTip}"
                                         HotKey="{DynamicResource SearchHotkey}"
                                 />
@@ -85,7 +85,7 @@
                                                                 ToolTip.Tip="{StaticResource LaunchFileTip}"
                                                                 />
                                                 </WrapPanel>
-                                                <TextBox Text="{Binding Link, Mode=OneWay, Converter={StaticResource UrlToShortNameConverter}}"
+                                                <TextBox Text="{Binding Link, Converter={StaticResource UrlToShortNameConverter}}"
                                                          IsReadOnly="True" DockPanel.Dock="Bottom"/>
                                                 <Viewbox MaxHeight="150">
                                                         <controls1:UniImageControl MaxHeight="150"

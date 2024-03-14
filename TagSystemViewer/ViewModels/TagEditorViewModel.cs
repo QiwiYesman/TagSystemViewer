@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using SQLite;
 using SQLiteNetExtensions.Extensions;
+using SQLiteNetExtensionsAsync.Extensions;
 using TagSystemViewer.Models;
 using TagSystemViewer.Services;
 using TagSystemViewer.Utility;
@@ -64,11 +65,11 @@ public class TagEditorViewModel : ViewModelBase
         TagsToUpdate.Clear();
         TagsToRemove.Clear();
     }
-    public void ReadTags()
+    public async Task ReadTags()
     {
         var conn = App.Current?.Connection;
         if(conn is null) return;
-        var items = conn.SelectAll<Tag>();
+        var items = await conn.SelectAll<Tag>().ToArrayAsync();
         FullClear();
         foreach (var i in items)
         {
@@ -153,25 +154,27 @@ public class TagEditorViewModel : ViewModelBase
         Tags.Remove(CurrentTag);
     }
 
-    private void RemoveCascade(SQLiteConnection conn)
+    private async Task RemoveCascade(SQLiteAsyncConnection conn)
     {
         foreach (var tag in TagsToRemove)
         {
-            conn.Delete(tag, recursive: true);
+            await conn.DeleteAsync(tag, recursive: true);
         }
     }
-    public void Confirm()
+    public async Task Confirm()
     {
         var conn = App.Current?.Connection;
         if(conn is null) return;
-        conn.UpdateAll(TagsToUpdate);
-        conn.InsertAll(TagsToAdd);
-        RemoveCascade(conn);
-        ReadTags();
+        await conn.UpdateAllAsync(TagsToUpdate);
+        await conn.InsertAllAsync(TagsToAdd);
+        await RemoveCascade(conn);
+        await ReadTags();
     }
 
-    public void ConfirmAsync() => AsyncLauncher.LaunchDispatcherVoid(Confirm);
-    public async Task ReadTagsAsync() => await AsyncLauncher.LaunchDispatcher(ReadTags);
+    public async void ConfirmAsync() => await Confirm(); 
+        //AsyncLauncher.LaunchDispatcherVoid(Confirm);
+    public async void ReadTagsAsync() => await ReadTags(); 
+        //await AsyncLauncher.LaunchDispatcher(ReadTags);
     public async Task ExcludeUpdatesAsync() => await AsyncLauncher.LaunchDispatcher(ExcludeUpdates);
     public async Task ExcludeAddsAsync() => await AsyncLauncher.LaunchDispatcher(ExcludeAdds);
     public async Task ExcludeRemovesAsync() => await AsyncLauncher.LaunchDispatcher(ExcludeRemoves);

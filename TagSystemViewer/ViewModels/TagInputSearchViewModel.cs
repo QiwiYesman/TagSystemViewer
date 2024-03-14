@@ -56,11 +56,11 @@ public class TagInputSearchViewModel: ViewModelBase
         set =>this.RaiseAndSetIfChanged(ref _currentStates, value);
     }
     
-    public void ReadTags()
+    public async Task ReadTags()
     {
         var conn = App.Current?.Connection;
         if(conn is null) return;
-        var items = conn.SelectAll<Tag>();
+        var items = await conn.SelectAll<Tag>().ToArrayAsync();
         Tags.Clear();
         foreach (var i in items)
         {
@@ -117,11 +117,11 @@ public class TagInputSearchViewModel: ViewModelBase
             return;
         }
     }
-    public List<Url> Search()
+    public async Task<List<Url>> Search()
     {
         var conn = App.Current?.Connection;
         if(conn is null) return new();
-        return conn.SelectUrls(new()
+        return await Database.SelectUrls(conn, new()
         {
             AndTags = AndTags,
             OrTags = OrTags,
@@ -135,9 +135,10 @@ public class TagInputSearchViewModel: ViewModelBase
         OrTags.Clear();
         NotTags.Clear();
     }
-    
-    
-    public async void ReadTagsAsync() => await AsyncLauncher.LaunchDispatcher(ReadTags);
+
+
+    public async void ReadTagsAsync() => await ReadTags(); 
+        //await AsyncLauncher.LaunchDispatcher(ReadTags);
    // public async Task SearchAsync() => await AsyncLauncher.LaunchTask(Search);
     public async Task AddTagAsync() => await AsyncLauncher.LaunchDispatcher(AddTag);
     public async Task RemoveTagAsync() => await AsyncLauncher.LaunchDispatcher(RemoveTag);
